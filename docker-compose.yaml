@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./mongodb_data:/data/db
+    networks:
+      - reservation-app
+
+  mongo_seed:
+    image: mongo
+    links:
+      - mongodb
+    volumes:
+      - ./dbinit:/dbinit
+    command:
+      /dbinit/dbinit.sh
+    networks:
+      - reservation-app
+    depends_on:
+      - mongodb
+
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - '5000:5000'
+    networks:
+      - reservation-app
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/rsdb
+    depends_on:
+      - mongodb
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - '3000:3000'
+    networks:
+      - reservation-app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+networks:
+  reservation-app:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
