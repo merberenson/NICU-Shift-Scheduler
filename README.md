@@ -8,7 +8,7 @@ checkout dev
 create your branch
 
 
-run docker-compose up --build
+docker-compose up --build
 
 
 Front end
