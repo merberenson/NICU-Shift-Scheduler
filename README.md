@@ -1,4 +1,9 @@
 # Reservation-System
+## TEAM MEMBER
+- 
+- Cheonggang Jang
+- 
+- 
 
 ## requirement
 Download and install followings
