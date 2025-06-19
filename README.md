@@ -162,4 +162,4 @@ Click on the table that you want to check.
 ### 6. PR
 When you are done making changes, tested on local through thorough testings, commit your changes, push it to remote repository, then create PR, so that we can review it together.
 
-Let me konw if you hae questions in this process.
+Let me know if you have questions in this process.
