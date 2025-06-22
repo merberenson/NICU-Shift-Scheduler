@@ -1,6 +1,6 @@
-# Reservation-System
+# NICU Shift Scheduler
 ## TEAM MEMBER
-- 
+- Meredith Berenson
 - Cheonggang Jang
 - 
 - 
