@@ -163,8 +163,14 @@ Connect to `mongodb://localhost:27017`
 Open up rsdb database from left pannel.  
 Click on the table that you want to check.
 
+## Development
 
-### 6. PR
-When you are done making changes, tested on local through thorough testings, commit your changes, push it to remote repository, then create PR, so that we can review it together.
-
-Let me konw if you hae questions in this process.
+### 1. Checkout dev branch
+### 2. create your own feature branch
+### 3. update you code. lets build something!
+### 4. pull remote branch update from dev (if there is)
+### 5. rebase and merge dev to your branch
+### 6. local testing
+### 7. commit and push to your branch on GH
+### 8. Create PR from your branch -> dev branch
+### 9. when people approve it, Merge to dev!
