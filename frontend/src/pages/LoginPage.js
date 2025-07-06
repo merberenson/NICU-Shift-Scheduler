@@ -1,24 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // TODO: Add actual login logic (API call)
-    console.log('Logging in with', email, password);
+
+    // Placeholder for real auth
+    if (email && password) {
+      login({ email }); // Save user in context
+      navigate('/');    // Redirect to dashboard
+    } else {
+      alert('Please enter both email and password.');
+    }
   };
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.title}>NICU Shift Scheduler Login</h2>
-      <form onSubmit={handleLogin} style={styles.form}>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit} style={styles.form}>
         <input
           type="email"
           placeholder="Email"
           value={email}
-          required
           onChange={(e) => setEmail(e.target.value)}
           style={styles.input}
         />
@@ -26,7 +35,6 @@ const LoginPage = () => {
           type="password"
           placeholder="Password"
           value={password}
-          required
           onChange={(e) => setPassword(e.target.value)}
           style={styles.input}
         />
@@ -38,34 +46,27 @@ const LoginPage = () => {
 
 const styles = {
   container: {
-    marginTop: '10vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: '1.75rem',
-    marginBottom: '2rem',
+    marginTop: '5rem',
+    textAlign: 'center',
   },
   form: {
-    display: 'flex',
+    display: 'inline-block',
     flexDirection: 'column',
-    width: '300px',
+    gap: '1rem',
   },
   input: {
-    marginBottom: '1rem',
-    padding: '0.75rem',
-    fontSize: '1rem',
-    border: '1px solid #ccc',
-    borderRadius: '4px',
+    display: 'block',
+    width: '300px',
+    padding: '10px',
+    margin: '10px auto',
+    fontSize: '16px',
   },
   button: {
-    padding: '0.75rem',
+    padding: '10px 20px',
+    fontSize: '16px',
     backgroundColor: '#2c3e50',
     color: '#fff',
-    fontSize: '1rem',
     border: 'none',
-    borderRadius: '4px',
     cursor: 'pointer',
   },
 };
