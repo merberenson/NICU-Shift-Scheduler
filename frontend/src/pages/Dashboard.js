@@ -1,20 +1,20 @@
-// src/pages/Dashboard.js
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Dashboard.css'; // Optional if you want to style separately
+import Navbar from '../components/Navbar';
+import './Dashboard.css'; // optional for layout styling
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="dashboard-container">
-      <h1>Welcome to the Admin Dashboard</h1>
+      <Navbar />
+      <main className="dashboard-main">
+        <h1>Welcome to the NICU Scheduler Dashboard</h1>
+        <p>Select a section from the navigation bar to get started.</p>
 
-      <div className="dashboard-buttons">
-        <button onClick={() => navigate('/schedule')}>View Schedule</button>
-        <button onClick={() => navigate('/users')}>Manage Users</button>
-        <button onClick={() => navigate('/requests')}>View Requests</button>
-      </div>
+        {/* Placeholder: This is where shift cards or other content will go */}
+        <div className="dashboard-content">
+          {/* Future: <ShiftCard /> or <ScheduleView /> */}
+        </div>
+      </main>
     </div>
   );
 };
