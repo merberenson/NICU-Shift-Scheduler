@@ -2,39 +2,27 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
-function Navbar() {
+const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Optional: Clear any user context or localStorage
-    // localStorage.removeItem('token');
+    // Placeholder logout logic
+    localStorage.removeItem('authToken');
     navigate('/login');
   };
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
-        <Link to="/">NICU Scheduler</Link>
-      </div>
+      <div className="navbar-logo">NICU Scheduler</div>
       <ul className="navbar-links">
-        <li>
-          <Link to="/">Dashboard</Link>
-        </li>
-        <li>
-          <Link to="/schedule">Schedule</Link>
-        </li>
-        <li>
-          <Link to="/admin">Admin Panel</Link>
-        </li>
-        <li>
-          <button onClick={handleLogout} className="logout-button">
-            Logout
-          </button>
-        </li>
+        <li><Link to="/">Dashboard</Link></li>
+        <li><Link to="/admin">Admin Panel</Link></li>
+        <li><Link to="/schedule">Schedule</Link></li>
+        <li><button onClick={handleLogout} className="logout-button">Logout</button></li>
       </ul>
     </nav>
   );
-}
+};
 
 export default Navbar;
 
