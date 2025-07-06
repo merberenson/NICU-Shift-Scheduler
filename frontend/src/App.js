@@ -1,41 +1,43 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Navbar from '../components/Navbar';
+import ScheduleView from './ScheduleView'; // Can also be moved to components if preferred
+// import ShiftCard from '../components/ShiftCard'; // Optional: for shift previews or summaries
 
-function App() {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    fetch('/api/hello')
-      .then(res => res.json())
-      .then(data => {
-        console.log('Backend response:', data);
-        setMessage(data.message);
-      })
-      .catch(err => console.error('Fetch error:', err));
-  }, []);
-
+const Dashboard = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <div style={{ marginTop: '20px', fontSize: '18px' }}>
-          {message && `Message from backend: ${message}`}
+    <div>
+      <Navbar />
+      <main style={styles.main}>
+        <h1 style={styles.header}>Welcome to the NICU Shift Scheduler</h1>
+
+        {/* Main Schedule/Shift Section */}
+        <div style={styles.section}>
+          <ScheduleView />
         </div>
-      </header>
+
+        {/* Optional: Area for quick shift previews or announcements */}
+        {/* <div style={styles.section}>
+          <ShiftCard />
+        </div> */}
+      </main>
     </div>
   );
-}
+};
 
-export default App;
+const styles = {
+  main: {
+    padding: '1.5rem',
+    fontFamily: 'Arial, sans-serif',
+  },
+  header: {
+    fontSize: '1.75rem',
+    marginBottom: '1rem',
+    color: '#2c3e50',
+  },
+  section: {
+    marginTop: '1.5rem',
+  },
+};
+
+export default Dashboard;
+
