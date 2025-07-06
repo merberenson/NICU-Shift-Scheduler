@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import ScheduleView from './ScheduleView'; // Can also be moved to components if preferred
-// import ShiftCard from '../components/ShiftCard'; // Optional: for shift previews or summaries
+import ScheduleView from './ScheduleView';
 
 const Dashboard = () => {
   return (
@@ -9,16 +8,9 @@ const Dashboard = () => {
       <Navbar />
       <main style={styles.main}>
         <h1 style={styles.header}>Welcome to the NICU Shift Scheduler</h1>
-
-        {/* Main Schedule/Shift Section */}
         <div style={styles.section}>
           <ScheduleView />
         </div>
-
-        {/* Optional: Area for quick shift previews or announcements */}
-        {/* <div style={styles.section}>
-          <ShiftCard />
-        </div> */}
       </main>
     </div>
   );
