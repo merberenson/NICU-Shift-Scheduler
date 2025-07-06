@@ -3,32 +3,35 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    // Placeholder for real auth
-    if (email && password) {
-      login({ email }); // Save user in context
-      navigate('/');    // Redirect to dashboard
+    // Simple hardcoded validation logic (replace with API later)
+    if (email === 'nurse@example.com' && password === 'password123') {
+      login(); // Sets isAuthenticated = true in AuthContext
+      navigate('/');
     } else {
-      alert('Please enter both email and password.');
+      setError('Invalid credentials. Try again.');
     }
   };
 
   return (
     <div style={styles.container}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
+      <h2 style={styles.header}>NICU Staff Login</h2>
+      <form onSubmit={handleLogin} style={styles.form}>
         <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
           style={styles.input}
         />
         <input
@@ -36,9 +39,11 @@ const LoginPage = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
           style={styles.input}
         />
         <button type="submit" style={styles.button}>Login</button>
+        {error && <p style={styles.error}>{error}</p>}
       </form>
     </div>
   );
@@ -49,25 +54,34 @@ const styles = {
     marginTop: '5rem',
     textAlign: 'center',
   },
+  header: {
+    fontSize: '1.5rem',
+    marginBottom: '2rem',
+  },
   form: {
     display: 'inline-block',
-    flexDirection: 'column',
-    gap: '1rem',
+    textAlign: 'left',
   },
   input: {
     display: 'block',
-    width: '300px',
-    padding: '10px',
-    margin: '10px auto',
-    fontSize: '16px',
+    width: '250px',
+    padding: '0.75rem',
+    marginBottom: '1rem',
+    borderRadius: '5px',
+    border: '1px solid #ccc',
   },
   button: {
-    padding: '10px 20px',
-    fontSize: '16px',
-    backgroundColor: '#2c3e50',
+    width: '100%',
+    padding: '0.75rem',
+    backgroundColor: '#007BFF',
     color: '#fff',
     border: 'none',
+    borderRadius: '5px',
     cursor: 'pointer',
+  },
+  error: {
+    marginTop: '1rem',
+    color: 'red',
   },
 };
 
