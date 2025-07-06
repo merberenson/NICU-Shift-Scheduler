@@ -1,35 +1,27 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import ScheduleView from './ScheduleView';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-const Dashboard = () => {
+import Navbar from './components/Navbar';
+import Dashboard from './pages/Dashboard';
+import LoginPage from './pages/LoginPage';
+import ErrorPage from './pages/ErrorPage';
+import ScheduleView from './pages/ScheduleView';
+
+const App = () => {
   return (
-    <div>
-      <Navbar />
-      <main style={styles.main}>
-        <h1 style={styles.header}>Welcome to the NICU Shift Scheduler</h1>
-        <div style={styles.section}>
-          <ScheduleView />
-        </div>
-      </main>
-    </div>
+    <Router>
+      <div>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/schedule" element={<ScheduleView />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
-const styles = {
-  main: {
-    padding: '1.5rem',
-    fontFamily: 'Arial, sans-serif',
-  },
-  header: {
-    fontSize: '1.75rem',
-    marginBottom: '1rem',
-    color: '#2c3e50',
-  },
-  section: {
-    marginTop: '1.5rem',
-  },
-};
-
-export default Dashboard;
+export default App;
 
