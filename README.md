@@ -2,7 +2,7 @@
 ## TEAM MEMBER
 - Meredith Berenson
 - Cheonggang Jang
-- 
+- Pradhyuthi Paladugu
 - 
 
 ## requirement
