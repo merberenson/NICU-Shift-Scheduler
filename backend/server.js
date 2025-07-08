@@ -1,14 +1,17 @@
+const routes = require('./routes/loginRoutes');
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyparser = require('body-parser');
 const cors = require('cors');
+
 
 const app = express();
 const PORT = 5000;
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/rsdb';
 
-app.use(cors());
 app.use(express.json());
 
+//mongo connection
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -22,6 +25,12 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
+//bodyparser
+app.use(bodyparser.urlencoded({ extended: true }))
+app.use(bodyparser.json())
+
+//cors
+app.use(cors());
 
 app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello from backend!' });
@@ -37,6 +46,9 @@ app.get('/sample_data', async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
+routes(app);
+
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log('Server is running on port 5000');
