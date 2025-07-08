@@ -1,10 +1,10 @@
 echo "Waiting for MongoDB to start..."
-sleep 10 
+sleep 10
 
-for file in /dbinit/data/*.csv; do
-  filename=$(basename "$file" .csv)
-  echo "Importing $filename.csv into collection $filename"
+for file in /dbinit/data/*.json; do
 
-  mongoimport --host mongodb --db rsdb --collection "$filename" \
-    --type csv --headerline --file "$file"
+  filename=$(basename "$file" .json)
+  echo "Importing $file as $filename.json into collection $filename"
+  mongoimport --jsonArray --host mongodb --db NICU-db --collection "$filename" --file "$file"
+
 done
