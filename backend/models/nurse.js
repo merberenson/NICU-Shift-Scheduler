@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const NurseSchema = new mongoose.Schema({
     empID : { 
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true
     },
     name : {
@@ -31,4 +32,12 @@ const NurseSchema = new mongoose.Schema({
     }],
     maxWeeklyHours : { type: Number },
     currentWeeklyHours: {type: Number}
-})
+});
+
+NurseSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+module.exports = NurseSchema;
