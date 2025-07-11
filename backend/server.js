@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const { Schema } = mongoose;
 
 const app = express();
 const PORT = 5000;
@@ -30,10 +31,106 @@ app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello from backend!' });
 });
 
-const Nurse = mongoose.model('Nurse', new mongoose.Schema({}, { strict: false }), 'nurses');
-const Admin = mongoose.model('Admin', new mongoose.Schema({}, { strict: false }), 'admins');
-const Work = mongoose.model('Work', new mongoose.Schema({}, { strict: false }), 'workdays');
-const Assigned = mongoose.model('Assigned', new mongoose.Schema({}, { strict: false }), 'assignments');
+
+const nurseSchema = new Schema({
+    empID: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        unique: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    availability: [{
+        dayOfWeek: {
+            type: String,
+            required: true
+        },
+        timeOfDay: {
+            type: String,
+            required: true
+        },
+        _id: false
+    }],
+    maxWeeklyHours: {
+        type: Number,
+        required: true
+    },
+    currentWeeklyHours: {
+        type: Number,
+        required: true,
+        default: 0
+    }
+}, {
+    timestamps: true 
+});
+
+const assignmentSchema = new Schema({
+    workID: {
+        type: String,
+        required: true
+    },
+    empID: {
+        type: String,
+        required: true
+    },
+    assignedby: {
+        type: String,
+        required: true
+    },
+    timestamp: {
+        type: String,
+        required: true,
+        default: () => new Date().toISOString()
+    }
+});
+
+
+const workdaySchema = new Schema({
+    workID: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        unique: true 
+    },
+    date: {
+        type: String, 
+        required: true
+    },
+    shiftType: {
+        type: String,
+        required: true
+    },
+    requiredEmployees: {
+        type: Number,
+        required: true
+    }
+});
+
+
+
+const Nurse = mongoose.model('Nurse', nurseSchema, 'nurses');
+// const Admin = mongoose.model('Admin', new mongoose.Schema({}, { strict: false }), 'admins');
+const Work = mongoose.model('Work', workdaySchema, 'workdays');
+const Assigned = mongoose.model('Assigned', assignmentSchema, 'assignments');
 
 
 /**
@@ -147,8 +244,8 @@ app.get('/api/schedule/:yearmonth', async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: `Successfully retrieved ${schedule.length} workday records.`,
-            data: schedule.slice(0, 1)
+            message: `Successfully retrieved ${schedule.length} work shift records.`,
+            data: schedule
         });
 
     } catch (error) {
@@ -171,6 +268,12 @@ app.get('/api/schedule/:yearmonth/:empId', async (req, res) => {
     try {
         const { yearmonth, empId } = req.params;
         console.log(`Received request for nurse shifts for year/month: ${yearmonth} and empId: ${empId}`);
+
+        const nurseinfo = await Nurse.find({empID : empId});
+        console.log(nurseinfo)
+        if (!nurseinfo || nurseinfo.length == 0) {
+            return res.status(404).json({ success: false, message: 'Invalid Nurse id provided.' });
+        }
 
         const nurseShifts = await Assigned.aggregate([
             {
@@ -216,7 +319,7 @@ app.get('/api/schedule/:yearmonth/:empId', async (req, res) => {
         ]);
 
         if (!nurseShifts) {
-            return res.status(404).json({ success: false, message: 'No shifts found for this nurse in the specified month.' });
+            return res.status(404).json({ success: false, message: 'Shift collection is not defined for this Nurse.' });
         }
 
         res.status(200).json({
