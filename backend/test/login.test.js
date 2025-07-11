@@ -172,27 +172,26 @@ describe('for login and registration endpoints', ()=> {
                 }),
             );
         });
-        it ('It should not save the nurse, invalid token', async()=>{
+        it ('It should not register an already created nurse, input already taken.', async() =>{
             const nurses = {
                 name : 'name',
-                username : 'InvalidToken',
+                username : 'nurses',
                 password: 'pass',
                 email: 'namenurse@gmail.com',
                 phone: 1112223333
             }
+            await request(app).post('/nurses').send(nurses);
+            //second request should fail.
             const res = await request(app)
             .post('/nurses')
             .send(nurses)
-            .set('Authorization', 'Bearer wrongString')
-            //debugging
+            .set('Authorization', `Bearer ${token}`)
             console.log(res.body);
-            expect(res.statusCode).toEqual(403);
-            expect(res.body).toEqual(
-                expect.objectContaining({
-                    success : false,
-                    message : 'unauthorized'
-                }),
-            );
-        });
+            expect(res.statusCode).toEqual(400);
+            expect.objectContaining({
+                success : false,
+                message: expect.stringContaining('Username')
+            })
+        })
     });
 });

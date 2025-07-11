@@ -24,6 +24,10 @@ const addNewNurse = async (req, res) => {
         const nurse = await newNurse.save()
         res.status(201).json({success: true, data: nurse})
     } catch (err) {
+        if (err.code === 11000) {
+            const field = Object.keys(err.keyPattern)[0];
+            return res.status(400).json({ success: false, message: `${field.charAt(0) + field.slice(1)} already exists.`})
+        }
         if (err.name == 'ValidationError') {
             const messages = Object.values(err.errors).map(e=> e.message);
             return res.status(400).json({success: false, error: messages })
