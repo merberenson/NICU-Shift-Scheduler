@@ -1,8 +1,12 @@
-const {addNewNurse, loginNurse} = require('../controllers/loginController')
+const express = require('express');
+const router = express.Router();
+const {addNewNurse, loginNurse, refresh} = require('../controllers/loginController')
+const authenticateToken = require('../middleware/auth');
 
-const routes = (app) => {
-    app.route('/nurses').post(addNewNurse);
-    app.route('/login').post(loginNurse);
-}
 
-module.exports = routes;
+//define routes
+router.post('/nurses', addNewNurse);
+router.post('/login', loginNurse);
+router.post('/refresh', refresh);
+
+module.exports = router;

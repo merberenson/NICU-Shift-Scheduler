@@ -1,9 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon index.js",
+    "test": "cross-env MONGODB_URL=mongodb://localhost:27017/rsdb jest --collectCoverage --forceExit --detectOpenHandles"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
@@ -15,6 +19,9 @@
     "nodemon": "^2.0.22"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "cross-env": "^7.0.3",
+    "jest": "^30.0.4",
+    "nodemon": "^2.0.22",
+    "supertest": "^7.1.3"
   }
 }
