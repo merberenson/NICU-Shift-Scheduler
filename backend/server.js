@@ -270,7 +270,6 @@ app.get('/api/schedule/:yearmonth/:empId', async (req, res) => {
         console.log(`Received request for nurse shifts for year/month: ${yearmonth} and empId: ${empId}`);
 
         const nurseinfo = await Nurse.find({empID : empId});
-        console.log(nurseinfo)
         if (!nurseinfo || nurseinfo.length == 0) {
             return res.status(404).json({ success: false, message: 'Invalid Nurse id provided.' });
         }
