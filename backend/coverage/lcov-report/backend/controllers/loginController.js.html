@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.23% </span>
+                <span class="strong">68.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/52</span>
+                <span class='fraction'>35/51</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.42% </span>
+                <span class="strong">70.83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/49</span>
+                <span class='fraction'>34/48</span>
             </div>
         
             
@@ -151,7 +151,8 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -181,15 +182,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -198,7 +201,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,7 +241,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">const mongoose = require('mongoose');
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">//const mongoose = require('mongoose');
 const Nurse = require('../database/models/nurse');
 const Token = require('../database/models/token')
 const bcrypt = require('bcryptjs');
@@ -263,28 +265,29 @@ const addNewNurse = async (req, res) =&gt; {
     try {
 //        const hashedPassword = await bcrypt.hash(password, 10);
         const nurse = await newNurse.save()
-        res.status(201).json({ success: true, data: nurse });
+        res.status(201).json({success: true, data: nurse})
     } catch (err) {
         <span class="missing-if-branch" title="else path not taken" >E</span>if (err.name == 'ValidationError') {
             const messages = Object.values(err.errors).map(e=&gt; e.message);
-            return res.status(400).json({ success: false, error: messages })
+            return res.status(400).json({success: false, error: messages })
         }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >        console.error(err)</span>
-<span class="cstat-no" title="statement not covered" >        return res.status(500).json({ success: false, error: 'Failed to register.' });</span>
+<span class="cstat-no" title="statement not covered" >        console.error(err);</span>
+<span class="cstat-no" title="statement not covered" >        return res.status(500).json({ success: false, error: 'Failed to register. '})</span>
     }
 }
 &nbsp;
+&nbsp;
+&nbsp;
 //method to login
+&nbsp;
 const loginNurse = async (req, res) =&gt; {
-&nbsp;
-    const { username, password } = req.body;
-&nbsp;
-    if (!username || !password) {
-            return res.status(401).json({ success: false, message: 'username or password cannot be empty.' });
-    }
-&nbsp;
     try {
+        const { username, password } = req.body;
+&nbsp;
+        if (!username || !password) {
+            return res.status(401).json({ success: false, message: 'username or password cannot be empty.' });
+        }
+    
         const nurse = await Nurse.findOne({ username });
         if (!nurse) {
             return res.status(401).json({ success: false, message: 'invalid credentials' });
@@ -303,10 +306,10 @@ const loginNurse = async (req, res) =&gt; {
             expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24) //one day
         })
 &nbsp;
-        res.status(200).json({ success: true, accessToken, refreshToken, data: { id: nurse._id, username: nurse.username } });
+        res.status(200).json({ success: true, accessToken, refreshToken });
     } catch (error){
 <span class="cstat-no" title="statement not covered" >        console.error(error);</span>
-<span class="cstat-no" title="statement not covered" >        return res.status(500).json({ success: false, error: 'internal server error' })</span>
+<span class="cstat-no" title="statement not covered" >        return res.status(500).json({ error: 'internal server error' })</span>
     }
 }
 &nbsp;
@@ -320,7 +323,7 @@ const refresh = <span class="fstat-no" title="function not covered" >as</span>yn
 <span class="cstat-no" title="statement not covered" >    try {</span>
         const payload = <span class="cstat-no" title="statement not covered" >jwt.verify(token, REFRESH_SECRET);</span>
         const newAccessToken = <span class="cstat-no" title="statement not covered" >jwt.sign({ userId: payload.userId }, ACCESS_SECRET, { expiresIn: '15m' });</span>
-<span class="cstat-no" title="statement not covered" >        res.json({ accessToken: newAccessToken });</span>
+<span class="cstat-no" title="statement not covered" >        res.status().json({ accessToken: newAccessToken });</span>
     } catch (err) {
 <span class="cstat-no" title="statement not covered" >        console.error(err);</span>
 <span class="cstat-no" title="statement not covered" >        return res.sendStatus(403);</span>
@@ -334,7 +337,7 @@ module.exports = {addNewNurse, loginNurse, refresh};</pre></td></tr></table></pr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-11T20:42:02.452Z
+                at 2025-07-11T21:15:43.730Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

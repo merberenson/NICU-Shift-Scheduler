@@ -22,15 +22,14 @@ const addNewNurse = async (req, res) => {
     try {
 //        const hashedPassword = await bcrypt.hash(password, 10);
         const nurse = await newNurse.save()
-        res.status(201).json(nurse)
+        res.status(201).json({success: true, data: nurse})
     } catch (err) {
         if (err.name == 'ValidationError') {
             const messages = Object.values(err.errors).map(e=> e.message);
-            return res.status(400).json({ error: messages })
+            return res.status(400).json({success: false, error: messages })
         }
-
-        res.send(err)
-        res.status(500).json({ error: 'Failed to register. '})
+        console.error(err);
+        return res.status(500).json({ success: false, error: 'Failed to register. '})
     }
 }
 
@@ -41,15 +40,19 @@ const addNewNurse = async (req, res) => {
 const loginNurse = async (req, res) => {
     try {
         const { username, password } = req.body;
+
+        if (!username || !password) {
+            return res.status(401).json({ success: false, message: 'username or password cannot be empty.' });
+        }
     
         const nurse = await Nurse.findOne({ username });
         if (!nurse) {
-            return res.status(401).json({ message: 'invalid credentials' });
+            return res.status(401).json({ success: false, message: 'invalid credentials' });
         }
 
         const passwordMatch = await bcrypt.compare(password, nurse.password);
         if (!passwordMatch) {
-            return res.status(401).json({ message: 'invalid credentials' });
+            return res.status(401).json({ success: false, message: 'invalid credentials' });
         }
 
         const { accessToken, refreshToken } = generateTokens(nurse._id);
@@ -60,9 +63,10 @@ const loginNurse = async (req, res) => {
             expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24) //one day
         })
 
-        res.status(200).json({ accessToken, refreshToken });
+        res.status(200).json({ success: true, accessToken, refreshToken });
     } catch (error){
-        res.status(500).json({ error: 'internal server error' })
+        console.error(error);
+        return res.status(500).json({ error: 'internal server error' })
     }
 }
 
@@ -76,9 +80,10 @@ const refresh = async (req, res) => {
     try {
         const payload = jwt.verify(token, REFRESH_SECRET);
         const newAccessToken = jwt.sign({ userId: payload.userId }, ACCESS_SECRET, { expiresIn: '15m' });
-        res.json({ accessToken: newAccessToken });
+        res.status().json({ accessToken: newAccessToken });
     } catch (err) {
-        res.sendStatus(403);
+        console.error(err);
+        return res.sendStatus(403);
     }
 }
 
