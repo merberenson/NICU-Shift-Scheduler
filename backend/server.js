@@ -9,6 +9,19 @@ const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/rsdb';
 app.use(cors());
 app.use(express.json());
 
+//added by pradyuthi
+const scheduleRoutes = require('./routes/schedule');
+const ptoRoutes = require('./routes/pto');
+const nurseRoutes = require('./routes/nurse');
+const authRoutes = require('./routes/auth');
+
+app.use('/schedule', scheduleRoutes);
+app.use('/pto', ptoRoutes);
+app.use('/nurse', nurseRoutes);
+app.use('/auth', authRoutes);
+//added by pradyuthi 
+
+
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
