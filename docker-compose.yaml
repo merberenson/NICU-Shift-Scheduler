@@ -35,7 +35,7 @@ services:
       - ./backend:/app
       - /app/node_modules
     environment:
-      - MONGO_URL=mongodb://mongodb:27017/rsdb
+      - MONGO_URL=mongodb://mongodb:27017/NICU-db
     depends_on:
       - mongodb
 
