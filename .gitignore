@@ -21,4 +21,4 @@ docker-compose.override.yml # Often used for local development overrides, not me
 .idea/
 .vscode/
 .DS_Store
-Thumbs.db
+Thumbs.dbmongodb_data/
