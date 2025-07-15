@@ -1,4 +1,5 @@
 import { use, useState } from 'react';
+import axios from 'axios';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -11,13 +12,17 @@ const Register = () => {
         event.preventDefault();
         const form = { name, username, password, email, phone };
 
-        const res = await fetch('/nurses', {
-            method: 'POST',
-            body: JSON.stringify(form),
-        });
-
-        const data = await res.json();
-        console.log(data);
+        // const res = await fetch('/nurses', {
+        //     method: 'POST',
+        //     body: JSON.stringify(form),
+        // });
+        try {
+        const res = await axios.post('/nurses', form)
+        
+        console.log('logged in: ', res.data)
+        } catch (err) {
+            console.error('loggin failed: ', err.reponse?.data || err.message);
+        }
     };
 
     return (

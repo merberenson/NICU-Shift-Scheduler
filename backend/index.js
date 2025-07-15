@@ -12,6 +12,9 @@ const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/rsdb';
 
 app.use(express.json());
 
+//cors
+app.use(cors());
+
 //mongo connection
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
@@ -29,9 +32,6 @@ db.once('open', () => {
 //bodyparser
 app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
-
-//cors
-app.use(cors());
 
 //test to check if application is working.
 app.get('/api/hello', (req, res) => {

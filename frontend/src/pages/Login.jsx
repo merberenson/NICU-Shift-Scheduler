@@ -1,4 +1,5 @@
 import { useState, useReducer, useEffect } from "react";
+import axios from "axios";
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -11,13 +12,17 @@ const Login = () => {
         event.preventDefault();
         const form = { username, password };
 
-        const res = await fetch('/login', {
-            method: 'POST',
-            body: JSON.stringify(form),
-        });
-
-        const data = await res.json();
-        console.log(data);
+        // const res = await fetch('/login', {
+        //     method: 'POST',
+        //     body: JSON.stringify(form),
+        // });
+        try {
+            const res = await axios.post('/login', form)
+        
+            console.log('logged in: ', res.data)
+        } catch (err) {
+            console.error('loggin failed: ', err.reponse?.data || err.message);
+        }
     };
 
     return (
