@@ -8,8 +8,8 @@ import LoginPage from './pages/Login';
 import AdminMain from './pages/AdminMain';
 import NurseMain from './pages/NurseMain';
 import NotAuthorizedPage from './pages/NotAuthorized';
-
-
+import NurseSchedule from './pages/NurseSchedule';
+import AdminSchedule from './pages/AdminSchedule';
 
 function App() {
   return (
@@ -26,6 +26,14 @@ function App() {
 
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>
             <Route path="/" element={<NurseMain />} />
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+            <Route path="/teamschedule" element={<AdminSchedule />} />
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path="/schedule" element={<NurseSchedule />} />
           </Route>
 
         </Routes>
