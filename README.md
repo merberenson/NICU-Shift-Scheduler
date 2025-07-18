@@ -3,7 +3,7 @@
 - Meredith Berenson
 - Cheonggang Jang
 - Pradhyuthi Paladugu
-- 
+- Soren Southard
 
 ## requirement
 Download and install followings
