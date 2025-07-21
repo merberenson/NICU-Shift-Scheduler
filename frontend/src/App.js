@@ -8,6 +8,7 @@ import LoginPage from './pages/Login';
 import AdminMain from './pages/AdminMain';
 import NurseMain from './pages/NurseMain';
 import NotAuthorizedPage from './pages/NotAuthorized';
+import PTORequestPage from './pages/PTORequestPage';
 
 
 
@@ -27,7 +28,7 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>
             <Route path="/" element={<NurseMain />} />
           </Route>
-
+          <Route path="/pto-request" element={<PTORequestPage />} />
         </Routes>
       </Router>
     </AuthProvider>

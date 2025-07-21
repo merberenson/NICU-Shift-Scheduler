@@ -3,12 +3,16 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const { Schema } = mongoose;
 
+const ptoRoutes = require('./routes/pto');
+
 const app = express();
 const PORT = 5000;
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/NICU-db';
 
 app.use(cors());
 app.use(express.json());
+
+app.use('/api/pto', ptoRoutes);
 
 mongoose.connect(MONGO_URL, {
   useNewUrlParser: true,
@@ -336,7 +340,10 @@ app.get('/api/schedule/:yearmonth/:empId', async (req, res) => {
     }
 });
 
-
+app.get('/api/nurses', async (req, res) => {
+  const nurses = await Nurse.find({});
+  res.json(nurses.map(n => ({ id: n._id, name: n.name })));
+});
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log('Server is running on port 5000');
