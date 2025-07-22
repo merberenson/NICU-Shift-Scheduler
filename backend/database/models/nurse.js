@@ -26,7 +26,7 @@ const NurseSchema = new mongoose.Schema({
     },
     availablity: [{
         dayOfWeek : {type: String, enum : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']},
-        timeOfDay : {type: String, enum: ['day', 'night']}
+        timeOfDay : {type: String, enum: ['day', 'night', 'unavailable']}
     }],
     maxWeeklyHours : { type: Number },
     currentWeeklyHours: {type: Number}
