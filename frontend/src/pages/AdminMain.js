@@ -7,15 +7,6 @@ function handleEdit() {
   alert("Edit Admin Info - Not Implemented Yet!");
 }
 
-function handleSchedule() {
-  alert("Go to Schedule page - Not Implemented Yet!");
-}
-
-function handleLogout() {
-  alert("Logging out...");
-  window.location.reload();
-}
-
 const AdminMain = ({ adminInfo }) => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
@@ -25,6 +16,9 @@ const AdminMain = ({ adminInfo }) => {
         navigate('/login');
     };
 
+    const handleSchedule = () => {
+        navigate('/teamschedule');
+    };
 
     return (
     <div style={{
