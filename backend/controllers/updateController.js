@@ -1,17 +1,17 @@
 const Nurses = require('../database/models/nurse');
 const mongoose = require('mongoose');
 
-const updateAvailablity = async (req, res) => {
+const updateAvailability = async (req, res) => {
     try {
         const { id } = req.params;
-        const { availablity } = req.body;
+        const { availability } = req.body;
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({success: false, message: "Invalid nurse ID."})
         }
 
         const updateResult = await Nurses.findByIdAndUpdate(
             id,
-            { $set: { availablity} },
+            { $set: { availability} },
             { new: true }
         )
 
@@ -26,4 +26,4 @@ const updateAvailablity = async (req, res) => {
     }
 }
 
-module.exports = {updateAvailablity}
+module.exports = {updateAvailability}
