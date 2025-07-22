@@ -3,7 +3,7 @@ import App from '../App';
 import Login from '../pages/Login';
 import Register from '../pages/register';
 import Delete from '../pages/Delete'
-import UpdateAvailability from '../pages/Update';
+import {UpdateAvailability, UpdateInfo } from '../pages/Update';
 
 const router = createBrowserRouter([
   {
@@ -13,7 +13,8 @@ const router = createBrowserRouter([
       { path: '', element: <Login /> },
       { path: 'register', element: <Register /> },
       { path: 'delete', element: <Delete />},
-      { path: 'update', element: < UpdateAvailability /> }
+      { path: 'update', element: < UpdateAvailability /> },
+      { path: 'updateInfo', element: <UpdateInfo/> }
       ],
   },
 ]);

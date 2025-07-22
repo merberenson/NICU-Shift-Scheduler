@@ -19,7 +19,7 @@ const Register = () => {
         try {
         const res = await axios.post('/nurses', form)
         
-        console.log('logged in: ', res.data)
+        console.log('registered: ', res.data)
         } catch (err) {
             console.error('loggin failed: ', err.reponse?.data || err.message);
         }
