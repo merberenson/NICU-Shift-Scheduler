@@ -1,39 +1,129 @@
 import React from 'react';
-import { useAuth } from '../context/AuthContext';
+import logo from '../assets/FullLogo_Transparent.png';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { FaHospital, FaUserNurse } from 'react-icons/fa';
 
-const LoginPage = () => {
+const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleAdminLogin = () => {
-    const adminUser = { username: 'Admin User', roles: ['admin'] };
-    login(adminUser);
+    const regularUser = { username: 'Admin', roles: ['admin'], uid: '687072f4fc13ae2258f82ec8' };
+    login(regularUser);
     navigate('/admin');
   };
 
-  const handleUserLogin = () => {
-    const regularUser = { username: 'Regular User', roles: ['user'] };
+  const handleNurseLogin = () => {
+    const regularUser = { username: 'Regular User', roles: ['user'], uid: '687072f4fc13ae2258f82ec8' };
     login(regularUser);
     navigate('/');
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="p-8 bg-white rounded-lg shadow-md w-full max-w-sm text-center">
-        <h1 className="text-2xl font-bold mb-6 text-gray-800">Choose Your Role</h1>
-        <div className="space-y-4">
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingTop: '20px',
+      }}
+    >
+      <img
+        src={logo}
+        alt="NICU Logo"
+        style={{
+          width: '600px',
+          height: '600px',
+          objectFit: 'contain',
+          marginBottom: '10px',
+        }}
+      />
+
+      <div
+        style={{
+          marginTop: '-175px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <h2
+          style={{
+            fontSize: '28px',
+            fontWeight: 'bold',
+            color: '#dc2626',
+            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.1)',
+            marginTop: '20px',
+            marginBottom: '12px',
+            transition: 'transform 0.2s ease-in-out',
+          }}
+        >
+          LOGIN
+        </h2>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           <button
             onClick={handleAdminLogin}
-            className="w-full bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition duration-300 ease-in-out transform hover:scale-105"
+            style={{
+              backgroundColor: '#dc2626',
+              color: 'white',
+              border: 'none',
+              padding: '10px 20px',
+              borderRadius: '20px',
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              cursor: 'pointer',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
+              transition: 'all 0.2s ease-in-out',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.25)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.2)';
+            }}
           >
-            Login as Admin
+            <FaHospital size={16} />
+            Admin
           </button>
+
+          <span style={{ fontWeight: '500', color: '#6b21a8' /* deep purple */ }}>
+            OR
+          </span>
+
           <button
-            onClick={handleUserLogin}
-            className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105"
+            onClick={handleNurseLogin}
+            style={{
+              backgroundColor: '#dc2626', // Red like Admin
+              color: 'white',
+              border: 'none',
+              padding: '10px 20px',
+              borderRadius: '20px',
+              fontWeight: 'bold',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              cursor: 'pointer',
+              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
+              transition: 'all 0.2s ease-in-out',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.25)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.2)';
+            }}
           >
-            Login as User
+            <FaUserNurse size={16} />
+            Nurse
           </button>
         </div>
       </div>
@@ -41,4 +131,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

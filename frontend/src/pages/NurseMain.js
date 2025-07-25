@@ -2,14 +2,7 @@ import React from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-function handleWeeklySchedule() {
-  alert("Go to Weekly Schedule - Not implemented yet!");
-}
 
-function handleLogout() {
-  alert("Logging out...");
-  window.location.reload();
-}
 
 const NurseMain = ({ nurse }) => {
     const { user, logout } = useAuth();
@@ -17,13 +10,12 @@ const NurseMain = ({ nurse }) => {
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
+        navigate('/logout');
     };
-
-    // const showSchedule() => {
-    //     navigate('/schedule');
-    // };
-
+    const handleWeeklySchedule = () => {
+        navigate('/schedule');
+    };
+    
     return (
   <div style={{
     minHeight: "100vh",

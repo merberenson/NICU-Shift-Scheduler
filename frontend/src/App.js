@@ -5,12 +5,13 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './context/ProtectedRoutes';
 
 import LoginPage from './pages/Login';
+import LogoutPage from './pages/Logout';
 import AdminMain from './pages/AdminMain';
 import NurseMain from './pages/NurseMain';
 import NotAuthorizedPage from './pages/NotAuthorized';
 import PTORequestPage from './pages/PTORequestPage';
-
-
+import NurseSchedule from './pages/NurseSchedule';
+import AdminSchedule from './pages/AdminSchedule';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-
+          <Route path="/logout" element={<LogoutPage />} />
           <Route path="/unauthorized" element={<NotAuthorizedPage />} />
 
           <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
@@ -29,6 +30,14 @@ function App() {
             <Route path="/" element={<NurseMain />} />
           </Route>
           <Route path="/pto-request" element={<PTORequestPage />} />
+
+          <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+            <Route path="/teamschedule" element={<AdminSchedule />} />
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path="/schedule" element={<NurseSchedule />} />
+          </Route>
         </Routes>
       </Router>
     </AuthProvider>
