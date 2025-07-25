@@ -9,6 +9,7 @@ import LogoutPage from './pages/Logout';
 import AdminMain from './pages/AdminMain';
 import NurseMain from './pages/NurseMain';
 import NotAuthorizedPage from './pages/NotAuthorized';
+import PTORequestPage from './pages/PTORequestPage';
 import NurseSchedule from './pages/NurseSchedule';
 import AdminSchedule from './pages/AdminSchedule';
 
@@ -28,6 +29,11 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>
             <Route path="/" element={<NurseMain />} />
           </Route>
+          
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path="/pto" element={<PTORequestPage />} />
+          </Route>
+          
 
           <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
             <Route path="/teamschedule" element={<AdminSchedule />} />

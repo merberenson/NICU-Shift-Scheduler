@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const { Schema } = mongoose;
 
+const ptoRoutes = require('./routes/pto');
+
 const app = express();
 const PORT = 5000;
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/NICU-db';
@@ -22,8 +24,6 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
   console.log('Connected to MongoDB');
 });
-
-
 
 
 
@@ -335,6 +335,14 @@ app.get('/api/schedule/:yearmonth/:empId', async (req, res) => {
         res.status(500).json({ success: false, message: 'An internal server error occurred.', error: error.message });
     }
 });
+
+app.get('/api/nurses', async (req, res) => {
+  const nurses = await Nurse.find({});
+  res.json(nurses.map(n => ({ id: n._id, name: n.name })));
+});
+
+
+app.use('/api/pto', ptoRoutes);
 
 
 
