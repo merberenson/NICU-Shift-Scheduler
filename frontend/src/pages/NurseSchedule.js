@@ -20,7 +20,7 @@ const NurseSchedule = ({ nurse }) => {
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
+        navigate('/logout');
     };
 
     const handleMain = () => {
