@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const PTORequestPage = () => {
   const [nurseId, setNurseId] = useState('');
@@ -6,14 +7,18 @@ const PTORequestPage = () => {
   const [endDate, setEndDate] = useState('');
   const [reason, setReason] = useState('');
   const [message, setMessage] = useState('');
+  const [redirecting, setRedirecting] = useState(false); // New state for redirection status
+
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setRedirecting(true);
     const res = await fetch('http://localhost:5000/api/pto', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nurseId, startDate, endDate, reason }),
+      body: JSON.stringify({ nurseId: nurseId, startDate: startDate, endDate: endDate, reason: reason }),
     });
 
     if (res.ok) {
@@ -21,11 +26,25 @@ const PTORequestPage = () => {
       setStartDate('');
       setEndDate('');
       setReason('');
+
+      const timer = setTimeout(() => {
+          navigate('/');
+        }, 3000);
     } else {
       setMessage('❌ Failed to submit PTO request');
+      setRedirecting(false);
     }
   };
 
+  const handleGoMain = () => {
+      navigate('/');
+  };
+
+  useEffect(() => {
+    return () => {
+    };
+  }, [message, redirecting]);
+  
   return (
     <div
       style={{
@@ -128,27 +147,63 @@ const PTORequestPage = () => {
             placeholder="(optional)"
           />
         </div>
-        <button
-          type="submit"
+        <div
           style={{
-            width: '100%',
-            padding: 12,
-            background: '#3080e3',
-            color: '#fff',
-            border: 'none',
-            borderRadius: 6,
-            fontWeight: 'bold',
-            fontSize: 16,
-            letterSpacing: 1,
-            boxShadow: '0 1px 5px rgba(48,128,227,0.08)',
-            cursor: 'pointer',
-            transition: 'background 0.2s'
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            gap: '20px',
+            marginTop: '20px',
+            width: '100%'
           }}
-          onMouseOver={e => e.target.style.background = '#2550ad'}
-          onMouseOut={e => e.target.style.background = '#3080e3'}
         >
-          Submit PTO
-        </button>
+          <button
+            type="button"
+            onClick={handleGoMain}
+            style={{
+              width: '40%',
+              padding: 12,
+              background: '#808080',
+              color: '#fff',
+              border: 'none',
+              borderRadius: 6,
+              fontWeight: 'bold',
+              fontSize: 16,
+              letterSpacing: 1,
+              boxShadow: '0 1px 5px rgba(48,128,227,0.08)',
+              cursor: 'pointer',
+              transition: 'background 0.2s',
+              flexShrink: 0,
+            }}
+            onMouseOver={e => e.target.style.background = '#555555'}
+            onMouseOut={e => e.target.style.background = '#808080'}
+          >
+            Go Back
+          </button>
+          <button
+            type="submit"
+            style={{
+              width: '40%',
+              padding: 12,
+              background: '#3080e3',
+              color: '#fff',
+              border: 'none',
+              borderRadius: 6,
+              fontWeight: 'bold',
+              fontSize: 16,
+              letterSpacing: 1,
+              boxShadow: '0 1px 5px rgba(48,128,227,0.08)',
+              cursor: 'pointer',
+              transition: 'background 0.2s',
+              flexShrink: 0,
+            }}
+            onMouseOver={e => e.target.style.background = '#2550ad'}
+            onMouseOut={e => e.target.style.background = '#3080e3'}
+          >
+            Submit PTO
+          </button>
+        </div>
       </form>
       {message && (
         <div style={{

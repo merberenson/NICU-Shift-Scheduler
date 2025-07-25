@@ -15,6 +15,9 @@ const NurseMain = ({ nurse }) => {
     const handleWeeklySchedule = () => {
         navigate('/schedule');
     };
+    const handlePtoRequest = () => {
+        navigate('/pto');
+    };
     
     return (
   <div style={{
@@ -180,6 +183,7 @@ const NurseMain = ({ nurse }) => {
               Phone number: {nurse?.phone || "--"}<br />
               Worked hours this week: {nurse?.currentWeeklyHours ?? "--"}
             </div>
+            <button onClick={handlePtoRequest}>Request PTO</button>
           </div>
         </div>
       </div>

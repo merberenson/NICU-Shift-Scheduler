@@ -29,7 +29,11 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>
             <Route path="/" element={<NurseMain />} />
           </Route>
-          <Route path="/pto-request" element={<PTORequestPage />} />
+          
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path="/pto" element={<PTORequestPage />} />
+          </Route>
+          
 
           <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
             <Route path="/teamschedule" element={<AdminSchedule />} />

@@ -9,6 +9,7 @@ router.post('/', async (req, res) => {
     const pto = new PTORequest({ nurseId, startDate, endDate, reason });
     await pto.save();
     res.status(201).json(pto);
+    console.log(pto);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
