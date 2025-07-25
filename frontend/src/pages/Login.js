@@ -10,8 +10,10 @@ const Login = () => {
     navigate('/admin-login');
   };
 
-  const handleNurseLogin = () => {
-    navigate('/nurse-login');
+  const handleUserLogin = () => {
+    const regularUser = { username: 'Regular User', roles: ['user'], uid: '687072f4fc13ae2258f82ec8' };
+    login(regularUser);
+    navigate('/');
   };
 
   return (
