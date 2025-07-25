@@ -1,16 +1,20 @@
 import React from 'react';
 import logo from '../assets/FullLogo_Transparent.png';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import { FaHospital, FaUserNurse } from 'react-icons/fa';
 
 const Login = () => {
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleAdminLogin = () => {
-    navigate('/admin-login');
+    const regularUser = { username: 'Admin', roles: ['admin'], uid: '687072f4fc13ae2258f82ec8' };
+    login(regularUser);
+    navigate('/admin');
   };
 
-  const handleUserLogin = () => {
+  const handleNurseLogin = () => {
     const regularUser = { username: 'Regular User', roles: ['user'], uid: '687072f4fc13ae2258f82ec8' };
     login(regularUser);
     navigate('/');

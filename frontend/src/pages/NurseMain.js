@@ -10,7 +10,7 @@ const NurseMain = ({ nurse }) => {
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
+        navigate('/logout');
     };
     const handleWeeklySchedule = () => {
         navigate('/schedule');

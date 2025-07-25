@@ -13,7 +13,7 @@ const AdminMain = ({ adminInfo }) => {
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
+        navigate('/logout');
     };
 
     const handleSchedule = () => {

@@ -5,10 +5,10 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './context/ProtectedRoutes';
 
 import LoginPage from './pages/Login';
+import LogoutPage from './pages/Logout';
 import AdminMain from './pages/AdminMain';
 import NurseMain from './pages/NurseMain';
 import NotAuthorizedPage from './pages/NotAuthorized';
-import LogoutPage from './pages/LogoutPage';
 import NurseSchedule from './pages/NurseSchedule';
 import AdminSchedule from './pages/AdminSchedule';
 
@@ -18,7 +18,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/logout" element={<LogoutPage />} /> {/* ← NEW */}
+          <Route path="/logout" element={<LogoutPage />} />
           <Route path="/unauthorized" element={<NotAuthorizedPage />} />
 
           <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
