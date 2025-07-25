@@ -42,4 +42,4 @@ app.use('/', routes);
 return app;
 }
 
-module.exports = initalizeApp();
+module.exports = initalizeApp;

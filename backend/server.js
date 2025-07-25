@@ -1,12 +1,13 @@
-const app = require('./index')
-require('dotenv').config;
+require('dotenv').config();
+const createApp = require('./index'); 
 
-const config = {
-  port: process.env.PORT || 5000,
-};
+const app = createApp(); 
+console.log(typeof app); 
 
-const server = app.listen(config.port, () => {
-  console.log('Server is running on port 5000');
+const PORT = process.env.PORT || 5000;
+
+const server = app.listen(PORT, '0.0.0.0', () => {
+  console.log('Server is running on port', PORT);
 });
 
 module.exports = server;

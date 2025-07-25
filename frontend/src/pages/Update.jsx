@@ -146,7 +146,7 @@ const UpdateInfo = () => {
         {loading ? (
                 <div></div>
             ) : selectedNurse && (
-                <>
+            <>
             <input
             type='text'
             placeholder='Name'

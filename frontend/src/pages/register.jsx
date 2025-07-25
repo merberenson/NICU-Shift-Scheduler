@@ -21,7 +21,7 @@ const Register = () => {
         
         console.log('registered: ', res.data)
         } catch (err) {
-            console.error('loggin failed: ', err.reponse?.data || err.message);
+            console.error('Registration failed: ', err.response?.data || err.message);
         }
     };
 
