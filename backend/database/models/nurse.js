@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const NurseSchema = new mongoose.Schema({
+//necessary for scheduling functions, re-added to schema. 
+    empID: {
+            type: mongoose.Schema.Types.ObjectId,
+            unique: true 
+        },
     name : {
         type: String,
         required: [true, 'Name is required.']

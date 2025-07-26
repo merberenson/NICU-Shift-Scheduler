@@ -145,7 +145,7 @@ const Login = () => {
               Login
             </button>
           </form>
-          <Link to="/register" style={{ color: '#6b21a8', fontWeight: '500'}}>
+          <Link to="/register" style={{ color: '#6b21a8', fontWeight: '500', padding: "10px 20px"}}>
             Register
           </Link>
         </div>

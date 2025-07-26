@@ -17,13 +17,14 @@ const generateTokens = (Id) => {
 };
 
 //add new nurse for testing
-const addNewNurse = async (req, res) => {
-    const newNurse = new Nurse(req.body)
+//Changed into generic adding all users
+const addNewUser = async (Model, req, res) => {
+    const newUser = new Model(req.body)
 
     try {
 //        const hashedPassword = await bcrypt.hash(password, 10);
-        const nurse = await newNurse.save()
-        res.status(201).json({success: true, data: nurse})
+        const savedUser = await newUser.save()
+        res.status(201).json({ success: true, data: savedUser })
     } catch (err) {
         if (err.code === 11000) {
             const field = Object.keys(err.keyPattern)[0];
@@ -38,6 +39,14 @@ const addNewNurse = async (req, res) => {
     }
 }
 
+//both user creation method using generic method
+const addNewNurse = async (req, res) => {
+    await addNewUser(Nurse, req, res);
+};
+
+const addNewAdmin = async (req, res) => {
+    await addNewUser(Admin, req, res);
+};
 
 
 //method to login
@@ -102,4 +111,4 @@ const refresh = async (req, res) => {
     }
 }
 
-module.exports = {addNewNurse, loginNurse, refresh};
+module.exports = {addNewNurse, addNewAdmin, loginNurse, refresh};

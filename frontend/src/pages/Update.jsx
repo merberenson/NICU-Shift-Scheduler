@@ -15,7 +15,7 @@ const UpdateAvailability = () => {
     const [nurses, setNurses] = useState([]);
     const [selectedNurse, setSelectedNurse] = useState('');
     const [availability, setAvailability] = useState(
-        daysOfWeek.map(day => ({ dayOfWeek: day, timeOfDay: "unavaiable" }))
+        daysOfWeek.map(day => ({ dayOfWeek: day, timeOfDay: "unavailable" }))
     )
 
     useEffect(() => {
