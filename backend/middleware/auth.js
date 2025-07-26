@@ -5,20 +5,24 @@ const authenticateToken = (req, res, next) => {
     //debug
     console.log('AUTH MIDDLEWARE CALLED');
     try {
-        const authHeader = req.headers['authorization'];
+        const authHeader = req.headers.authorization;
+        if (!authHeader?.startsWith('Bearer ')) {
+            return res.status(403).json({ success: false, message: "Missing or invalid token "})
+        }
+
         const token = authHeader?.split(' ')[1];
 
         if (!token) {
             return res.status(403).json({ success: false, message: 'No authorization token'})
         }
 
-        jwt.verify(token, ACCESS_SECRET, (err, nurse) => {
+        jwt.verify(token, ACCESS_SECRET, (err, decoded) => {
             if (err) {
                 return res.status(403).send({ success: false, message: 'Invalid token' });
             }
             //debug
             console.log('Valid Token');
-            req.nurse = nurse;
+            req.user = decoded;
             next();
         });
     } catch (err) {

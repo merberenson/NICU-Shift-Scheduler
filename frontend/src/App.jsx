@@ -1,23 +1,54 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import {Routes, Route} from 'react-router-dom';
-import Login from './pages/Login';
+// App.jsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './context/ProtectedRoutes';
+
+import LoginPage from './pages/Login'; // Use your login here if customized
 import Register from './pages/register';
 import Delete from './pages/Delete';
-import {UpdateAvailability, UpdateInfo} from './pages/Update';
-import './App.css';
+import { UpdateAvailability, UpdateInfo } from './pages/Update';
+
+import LogoutPage from './pages/Logout';
+import AdminMain from './pages/AdminMain';
+import NurseMain from './pages/NurseMain';
+import NotAuthorizedPage from './pages/NotAuthorized';
+import PTORequestPage from './pages/PTORequestPage';
+import NurseSchedule from './pages/NurseSchedule';
+import AdminSchedule from './pages/AdminSchedule';
 
 function App() {
   return (
-    <>
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/delete" element={<Delete />} />
-      <Route path="/update" element={<UpdateAvailability />} />
-      <Route path="/updateInfo" element={<UpdateInfo/>} />
-    </Routes>
-    </>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/logout" element={<LogoutPage />} />
+          <Route path="/unauthorized" element={<NotAuthorizedPage />} />
+
+          {/* Admin-protected routes */}
+          <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+            <Route path="/admin" element={<AdminMain />} />
+            <Route path="/teamschedule" element={<AdminSchedule />} />
+          </Route>
+
+          {/* Nurse-protected routes */}
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path="/" element={<NurseMain />} />
+            <Route path="/pto" element={<PTORequestPage />} />
+            <Route path="/schedule" element={<NurseSchedule />} />
+
+            {/* Your custom routes under nurse role */}
+            <Route path="/delete" element={<Delete />} />
+            <Route path="/update" element={<UpdateAvailability />} />
+            <Route path="/updateInfo" element={<UpdateInfo />} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

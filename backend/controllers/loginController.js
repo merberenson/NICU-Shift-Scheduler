@@ -1,5 +1,6 @@
 //const mongoose = require('mongoose');
 const Nurse = require('../database/models/nurse');
+const Admin = require('../database/models/admin')
 const Token = require('../database/models/token')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -49,25 +50,33 @@ const loginNurse = async (req, res) => {
             return res.status(401).json({ success: false, message: 'username or password cannot be empty.' });
         }
     
-        const nurse = await Nurse.findOne({ username });
-        if (!nurse) {
+        //for swaping between admin and nurse models for signin.
+        let user = await Admin.findOne({ username });
+        let role = 'admin';
+
+        if (!user) {
+            user = await Nurse.findOne({ username });
+            role = 'user';
+        }
+
+        if (!user) {
             return res.status(401).json({ success: false, message: 'invalid credentials' });
         }
 
-        const passwordMatch = await bcrypt.compare(password, nurse.password);
+        const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) {
             return res.status(401).json({ success: false, message: 'invalid credentials' });
         }
 
-        const { accessToken, refreshToken } = generateTokens(nurse._id);
+        const { accessToken, refreshToken } = generateTokens(user._id);
 
         await Token.create({
-            userId: nurse._id,
+            userId: user._id,
             token: refreshToken,
             expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24) //one day
         })
 
-        res.status(200).json({ success: true, accessToken, refreshToken });
+        res.status(200).json({ success: true, accessToken, refreshToken, username: user.username, roles: [role], });
     } catch (error){
         console.error(error);
         return res.status(500).json({ error: 'internal server error' })
@@ -76,18 +85,20 @@ const loginNurse = async (req, res) => {
 
 const refresh = async (req, res) => {
     const { token } = req.body;
-    if (!token) return res.sendStatus(401);
+
+    if (!token) return res.status(401).json({ success: false, message: 'No token provided' });
 
     const storedToken = await Token.findOne({ token });
-    if (!storedToken) return res.sendStatus(403);
-
+    if (!storedToken || storedToken.expiresAt < Date.now()) {
+        return res.status(403).json({ success: false, message: 'Invalid or expired token' });
+    }
     try {
         const payload = jwt.verify(token, REFRESH_SECRET);
         const newAccessToken = jwt.sign({ userId: payload.userId }, ACCESS_SECRET, { expiresIn: '15m' });
-        res.status().json({ accessToken: newAccessToken });
+        res.status(200).json({ success: true, accessToken: newAccessToken });
     } catch (err) {
         console.error(err);
-        return res.sendStatus(403);
+        return res.sendStatus(403).json({ success: false, message: 'Token verification failed' });
     }
 }
 

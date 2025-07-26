@@ -1,0 +1,2946 @@
+[
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82edc"
+        },
+        "date": "2025-07-01",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82edd"
+        },
+        "date": "2025-07-01",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ede"
+        },
+        "date": "2025-07-02",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82edf"
+        },
+        "date": "2025-07-02",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ee0"
+        },
+        "date": "2025-07-03",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ee1"
+        },
+        "date": "2025-07-03",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ee2"
+        },
+        "date": "2025-07-04",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ee3"
+        },
+        "date": "2025-07-04",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ee4"
+        },
+        "date": "2025-07-05",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ee5"
+        },
+        "date": "2025-07-05",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ee6"
+        },
+        "date": "2025-07-06",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ee7"
+        },
+        "date": "2025-07-06",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ee8"
+        },
+        "date": "2025-07-07",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ee9"
+        },
+        "date": "2025-07-07",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82eea"
+        },
+        "date": "2025-07-08",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82eeb"
+        },
+        "date": "2025-07-08",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82eec"
+        },
+        "date": "2025-07-09",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82eed"
+        },
+        "date": "2025-07-09",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82eee"
+        },
+        "date": "2025-07-10",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82eef"
+        },
+        "date": "2025-07-10",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ef0"
+        },
+        "date": "2025-07-11",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ef1"
+        },
+        "date": "2025-07-11",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ef2"
+        },
+        "date": "2025-07-12",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ef3"
+        },
+        "date": "2025-07-12",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ef4"
+        },
+        "date": "2025-07-13",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ef5"
+        },
+        "date": "2025-07-13",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ef6"
+        },
+        "date": "2025-07-14",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ef7"
+        },
+        "date": "2025-07-14",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ef8"
+        },
+        "date": "2025-07-15",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ef9"
+        },
+        "date": "2025-07-15",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82efa"
+        },
+        "date": "2025-07-16",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82efb"
+        },
+        "date": "2025-07-16",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82efc"
+        },
+        "date": "2025-07-17",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82efd"
+        },
+        "date": "2025-07-17",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82efe"
+        },
+        "date": "2025-07-18",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82eff"
+        },
+        "date": "2025-07-18",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f00"
+        },
+        "date": "2025-07-19",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f01"
+        },
+        "date": "2025-07-19",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f02"
+        },
+        "date": "2025-07-20",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f03"
+        },
+        "date": "2025-07-20",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f04"
+        },
+        "date": "2025-07-21",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f05"
+        },
+        "date": "2025-07-21",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f06"
+        },
+        "date": "2025-07-22",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f07"
+        },
+        "date": "2025-07-22",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f08"
+        },
+        "date": "2025-07-23",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f09"
+        },
+        "date": "2025-07-23",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f0a"
+        },
+        "date": "2025-07-24",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f0b"
+        },
+        "date": "2025-07-24",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f0c"
+        },
+        "date": "2025-07-25",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f0d"
+        },
+        "date": "2025-07-25",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f0e"
+        },
+        "date": "2025-07-26",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f0f"
+        },
+        "date": "2025-07-26",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f10"
+        },
+        "date": "2025-07-27",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f11"
+        },
+        "date": "2025-07-27",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f12"
+        },
+        "date": "2025-07-28",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f13"
+        },
+        "date": "2025-07-28",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f14"
+        },
+        "date": "2025-07-29",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f15"
+        },
+        "date": "2025-07-29",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f16"
+        },
+        "date": "2025-07-30",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f17"
+        },
+        "date": "2025-07-30",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f18"
+        },
+        "date": "2025-07-31",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f19"
+        },
+        "date": "2025-07-31",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f1a"
+        },
+        "date": "2025-08-01",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f1b"
+        },
+        "date": "2025-08-01",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f1c"
+        },
+        "date": "2025-08-02",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f1d"
+        },
+        "date": "2025-08-02",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f1e"
+        },
+        "date": "2025-08-03",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f1f"
+        },
+        "date": "2025-08-03",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f20"
+        },
+        "date": "2025-08-04",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f21"
+        },
+        "date": "2025-08-04",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f22"
+        },
+        "date": "2025-08-05",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f23"
+        },
+        "date": "2025-08-05",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f24"
+        },
+        "date": "2025-08-06",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f25"
+        },
+        "date": "2025-08-06",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f26"
+        },
+        "date": "2025-08-07",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f27"
+        },
+        "date": "2025-08-07",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f28"
+        },
+        "date": "2025-08-08",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f29"
+        },
+        "date": "2025-08-08",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f2a"
+        },
+        "date": "2025-08-09",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f2b"
+        },
+        "date": "2025-08-09",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f2c"
+        },
+        "date": "2025-08-10",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f2d"
+        },
+        "date": "2025-08-10",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f2e"
+        },
+        "date": "2025-08-11",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f2f"
+        },
+        "date": "2025-08-11",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f30"
+        },
+        "date": "2025-08-12",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f31"
+        },
+        "date": "2025-08-12",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f32"
+        },
+        "date": "2025-08-13",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f33"
+        },
+        "date": "2025-08-13",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f34"
+        },
+        "date": "2025-08-14",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f35"
+        },
+        "date": "2025-08-14",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f36"
+        },
+        "date": "2025-08-15",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f37"
+        },
+        "date": "2025-08-15",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f38"
+        },
+        "date": "2025-08-16",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f39"
+        },
+        "date": "2025-08-16",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f3a"
+        },
+        "date": "2025-08-17",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f3b"
+        },
+        "date": "2025-08-17",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f3c"
+        },
+        "date": "2025-08-18",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f3d"
+        },
+        "date": "2025-08-18",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f3e"
+        },
+        "date": "2025-08-19",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f3f"
+        },
+        "date": "2025-08-19",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f40"
+        },
+        "date": "2025-08-20",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f41"
+        },
+        "date": "2025-08-20",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f42"
+        },
+        "date": "2025-08-21",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f43"
+        },
+        "date": "2025-08-21",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f44"
+        },
+        "date": "2025-08-22",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f45"
+        },
+        "date": "2025-08-22",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f46"
+        },
+        "date": "2025-08-23",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f47"
+        },
+        "date": "2025-08-23",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f48"
+        },
+        "date": "2025-08-24",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f49"
+        },
+        "date": "2025-08-24",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f4a"
+        },
+        "date": "2025-08-25",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f4b"
+        },
+        "date": "2025-08-25",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f4c"
+        },
+        "date": "2025-08-26",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f4d"
+        },
+        "date": "2025-08-26",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f4e"
+        },
+        "date": "2025-08-27",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f4f"
+        },
+        "date": "2025-08-27",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f50"
+        },
+        "date": "2025-08-28",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f51"
+        },
+        "date": "2025-08-28",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f52"
+        },
+        "date": "2025-08-29",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f53"
+        },
+        "date": "2025-08-29",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f54"
+        },
+        "date": "2025-08-30",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f55"
+        },
+        "date": "2025-08-30",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f56"
+        },
+        "date": "2025-08-31",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f57"
+        },
+        "date": "2025-08-31",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f58"
+        },
+        "date": "2025-09-01",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f59"
+        },
+        "date": "2025-09-01",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f5a"
+        },
+        "date": "2025-09-02",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f5b"
+        },
+        "date": "2025-09-02",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f5c"
+        },
+        "date": "2025-09-03",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f5d"
+        },
+        "date": "2025-09-03",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f5e"
+        },
+        "date": "2025-09-04",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f5f"
+        },
+        "date": "2025-09-04",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f60"
+        },
+        "date": "2025-09-05",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f61"
+        },
+        "date": "2025-09-05",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f62"
+        },
+        "date": "2025-09-06",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f63"
+        },
+        "date": "2025-09-06",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f64"
+        },
+        "date": "2025-09-07",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f65"
+        },
+        "date": "2025-09-07",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f66"
+        },
+        "date": "2025-09-08",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f67"
+        },
+        "date": "2025-09-08",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f68"
+        },
+        "date": "2025-09-09",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f69"
+        },
+        "date": "2025-09-09",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f6a"
+        },
+        "date": "2025-09-10",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f6b"
+        },
+        "date": "2025-09-10",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f6c"
+        },
+        "date": "2025-09-11",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f6d"
+        },
+        "date": "2025-09-11",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f6e"
+        },
+        "date": "2025-09-12",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f6f"
+        },
+        "date": "2025-09-12",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f70"
+        },
+        "date": "2025-09-13",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f71"
+        },
+        "date": "2025-09-13",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f72"
+        },
+        "date": "2025-09-14",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f73"
+        },
+        "date": "2025-09-14",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f74"
+        },
+        "date": "2025-09-15",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f75"
+        },
+        "date": "2025-09-15",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f76"
+        },
+        "date": "2025-09-16",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f77"
+        },
+        "date": "2025-09-16",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f78"
+        },
+        "date": "2025-09-17",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f79"
+        },
+        "date": "2025-09-17",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f7a"
+        },
+        "date": "2025-09-18",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f7b"
+        },
+        "date": "2025-09-18",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f7c"
+        },
+        "date": "2025-09-19",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f7d"
+        },
+        "date": "2025-09-19",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f7e"
+        },
+        "date": "2025-09-20",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f7f"
+        },
+        "date": "2025-09-20",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f80"
+        },
+        "date": "2025-09-21",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f81"
+        },
+        "date": "2025-09-21",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f82"
+        },
+        "date": "2025-09-22",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f83"
+        },
+        "date": "2025-09-22",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f84"
+        },
+        "date": "2025-09-23",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f85"
+        },
+        "date": "2025-09-23",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f86"
+        },
+        "date": "2025-09-24",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f87"
+        },
+        "date": "2025-09-24",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f88"
+        },
+        "date": "2025-09-25",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f89"
+        },
+        "date": "2025-09-25",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f8a"
+        },
+        "date": "2025-09-26",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f8b"
+        },
+        "date": "2025-09-26",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f8c"
+        },
+        "date": "2025-09-27",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f8d"
+        },
+        "date": "2025-09-27",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f8e"
+        },
+        "date": "2025-09-28",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f8f"
+        },
+        "date": "2025-09-28",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f90"
+        },
+        "date": "2025-09-29",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f91"
+        },
+        "date": "2025-09-29",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f92"
+        },
+        "date": "2025-09-30",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f93"
+        },
+        "date": "2025-09-30",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f94"
+        },
+        "date": "2025-10-01",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f95"
+        },
+        "date": "2025-10-01",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f96"
+        },
+        "date": "2025-10-02",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f97"
+        },
+        "date": "2025-10-02",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f98"
+        },
+        "date": "2025-10-03",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f99"
+        },
+        "date": "2025-10-03",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f9a"
+        },
+        "date": "2025-10-04",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f9b"
+        },
+        "date": "2025-10-04",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f9c"
+        },
+        "date": "2025-10-05",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f9d"
+        },
+        "date": "2025-10-05",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f9e"
+        },
+        "date": "2025-10-06",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82f9f"
+        },
+        "date": "2025-10-06",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fa0"
+        },
+        "date": "2025-10-07",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fa1"
+        },
+        "date": "2025-10-07",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fa2"
+        },
+        "date": "2025-10-08",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fa3"
+        },
+        "date": "2025-10-08",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fa4"
+        },
+        "date": "2025-10-09",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fa5"
+        },
+        "date": "2025-10-09",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fa6"
+        },
+        "date": "2025-10-10",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fa7"
+        },
+        "date": "2025-10-10",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fa8"
+        },
+        "date": "2025-10-11",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fa9"
+        },
+        "date": "2025-10-11",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82faa"
+        },
+        "date": "2025-10-12",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fab"
+        },
+        "date": "2025-10-12",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fac"
+        },
+        "date": "2025-10-13",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fad"
+        },
+        "date": "2025-10-13",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fae"
+        },
+        "date": "2025-10-14",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82faf"
+        },
+        "date": "2025-10-14",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fb0"
+        },
+        "date": "2025-10-15",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fb1"
+        },
+        "date": "2025-10-15",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fb2"
+        },
+        "date": "2025-10-16",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fb3"
+        },
+        "date": "2025-10-16",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fb4"
+        },
+        "date": "2025-10-17",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fb5"
+        },
+        "date": "2025-10-17",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fb6"
+        },
+        "date": "2025-10-18",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fb7"
+        },
+        "date": "2025-10-18",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fb8"
+        },
+        "date": "2025-10-19",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fb9"
+        },
+        "date": "2025-10-19",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fba"
+        },
+        "date": "2025-10-20",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fbb"
+        },
+        "date": "2025-10-20",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fbc"
+        },
+        "date": "2025-10-21",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fbd"
+        },
+        "date": "2025-10-21",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fbe"
+        },
+        "date": "2025-10-22",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fbf"
+        },
+        "date": "2025-10-22",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fc0"
+        },
+        "date": "2025-10-23",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fc1"
+        },
+        "date": "2025-10-23",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fc2"
+        },
+        "date": "2025-10-24",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fc3"
+        },
+        "date": "2025-10-24",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fc4"
+        },
+        "date": "2025-10-25",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fc5"
+        },
+        "date": "2025-10-25",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fc6"
+        },
+        "date": "2025-10-26",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fc7"
+        },
+        "date": "2025-10-26",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fc8"
+        },
+        "date": "2025-10-27",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fc9"
+        },
+        "date": "2025-10-27",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fca"
+        },
+        "date": "2025-10-28",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fcb"
+        },
+        "date": "2025-10-28",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fcc"
+        },
+        "date": "2025-10-29",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fcd"
+        },
+        "date": "2025-10-29",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fce"
+        },
+        "date": "2025-10-30",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fcf"
+        },
+        "date": "2025-10-30",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fd0"
+        },
+        "date": "2025-10-31",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fd1"
+        },
+        "date": "2025-10-31",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fd2"
+        },
+        "date": "2025-11-01",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fd3"
+        },
+        "date": "2025-11-01",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fd4"
+        },
+        "date": "2025-11-02",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fd5"
+        },
+        "date": "2025-11-02",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fd6"
+        },
+        "date": "2025-11-03",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fd7"
+        },
+        "date": "2025-11-03",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fd8"
+        },
+        "date": "2025-11-04",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fd9"
+        },
+        "date": "2025-11-04",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fda"
+        },
+        "date": "2025-11-05",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fdb"
+        },
+        "date": "2025-11-05",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fdc"
+        },
+        "date": "2025-11-06",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fdd"
+        },
+        "date": "2025-11-06",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fde"
+        },
+        "date": "2025-11-07",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fdf"
+        },
+        "date": "2025-11-07",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fe0"
+        },
+        "date": "2025-11-08",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fe1"
+        },
+        "date": "2025-11-08",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fe2"
+        },
+        "date": "2025-11-09",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fe3"
+        },
+        "date": "2025-11-09",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fe4"
+        },
+        "date": "2025-11-10",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fe5"
+        },
+        "date": "2025-11-10",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fe6"
+        },
+        "date": "2025-11-11",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fe7"
+        },
+        "date": "2025-11-11",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fe8"
+        },
+        "date": "2025-11-12",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fe9"
+        },
+        "date": "2025-11-12",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fea"
+        },
+        "date": "2025-11-13",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82feb"
+        },
+        "date": "2025-11-13",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fec"
+        },
+        "date": "2025-11-14",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fed"
+        },
+        "date": "2025-11-14",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fee"
+        },
+        "date": "2025-11-15",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fef"
+        },
+        "date": "2025-11-15",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ff0"
+        },
+        "date": "2025-11-16",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ff1"
+        },
+        "date": "2025-11-16",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ff2"
+        },
+        "date": "2025-11-17",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ff3"
+        },
+        "date": "2025-11-17",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ff4"
+        },
+        "date": "2025-11-18",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ff5"
+        },
+        "date": "2025-11-18",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ff6"
+        },
+        "date": "2025-11-19",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ff7"
+        },
+        "date": "2025-11-19",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ff8"
+        },
+        "date": "2025-11-20",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ff9"
+        },
+        "date": "2025-11-20",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ffa"
+        },
+        "date": "2025-11-21",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ffb"
+        },
+        "date": "2025-11-21",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ffc"
+        },
+        "date": "2025-11-22",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ffd"
+        },
+        "date": "2025-11-22",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82ffe"
+        },
+        "date": "2025-11-23",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af82fff"
+        },
+        "date": "2025-11-23",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83000"
+        },
+        "date": "2025-11-24",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83001"
+        },
+        "date": "2025-11-24",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83002"
+        },
+        "date": "2025-11-25",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83003"
+        },
+        "date": "2025-11-25",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83004"
+        },
+        "date": "2025-11-26",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83005"
+        },
+        "date": "2025-11-26",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83006"
+        },
+        "date": "2025-11-27",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83007"
+        },
+        "date": "2025-11-27",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83008"
+        },
+        "date": "2025-11-28",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83009"
+        },
+        "date": "2025-11-28",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8300a"
+        },
+        "date": "2025-11-29",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8300b"
+        },
+        "date": "2025-11-29",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8300c"
+        },
+        "date": "2025-11-30",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8300d"
+        },
+        "date": "2025-11-30",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8300e"
+        },
+        "date": "2025-12-01",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8300f"
+        },
+        "date": "2025-12-01",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83010"
+        },
+        "date": "2025-12-02",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83011"
+        },
+        "date": "2025-12-02",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83012"
+        },
+        "date": "2025-12-03",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83013"
+        },
+        "date": "2025-12-03",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83014"
+        },
+        "date": "2025-12-04",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83015"
+        },
+        "date": "2025-12-04",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83016"
+        },
+        "date": "2025-12-05",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83017"
+        },
+        "date": "2025-12-05",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83018"
+        },
+        "date": "2025-12-06",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83019"
+        },
+        "date": "2025-12-06",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8301a"
+        },
+        "date": "2025-12-07",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8301b"
+        },
+        "date": "2025-12-07",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8301c"
+        },
+        "date": "2025-12-08",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8301d"
+        },
+        "date": "2025-12-08",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8301e"
+        },
+        "date": "2025-12-09",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8301f"
+        },
+        "date": "2025-12-09",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83020"
+        },
+        "date": "2025-12-10",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83021"
+        },
+        "date": "2025-12-10",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83022"
+        },
+        "date": "2025-12-11",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83023"
+        },
+        "date": "2025-12-11",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83024"
+        },
+        "date": "2025-12-12",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83025"
+        },
+        "date": "2025-12-12",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83026"
+        },
+        "date": "2025-12-13",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83027"
+        },
+        "date": "2025-12-13",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83028"
+        },
+        "date": "2025-12-14",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83029"
+        },
+        "date": "2025-12-14",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8302a"
+        },
+        "date": "2025-12-15",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8302b"
+        },
+        "date": "2025-12-15",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8302c"
+        },
+        "date": "2025-12-16",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8302d"
+        },
+        "date": "2025-12-16",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8302e"
+        },
+        "date": "2025-12-17",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8302f"
+        },
+        "date": "2025-12-17",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83030"
+        },
+        "date": "2025-12-18",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83031"
+        },
+        "date": "2025-12-18",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83032"
+        },
+        "date": "2025-12-19",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83033"
+        },
+        "date": "2025-12-19",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83034"
+        },
+        "date": "2025-12-20",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83035"
+        },
+        "date": "2025-12-20",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83036"
+        },
+        "date": "2025-12-21",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83037"
+        },
+        "date": "2025-12-21",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83038"
+        },
+        "date": "2025-12-22",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83039"
+        },
+        "date": "2025-12-22",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8303a"
+        },
+        "date": "2025-12-23",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8303b"
+        },
+        "date": "2025-12-23",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8303c"
+        },
+        "date": "2025-12-24",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8303d"
+        },
+        "date": "2025-12-24",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8303e"
+        },
+        "date": "2025-12-25",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8303f"
+        },
+        "date": "2025-12-25",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83040"
+        },
+        "date": "2025-12-26",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83041"
+        },
+        "date": "2025-12-26",
+        "shiftType": "night",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83042"
+        },
+        "date": "2025-12-27",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83043"
+        },
+        "date": "2025-12-27",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83044"
+        },
+        "date": "2025-12-28",
+        "shiftType": "day",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83045"
+        },
+        "date": "2025-12-28",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83046"
+        },
+        "date": "2025-12-29",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83047"
+        },
+        "date": "2025-12-29",
+        "shiftType": "night",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83048"
+        },
+        "date": "2025-12-30",
+        "shiftType": "day",
+        "requiredEmployees": 7
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af83049"
+        },
+        "date": "2025-12-30",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8304a"
+        },
+        "date": "2025-12-31",
+        "shiftType": "day",
+        "requiredEmployees": 5
+    },
+    {
+        "workID": {
+            "$oid": "687074fffc13ae224af8304b"
+        },
+        "date": "2025-12-31",
+        "shiftType": "night",
+        "requiredEmployees": 6
+    }
+]

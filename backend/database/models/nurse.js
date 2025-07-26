@@ -22,14 +22,14 @@ const NurseSchema = new mongoose.Schema({
     },
     phone : {
         type: Number,
-        required: [true, 'Phonenumber is required.']
+        required: [true, 'Phone number is required.']
     },
     availablity: [{
         dayOfWeek : {type: String, enum : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']},
         timeOfDay : {type: String, enum: ['day', 'night', 'unavailable']}
     }],
     maxWeeklyHours : { type: Number },
-    currentWeeklyHours: {type: Number}
+    currentWeeklyHours: {type: Number, default: 0}
 });
 
 NurseSchema.pre('save', async function(next) {
@@ -38,4 +38,4 @@ NurseSchema.pre('save', async function(next) {
   next();
 });
 
-module.exports = mongoose.model('Nurse', NurseSchema);
+module.exports = mongoose.model('Nurse', NurseSchema, 'nurses');

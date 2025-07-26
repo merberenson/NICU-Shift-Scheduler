@@ -1,4 +1,6 @@
 const routes = require('./routes/loginRoutes');
+const ptoRoutes = require('./routes/pto');
+const schedulingRoutes = require('./routes/schedulingRoutes');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
@@ -39,6 +41,8 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.use('/', routes);
+app.use('/api/pto', ptoRoutes);
+app.use('/api', schedulingRoutes); 
 return app;
 }
 

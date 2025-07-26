@@ -4,7 +4,8 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "test": "cross-env MONGODB_URL=mongodb://localhost:27017/rsdb jest --collectCoverage --forceExit --detectOpenHandles"
+    "test": "cross-env MONGODB_URL=mongodb://localhost:27017/rsdb jest --collectCoverage --forceExit --detectOpenHandles",
+    "test:integration": "jest schedule_api.integration.test.js"
   },
   "jest": {
     "testEnvironment": "node"
@@ -26,3 +27,4 @@
     "supertest": "^7.1.3"
   }
 }
+
