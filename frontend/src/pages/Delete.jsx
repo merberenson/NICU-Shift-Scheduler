@@ -1,5 +1,6 @@
 import { useState, useReducer, useEffect } from "react";
 import axios from "axios";
+import AdminLayout from "../components/AdminLayout";
 
 const Delete = () => {
     const [nurses, setNurses] = useState([]);
@@ -25,6 +26,7 @@ const Delete = () => {
     }
     
     return (
+        <AdminLayout>
         <form onSubmit={handleDelete}>
         <select value={selectedNurse} onChange={e => setSelectedNurse(e.target.value)}>
             <option value="">Select a nurse</option>
@@ -36,6 +38,7 @@ const Delete = () => {
         </select>
         <button type="submit">Submit</button>
         </form>
+        </AdminLayout>
     )
 }
 

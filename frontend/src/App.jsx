@@ -8,7 +8,8 @@ import ProtectedRoute from './context/ProtectedRoutes';
 import LoginPage from './pages/Login'; // Use your login here if customized
 import Register from './pages/register';
 import Delete from './pages/Delete';
-import { UpdateAvailability, UpdateInfo } from './pages/Update';
+import { UpdateAvailability } from './pages/Update';
+import { UpdateInfo } from './pages/UpdateInfo';
 
 import LogoutPage from './pages/Logout';
 import AdminMain from './pages/AdminMain';
@@ -33,6 +34,7 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
             <Route path="/admin" element={<AdminMain />} />
             <Route path="/teamschedule" element={<AdminSchedule />} />
+            <Route path="/delete" element={<Delete />} />
           </Route>
 
           {/* Nurse-protected routes */}
@@ -42,8 +44,7 @@ function App() {
             <Route path="/schedule" element={<NurseSchedule />} />
 
             {/* Your custom routes under nurse role */}
-            <Route path="/delete" element={<Delete />} />
-            <Route path="/update" element={<UpdateAvailability />} />
+            <Route path="/availability" element={<UpdateAvailability />} />
             <Route path="/updateInfo" element={<UpdateInfo />} />
           </Route>
         </Routes>

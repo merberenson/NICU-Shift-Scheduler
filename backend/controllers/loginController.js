@@ -85,7 +85,7 @@ const loginNurse = async (req, res) => {
             expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24) //one day
         })
 
-        res.status(200).json({ success: true, accessToken, refreshToken, username: user.username, roles: [role], });
+        res.status(200).json({ success: true, accessToken, refreshToken, username: user.username, roles: [role], _id: user._id });
     } catch (error){
         console.error(error);
         return res.status(500).json({ error: 'internal server error' })

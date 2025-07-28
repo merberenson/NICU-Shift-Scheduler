@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/FullLogo_Transparent.png';
+import AdminLayout from '../components/AdminLayout';
 
 const daysOfWeek = [
     'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
@@ -49,28 +50,13 @@ const Register = () => {
     };
 
     return (
+      <AdminLayout>
       <div
         style={{
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          paddingTop: '20px',
         }}
       >
-        <img
-          src={logo}
-          alt="NICU Logo"
-          style={{
-            width: '600px',
-            height: '600px',
-            objectFit: 'contain',
-            marginBottom: '10px',
-          }}
-        />
         <div
           style={{
-            marginTop: '-175px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -239,11 +225,9 @@ const Register = () => {
               Register
             </button>
           </form>
-          <Link to="/Login" style={{ color: '#6b21a8', fontWeight: '500', padding: "10px 20px"}}>
-            Login
-          </Link>
         </div>
       </div>
+      </AdminLayout>
     );
 }
 

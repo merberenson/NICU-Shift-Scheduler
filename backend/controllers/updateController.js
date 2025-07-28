@@ -26,6 +26,25 @@ const updateAvailability = async (req, res) => {
     }
 }
 
+const getAvailability = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({success: false, message: "Invalid nurse ID."})
+        }
+
+        const nurse = await Nurses.findById(id);
+        if (!nurse) {
+            return res.status(404).json({ success: false, message: "Nurse not found."});
+        }
+        res.status(200).json({ success: true, availability: nurse.availability || [] })
+
+    } catch (err) {
+        console.error('Error getting object', err)
+        res.status(500).json({success: false, message: "internal server error"})
+    }
+}
+
 const updateInfo = async (req, res) => {
     try {
         const {id} = req.params;
@@ -51,4 +70,4 @@ const updateInfo = async (req, res) => {
     }
 }
 
-module.exports = { updateAvailability, updateInfo }
+module.exports = { updateAvailability, getAvailability, updateInfo };

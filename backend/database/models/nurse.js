@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const NurseSchema = new mongoose.Schema({
-//necessary for scheduling functions, re-added to schema. 
+//empID necessary for scheduling functions, re-added to schema. 
     empID: {
             type: mongoose.Schema.Types.ObjectId,
             unique: true 
@@ -29,8 +29,8 @@ const NurseSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Phone number is required.']
     },
-    availablity: [{
-        dayOfWeek : {type: String, enum : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']},
+    availability: [{
+        dayOfWeek : {type: String, enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']},
         timeOfDay : {type: String, enum: ['day', 'night', 'unavailable']}
     }],
     maxWeeklyHours : { type: Number },

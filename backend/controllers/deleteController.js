@@ -20,4 +20,13 @@ const deleteNurse = async (req, res) => {
     }
 }
 
-module.exports = { deleteNurse }
+// const deleteAllNurses = async (req, res) => {
+//     try {
+//         const result = await Nurse.deleteMany();
+//         res.status(200).json({success: true, message: 'Nurses deleted'})
+//     } catch (err) {
+//         res.status(500).json({ success: false, message: 'Nurses failed to be deleted'})
+//     }
+// }
+
+module.exports = { deleteNurse, deleteAllNurses };
