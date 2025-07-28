@@ -1,16 +1,10 @@
-// App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './context/ProtectedRoutes';
 
-import LoginPage from './pages/Login'; // Use your login here if customized
-import Register from './pages/register';
-import Delete from './pages/Delete';
-import { UpdateAvailability } from './pages/Update';
-import { UpdateInfo } from './pages/UpdateInfo';
-
+import LoginPage from './pages/Login';
 import LogoutPage from './pages/Logout';
 import AdminMain from './pages/AdminMain';
 import NurseMain from './pages/NurseMain';
@@ -24,28 +18,29 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Public routes */}
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<LogoutPage />} />
           <Route path="/unauthorized" element={<NotAuthorizedPage />} />
 
-          {/* Admin-protected routes */}
           <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
             <Route path="/admin" element={<AdminMain />} />
-            <Route path="/teamschedule" element={<AdminSchedule />} />
-            <Route path="/delete" element={<Delete />} />
           </Route>
 
-          {/* Nurse-protected routes */}
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>
             <Route path="/" element={<NurseMain />} />
+          </Route>
+          
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
             <Route path="/pto" element={<PTORequestPage />} />
-            <Route path="/schedule" element={<NurseSchedule />} />
+          </Route>
+          
 
-            {/* Your custom routes under nurse role */}
-            <Route path="/availability" element={<UpdateAvailability />} />
-            <Route path="/updateInfo" element={<UpdateInfo />} />
+          <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+            <Route path="/teamschedule" element={<AdminSchedule />} />
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path="/schedule" element={<NurseSchedule />} />
           </Route>
         </Routes>
       </Router>
