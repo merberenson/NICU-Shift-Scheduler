@@ -20,6 +20,10 @@ const AdminMain = ({ adminInfo }) => {
         navigate('/teamschedule');
     };
 
+    const handleRegister = () => {
+        navigate('/register')
+    }
+
     return (
     <div style={{
         minHeight: "100vh",
@@ -137,6 +141,34 @@ const AdminMain = ({ adminInfo }) => {
             >
                 <span style={{ fontSize: "1.38rem", marginRight: 13 }}>🗓️</span>
                 Schedule
+            </button>
+            <button
+                onClick={handleRegister}
+                style={{
+                display: "flex",
+                alignItems: "center",
+                background: "transparent",
+                color: "#fff",
+                border: "none",
+                fontWeight: 400,
+                fontSize: "1.08rem",
+                borderRadius: "33px",
+                margin: "8px 0 0 32px",
+                padding: "17px 42px",
+                cursor: "pointer",
+                transition: "background 0.2s, color 0.2s"
+                }}
+                onMouseOver={e => {
+                e.currentTarget.style.background = "#e3e4e7";
+                e.currentTarget.style.color = "#232323";
+                }}
+                onMouseOut={e => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.color = "#fff";
+                }}
+            >
+                <span style={{ fontSize: "1.38rem", marginRight: 13 }}>🗓️</span>
+                Register Nurse
             </button>
             <div style={{ flex: 1 }} />
             <button
