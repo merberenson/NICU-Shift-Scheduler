@@ -3,11 +3,13 @@ import axios from "axios";
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/FullLogo_Transparent.png';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [capsLockOn, setCapsLockOn] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -31,7 +33,7 @@ const Login = () => {
       }
     } catch (err) {
       console.error('Login failed: ', err.response?.data || err.message);
-      setError(err.response?.data?.message || "Login failed.");
+      setError(err.response?.data?.message || "Invalid credentials.");
     }
   };
 
@@ -71,7 +73,6 @@ const Login = () => {
             textShadow: '1px 1px 2px rgba(0, 0, 0, 0.1)',
             marginTop: '20px',
             marginBottom: '12px',
-            transition: 'transform 0.2s ease-in-out',
           }}
         >
           LOGIN
@@ -92,27 +93,42 @@ const Login = () => {
             }}
             required
           />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            onKeyDown={(e) => setCapsLockOn(e.getModifierState('CapsLock'))}
-            onKeyUp={(e) => setCapsLockOn(e.getModifierState('CapsLock'))}
-            style={{
-              padding: '10px',
-              borderRadius: '8px',
-              border: '1px solid #ccc',
-              minWidth: '250px',
-              fontSize: '16px',
-            }}
-            required
-          />
+
+          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              onKeyUp={(e) => setCapsLockOn(e.getModifierState('CapsLock'))}
+              style={{
+                padding: '10px',
+                borderRadius: '8px',
+                border: '1px solid #ccc',
+                minWidth: '250px',
+                fontSize: '16px',
+                paddingRight: '40px',
+              }}
+              required
+            />
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: 'absolute',
+                right: '10px',
+                cursor: 'pointer',
+                color: '#555',
+                fontSize: '18px',
+              }}
+              title={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
 
           {capsLockOn && (
-            <div style={{ color: '#f59e0b', fontSize: '14px', marginTop: '-8px', display: 'flex', alignItems: 'center' }}>
-              <span style={{ fontWeight: 'bold', fontSize: '16px', marginRight: '6px' }}>&#9888;</span>
-              Caps Lock is ON
+            <div style={{ color: '#d97706', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <span style={{ fontSize: '16px' }}>⚠️</span> Caps Lock is ON
             </div>
           )}
 
