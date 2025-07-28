@@ -3,14 +3,14 @@ import axios from "axios";
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/FullLogo_Transparent.png';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaExclamationTriangle, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [capsLockOn, setCapsLockOn] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -33,7 +33,10 @@ const Login = () => {
       }
     } catch (err) {
       console.error('Login failed: ', err.response?.data || err.message);
-      setError(err.response?.data?.message || "Invalid credentials.");
+      setError(() => {
+        const msg = err.response?.data?.message;
+        return msg ? msg.charAt(0).toUpperCase() + msg.slice(1).replace(/\.?$/, '.') : "Login failed.";
+      });
     }
   };
 
@@ -73,6 +76,7 @@ const Login = () => {
             textShadow: '1px 1px 2px rgba(0, 0, 0, 0.1)',
             marginTop: '20px',
             marginBottom: '12px',
+            transition: 'transform 0.2s ease-in-out',
           }}
         >
           LOGIN
@@ -94,7 +98,7 @@ const Login = () => {
             required
           />
 
-          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+          <div style={{ position: 'relative' }}>
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
@@ -116,19 +120,19 @@ const Login = () => {
               style={{
                 position: 'absolute',
                 right: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
                 cursor: 'pointer',
                 color: '#555',
-                fontSize: '18px',
               }}
-              title={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
 
           {capsLockOn && (
-            <div style={{ color: '#d97706', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ fontSize: '16px' }}>⚠️</span> Caps Lock is ON
+            <div style={{ color: 'orange', fontSize: '14px', marginTop: '-8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <FaExclamationTriangle /> Caps Lock is ON
             </div>
           )}
 
