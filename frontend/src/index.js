@@ -1,24 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ErrorBoundary } from 'react-error-boundary';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const ErrorFallback = ({ error }) => (
-  <div role="alert">
-    <h2>Something went wrong.</h2>
-    <pre>{error.message}</pre>
-  </div>
-);
-
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <App/>
-    </ErrorBoundary>
+    <App />
   </React.StrictMode>
 );
 

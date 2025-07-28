@@ -111,14 +111,14 @@ const NurseSchedule = ({ nurse }) => {
                     {/* Future: Render schedule data here */}
                 </div>
             );
-          } else if (scheduleMap[day] === 'day') {
+          } else if (scheduleMap[day] == 'day') {
             dayCells.push(
                 <div key={day} style={styles.calendarCell}>
                     <span style={styles.dayNumber}>{day}</span>
                     day
                 </div>
             );
-          } else if (scheduleMap[day] === 'night') {
+          } else if (scheduleMap[day] == 'night') {
             dayCells.push(
                 <div key={day} style={styles.calendarCell}>
                     <span style={styles.dayNumber}>{day}</span>
