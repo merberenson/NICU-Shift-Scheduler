@@ -4,15 +4,15 @@ const Assigned = require('../database/models/workAssignment');
 const mongoose = require('mongoose');
 
 /**
- * @route   GET /api/nurses/all
- * @desc    Fetches all nurses from the schedule.
+ * @route   GET /api/nurses/all/:yearmonth
+ * @desc    Fetches full schedule for a given year-month (e.g., 2025-07)
  * @access  Public
  */
 
 const getMonthlySchedule = async (req, res) => {
     try {
         const { yearmonth } = req.params;
-        console.log(`Attempting to fetch ${ yearmonth } data`);
+        console.log(`Fetching schedule for: ${yearmonth}`);
 
         const schedule = await Work.aggregate([
             {
@@ -23,16 +23,8 @@ const getMonthlySchedule = async (req, res) => {
             {
                 $lookup: {
                     from: 'assignments',
-                    let: { work_id_as_string: { $toString: "$workID" } },
-                    pipeline: [
-                        {
-                            $match: {
-                                $expr: {
-                                    $eq: ["$workID", "$$work_id_as_string"]
-                                }
-                            }
-                        }
-                    ],
+                    localField: 'workID',
+                    foreignField: 'workID',
                     as: 'assignedDocs'
                 }
             },
@@ -41,23 +33,12 @@ const getMonthlySchedule = async (req, res) => {
                     path: '$assignedDocs',
                     preserveNullAndEmptyArrays: true
                 }
-            },
-            {
-                $addFields: {
-                    "assignedEmpIdObj": {
-                        $cond: {
-                           if: { $eq: [ { $type: "$assignedDocs.empID" }, "string" ] },
-                           then: { $toObjectId: "$assignedDocs.empID" },
-                           else: null
-                        }
-                    }
-                }
-            },
+            }, 
             {
                 $lookup: {
                     from: 'nurses',
-                    localField: 'assignedEmpIdObj',
-                    foreignField: 'empID',
+                    localField: 'assignedDocs.empID',
+                    foreignField: '_id',
                     as: 'nurseInfo'
                 }
             },
@@ -69,30 +50,29 @@ const getMonthlySchedule = async (req, res) => {
             },
             {
                 $group: {
-                    _id: '$_id',
-                    workID: { $first: '$workID' },
+                    _id: '$workID',
                     date: { $first: '$date' },
                     shiftType: { $first: '$shiftType' },
                     requiredEmployees: { $first: '$requiredEmployees' },
                     assigned: {
                         $push: {
-                           $cond: {
-                               if: '$nurseInfo.empID',
-                               then: {
-                                   empID: '$nurseInfo.empID',
-                                   name: '$nurseInfo.name',
-                                   phone: '$nurseInfo.phone'
-                               },
-                               else: '$$REMOVE'
-                           }
+                            $cond: [
+                                { $ifNull: ['$nurseInfo._id', false] },
+                                {
+                                    empID: '$nurseInfo._id',
+                                    name: '$nurseInfo.name',
+                                    phone: '$nurseInfo.phone'
+                                },
+                                '$$REMOVE'
+                            ]
                         }
                     }
                 }
             },
             {
                 $project: {
-                    _id: 0, 
-                    workID: 1,
+                    _id: 0,
+                    workID: '$_id',
                     date: 1,
                     shiftType: 1,
                     requiredEmployees: 1,
@@ -100,13 +80,11 @@ const getMonthlySchedule = async (req, res) => {
                 }
             },
             {
-                $sort: {
-                    date: 1
-                }
+                $sort: { date: 1 }
             }
         ]);
 
-        if (!schedule || schedule.length === 0) {
+        if (!schedule.length) {
             return res.status(404).json({
                 success: false,
                 message: `No schedule data found for ${yearmonth}.`
@@ -115,24 +93,24 @@ const getMonthlySchedule = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: `Successfully retrieved ${schedule.length} work shift records.`,
+            message: `Retrieved ${schedule.length} shifts.`,
             data: schedule
         });
 
     } catch (error) {
-        console.error(`Error in /api/schedule/:yearmonth endpoint:`, error);
+        console.error('Error fetching monthly schedule:', error);
         res.status(500).json({
             success: false,
-            message: 'An internal server error occurred while fetching the schedule.',
+            message: 'Server error fetching monthly schedule.',
             error: error.message
         });
     }
-}
+};
 
 
 /**
  * @route   GET /api/nurse/:yearmonth/:empId
- * @desc    Fetches all assigned shifts (date and shiftType) for a specific nurse in a given month.
+ * @desc    Fetches all shifts for a specific nurse during a month.
  * @access  Public
  */
 
@@ -141,28 +119,23 @@ const getNurseShifts = async (req, res) => {
         const { yearmonth, empId } = req.params;
         console.log(`Received request for nurse shifts for year/month: ${yearmonth} and empId: ${empId}`);
 
-        const nurseinfo = await Nurse.find({empID : empId});
-        if (!nurseinfo || nurseinfo.length == 0) {
-            return res.status(404).json({ success: false, message: 'Invalid Nurse id provided.' });
+
+        const nurse = await Nurse.findById(empId);
+        if (!nurse) {
+            return res.status(404).json({
+                success: false,
+                message: 'Nurse not found.'
+            });
         }
 
-        const nurseShifts = await Assigned.aggregate([
+        const shifts = await Assigned.aggregate([
             {
-                $match: {
-                    empID: empId
-                }
-            },
-            {
-                $addFields: {
-                    "workIdObj": {
-                        $toObjectId: "$workID"
-                    }
-                }
+                $match: { empID: new mongoose.Types.ObjectId(empId) }
             },
             {
                 $lookup: {
                     from: 'workdays',
-                    localField: 'workIdObj',
+                    localField: 'workID',
                     foreignField: 'workID',
                     as: 'workdayInfo'
                 }
@@ -172,7 +145,7 @@ const getNurseShifts = async (req, res) => {
             },
             {
                 $match: {
-                    "workdayInfo.date": new RegExp('^' + yearmonth)
+                    'workdayInfo.date': new RegExp('^' + yearmonth)
                 }
             },
             {
@@ -183,9 +156,7 @@ const getNurseShifts = async (req, res) => {
                 }
             },
             {
-                $sort: {
-                    date: 1
-                }
+                $sort: { date: 1 }
             }
         ]);
 
@@ -195,17 +166,17 @@ const getNurseShifts = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            message: `Successfully found ${nurseShifts.length} shifts for nurse ${empId} in ${yearmonth}`,
-            data: nurseShifts
+            message: `Found ${shifts.length} shifts for nurse ${empId} in ${yearmonth}.`,
+            data: shifts
         });
 
     } catch (error) {
-        console.error('Error in /api/nurse/:yearmonth/:empId endpoint:', error);
+        console.error('Error fetching nurse shifts:', error);
         if (error.name === 'CastError') {
-             return res.status(400).json({ success: false, message: 'Invalid Employee ID format.', error: error.message });
+            return res.status(400).json({ success: false, message: 'Invalid nurse ID.', error: error.message });
         }
-        res.status(500).json({ success: false, message: 'An internal server error occurred.', error: error.message });
+        res.status(500).json({ success: false, message: 'Server error fetching nurse shifts.', error: error.message });
     }
-}
+};
 
 module.exports = { getMonthlySchedule, getNurseShifts }

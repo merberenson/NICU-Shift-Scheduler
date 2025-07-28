@@ -2,12 +2,14 @@ const mongoose = require('mongoose');
 
 const AssignmentSchema = new mongoose.Schema({
     workID: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId, // Reference to Nurse _id
+        required: true,
+        ref: 'Work'
     },
     empID: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId, // Reference to Nurse _id
+        required: true,
+        ref: 'Nurse'
     },
     assignedby: {
         type: String,

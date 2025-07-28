@@ -6,7 +6,7 @@ const PTORequestSchema = new Schema({
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   reason: { type: String },
-  status: { type: String, enum: ['pending', 'approved', 'denied'], default: 'pending' },
+  status: { type: String, enum: ['Pending', 'Approved', 'Denied'], default: 'Pending' },
   createdAt: { type: Date, default: Date.now }
 });
 

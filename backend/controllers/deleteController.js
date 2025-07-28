@@ -29,4 +29,4 @@ const deleteNurse = async (req, res) => {
 //     }
 // }
 
-module.exports = { deleteNurse, deleteAllNurses };
+module.exports = { deleteNurse };

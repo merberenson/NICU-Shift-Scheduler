@@ -18,6 +18,10 @@ const NurseMain = ({ nurse }) => {
     const handlePtoRequest = () => {
         navigate('/pto');
     };
+    const handleUpdateAvailability = () => {
+        navigate('/availability');
+    };
+
     
     return (
   <div style={{
@@ -121,6 +125,33 @@ const NurseMain = ({ nurse }) => {
           >
             <span style={{ fontSize: "1.38rem", marginRight: 13 }}>🗓️</span>
             Weekly Schedule
+          </button>
+          <button
+            onClick={handleUpdateAvailability}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              background: "transparent",
+              color: "#d8e4ff",
+              border: "none",
+              fontWeight: 400,
+              fontSize: "1.08rem",
+              borderRadius: "33px",
+              margin: "8px 0 0 32px",
+              padding: "17px 42px",
+              cursor: "pointer"
+            }}
+            onMouseOver={e => {
+              e.currentTarget.style.background = "#e6eefd";
+              e.currentTarget.style.color = "#002178";
+            }}
+            onMouseOut={e => {
+              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.color = "#d8e4ff";
+            }}
+          >
+            <span style={{ fontSize: "1.38rem", marginRight: 13 }}>🕒</span>
+            Update Availability
           </button>
           <div style={{ flex: 1 }} />
           <button

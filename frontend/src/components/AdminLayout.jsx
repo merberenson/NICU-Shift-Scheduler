@@ -245,6 +245,9 @@ const AdminLayout = ({ children }) => {
             </div>
             {/* Main Content - top/left aligned */}
           <div style={{
+            flex: 1,
+            padding: "70px 60px",
+            overflowY: "auto"
           }}>
             {children}
           </div>
