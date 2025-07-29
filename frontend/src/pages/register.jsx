@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/FullLogo_Transparent.png';
 
@@ -21,49 +21,145 @@ const Register = () => {
     try {
       const res = await axios.post('/nurses', form);
       console.log('Registered:', res.data);
-      // navigate('/login'); // optionally redirect
+      // login(res.data); // Optionally auto-login
+      // navigate('/'); // Optionally redirect
     } catch (err) {
       console.error('Registration failed:', err.response?.data || err.message);
+      setError('Registration failed. Please try again.');
     }
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '40px' }}>
-      <img src={logo} alt="Logo" style={{ width: '200px', marginBottom: '20px' }} />
-      <h2 style={{ color: '#dc2626', fontWeight: 'bold' }}>REGISTER</h2>
+    <div
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingTop: '20px',
+      }}
+    >
+      <img
+        src={logo}
+        alt="NICU Logo"
+        style={{
+          width: '600px',
+          height: '600px',
+          objectFit: 'contain',
+          marginBottom: '-40px',
+        }}
+      />
 
-      <form onSubmit={handleSubmit} style={{ display: 'inline-block', textAlign: 'left', padding: '20px', borderRadius: '12px' }}>
-        {[['Name', name, setName], ['Username', username, setUsername], ['Password', password, setPassword], ['Email', email, setEmail], ['Phone', phone, setPhone]].map(([placeholder, value, setter], i) => (
-          <input
-            key={i}
-            type={placeholder === 'Password' ? 'password' : 'text'}
-            placeholder={placeholder}
-            value={value}
-            onChange={(e) => setter(e.target.value)}
-            required
-            style={{ display: 'block', margin: '10px auto', padding: '10px', borderRadius: '8px', width: '250px', border: '1px solid #ccc' }}
-          />
-        ))}
-
-        {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
-
-        <button
-          type="submit"
+      <div
+        style={{
+          marginTop: '-125px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <h2
           style={{
-            backgroundColor: '#dc2626',
-            color: 'white',
-            border: 'none',
-            padding: '10px 20px',
-            borderRadius: '20px',
+            fontSize: '28px',
             fontWeight: 'bold',
-            cursor: 'pointer',
-            fontSize: '16px',
-            boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
+            color: '#dc2626',
+            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.1)',
+            marginTop: '20px',
+            marginBottom: '12px',
           }}
         >
-          Register
-        </button>
-      </form>
+          REGISTER
+        </h2>
+
+        <form
+          onSubmit={handleSubmit}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+            alignItems: 'center',
+          }}
+        >
+          {[
+            ['Name', name, setName],
+            ['Username', username, setUsername],
+            ['Password', password, setPassword],
+            ['Email', email, setEmail],
+            ['Phone', phone, setPhone],
+          ].map(([label, val, setter], i) => (
+            <input
+              key={i}
+              type={label === 'Password' ? 'password' : 'text'}
+              placeholder={label}
+              value={val}
+              onChange={(e) => setter(e.target.value)}
+              required
+              style={{
+                padding: '10px',
+                borderRadius: '8px',
+                border: '1px solid #ccc',
+                minWidth: '250px',
+                fontSize: '16px',
+              }}
+            />
+          ))}
+
+          {error && (
+            <div style={{ color: 'red', fontSize: '14px', marginTop: '-8px' }}>
+              {error}
+            </div>
+          )}
+
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              alignItems: 'center',
+              gap: '16px',
+              marginTop: '12px',
+              marginLeft: '6px',
+            }}
+          >
+            <button
+              type="submit"
+              style={{
+                backgroundColor: '#dc2626',
+                color: 'white',
+                border: 'none',
+                padding: '10px 20px',
+                borderRadius: '20px',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                fontSize: '16px',
+                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.2)',
+                transition: 'all 0.2s ease-in-out',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.25)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = '0 2px 6px rgba(0, 0, 0, 0.2)';
+              }}
+            >
+              Register
+            </button>
+
+            <Link
+              to="/login"
+              style={{
+                color: '#dc2626',
+                fontWeight: 'bold',
+                fontSize: '15px',
+                textDecoration: 'none',
+              }}
+            >
+              or Back to Login
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
