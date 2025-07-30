@@ -39,8 +39,8 @@ const AdminMain = ({ adminInfo }) => {
     { icon: <FaCalendarAlt />, text: "Team Schedule", path: "/teamschedule" },
     { icon: <FaUserEdit />, text: "Register Nurse", path: "/register" },
     { icon: <MdOutlineEventAvailable />, text: "PTO Requests", path: "/ptorequests" },
-    { icon: <FaPhone />, text: "Call-In Pool", path: "/callinpage" }
-
+    { icon: <FaPhone />, text: "Call-In Pool", path: "/callinpage" },
+    { icon: <FaUserEdit />, text: "Delete Nurse", path: "/deletenurse" }
   ];
 
   return (

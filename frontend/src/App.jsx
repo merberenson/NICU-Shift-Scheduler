@@ -1,13 +1,13 @@
 // App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './context/ProtectedRoutes';
 
+import DeleteNurse from './pages/DeleteNurse';
+
 import LoginPage from './pages/Login'; // Use your login here if customized
 import Register from './pages/register';
-import Delete from './pages/Delete';
 import { UpdateAvailability } from './pages/Update';
 import { UpdateInfo } from './pages/UpdateInfo';
 
@@ -34,7 +34,7 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
             <Route path="/admin" element={<AdminMain />} />
             <Route path="/teamschedule" element={<AdminSchedule />} />
-            <Route path="/delete" element={<Delete />} />
+            <Route path="/deletenurse" element={<DeleteNurse />} />
           </Route>
 
           {/* Nurse-protected routes */}
