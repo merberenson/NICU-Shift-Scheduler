@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import CallInPage from './CallInPage';
-import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome } from "react-icons/fa";
+import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome, FaPhone } from "react-icons/fa";
 import { MdOutlineEventAvailable } from "react-icons/md";
 import logo from "../assets/FullLogo_Transparent.png";
 
@@ -25,11 +25,9 @@ const CallInModalTrigger = () => {
     );
 };
 
-
 const AdminSchedule = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-
   const [selectedDate, setSelectedDate] = useState({
     year: new Date().getFullYear(),
     month: new Date().getMonth() + 1
@@ -127,6 +125,15 @@ const AdminSchedule = () => {
     navigate("/login");
   };
 
+  const navButtons = [
+    { icon: <FaHome />, text: "Main", path: "/admin" },
+    { icon: <FaCalendarAlt />, text: "Team Schedule", path: "/teamschedule" },
+    { icon: <FaUserEdit />, text: "Register Nurse", path: "/register" },
+    { icon: <MdOutlineEventAvailable />, text: "PTO Requests", path: "/ptorequests" },
+    { icon: <FaPhone />, text: "Call-In Pool", path: "/callinpage" },
+    { icon: <FaUserEdit />, text: "Delete Nurse", path: "/deletenurse" }
+  ];
+
   return (
     <div style={{ display: "flex", height: "100vh", fontFamily: "'Segoe UI', sans-serif" }}>
       <div style={{
@@ -143,11 +150,7 @@ const AdminSchedule = () => {
             <img src={logo} alt="NICU Logo" style={{ height: "200px", objectFit: "contain" }} />
           </div>
 
-          {[{ icon: <FaHome />, text: "Main", path: "/admin" },
-            { icon: <FaCalendarAlt />, text: " Team Schedule", path: "/teamschedule" },
-            { icon: <FaUserEdit />, text: "Register Nurse", path: "/register" },
-            { icon: <MdOutlineEventAvailable />, text: "PTO Requests", path: "/ptorequests" }
-          ].map((btn, i) => (
+          {navButtons.map((btn, i) => (
             <button
               key={i}
               onClick={() => navigate(btn.path)}
@@ -160,7 +163,12 @@ const AdminSchedule = () => {
           ))}
         </div>
 
-        <button onClick={handleLogout} style={logoutButtonStyle}>
+        <button
+          onClick={handleLogout}
+          onMouseEnter={() => setHoveredBtn("logout")}
+          onMouseLeave={() => setHoveredBtn(null)}
+          style={logoutButtonStyle(hoveredBtn === "logout")}
+        >
           <FaSignOutAlt style={{ marginRight: "6px" }} /> Logout
         </button>
       </div>
@@ -228,7 +236,7 @@ const sidebarButtonStyle = (active = false, hover = false) => ({
   transition: "transform 0.2s ease, box-shadow 0.2s ease"
 });
 
-const logoutButtonStyle = {
+const logoutButtonStyle = (hover = false) => ({
   backgroundColor: "#dc2626",
   color: "#fff",
   border: "none",
@@ -243,8 +251,9 @@ const logoutButtonStyle = {
   width: "100%",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center"
-};
+  justifyContent: "center",
+  transform: hover ? "scale(1.05)" : "scale(1)"
+});
 
 const styles = {
   selectors: { display: 'flex', gap: '15px', marginBottom: '20px' },

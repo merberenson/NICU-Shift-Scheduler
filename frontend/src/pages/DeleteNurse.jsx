@@ -3,13 +3,15 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/FullLogo_Transparent.png';
-import { FaHome, FaCalendarAlt, FaClipboardList, FaUserEdit, FaSignOutAlt } from 'react-icons/fa';
+import { FaHome, FaCalendarAlt, FaClipboardList, FaUserEdit, FaSignOutAlt, FaPhone } from 'react-icons/fa';
+import { MdOutlineEventAvailable } from 'react-icons/md';
 
 const DeleteNurse = () => {
   const [nurseId, setNurseId] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
   const [confirming, setConfirming] = useState(false);
   const [message, setMessage] = useState('');
+  const [hoveredBtn, setHoveredBtn] = useState(null);
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -28,6 +30,15 @@ const DeleteNurse = () => {
     }
   };
 
+  const navButtons = [
+    { icon: <FaHome />, text: "Main", path: "/admin" },
+    { icon: <FaCalendarAlt />, text: "Team Schedule", path: "/teamschedule" },
+    { icon: <FaUserEdit />, text: "Register Nurse", path: "/register" },
+    { icon: <MdOutlineEventAvailable />, text: "PTO Requests", path: "/ptorequests" },
+    { icon: <FaPhone />, text: "Call-In Pool", path: "/callinpage" },
+    { icon: <FaUserEdit />, text: "Delete Nurse", path: "/deletenurse" }
+  ];
+
   return (
     <div style={{ display: 'flex', height: '100vh', fontFamily: "'Segoe UI', sans-serif" }}>
       {/* Sidebar */}
@@ -45,24 +56,26 @@ const DeleteNurse = () => {
             <img src={logo} alt="NICU Logo" style={{ height: "200px", objectFit: "contain" }} />
           </div>
 
-          <button onClick={() => navigate("/admin")} style={sidebarButtonStyle()}>
-            <FaHome style={{ marginRight: "8px" }} /> Main
-          </button>
-          <button onClick={() => navigate("/teamschedule")} style={sidebarButtonStyle()}>
-            <FaCalendarAlt style={{ marginRight: "8px" }} /> Team Schedule
-          </button>
-          <button onClick={() => navigate("/register")} style={sidebarButtonStyle()}>
-            <FaUserEdit style={{ marginRight: "8px" }} /> Register Nurse
-          </button>
-          <button onClick={() => navigate("/ptorequests")} style={sidebarButtonStyle()}>
-            <FaClipboardList style={{ marginRight: "8px" }} /> PTO Requests
-          </button>
-          <button style={sidebarButtonStyle(true)} disabled>
-            <FaUserEdit style={{ marginRight: "8px" }} /> Delete Nurse
-          </button>
+          {navButtons.map((btn, index) => (
+            <button
+              key={index}
+              onClick={() => navigate(btn.path)}
+              onMouseEnter={() => setHoveredBtn(index)}
+              onMouseLeave={() => setHoveredBtn(null)}
+              style={sidebarButtonStyle(btn.path === "/deletenurse", hoveredBtn === index)}
+            >
+              {btn.icon}
+              <span style={{ marginLeft: "8px" }}>{btn.text}</span>
+            </button>
+          ))}
         </div>
 
-        <button onClick={() => { logout(); navigate("/login"); }} style={logoutButtonStyle}>
+        <button
+          onClick={() => { logout(); navigate("/login"); }}
+          onMouseEnter={() => setHoveredBtn("logout")}
+          onMouseLeave={() => setHoveredBtn(null)}
+          style={logoutButtonStyle(hoveredBtn === "logout")}
+        >
           <FaSignOutAlt style={{ marginRight: "6px" }} /> Logout
         </button>
       </div>
@@ -113,12 +126,8 @@ const DeleteNurse = () => {
                 Are you sure? This will permanently delete the nurse account.
               </p>
               <div style={{ display: 'flex', gap: '12px' }}>
-                <button type="submit" style={confirmButtonStyle}>
-                  Yes, Delete
-                </button>
-                <button type="button" onClick={() => setConfirming(false)} style={cancelButtonStyle}>
-                  Go Back
-                </button>
+                <button type="submit" style={confirmButtonStyle}>Yes, Delete</button>
+                <button type="button" onClick={() => setConfirming(false)} style={cancelButtonStyle}>Go Back</button>
               </div>
             </>
           ) : (
@@ -187,7 +196,7 @@ const cancelButtonStyle = {
   backgroundColor: '#999'
 };
 
-const sidebarButtonStyle = (active = false) => ({
+const sidebarButtonStyle = (active = false, hover = false) => ({
   width: "100%",
   marginBottom: "12px",
   padding: "12px 14px",
@@ -202,11 +211,12 @@ const sidebarButtonStyle = (active = false) => ({
   justifyContent: "center",
   cursor: active ? "default" : "pointer",
   boxShadow: "0 4px 10px rgba(255, 255, 255, 0.3)",
+  transform: hover ? "scale(1.05)" : "scale(1)",
   transition: "transform 0.2s, box-shadow 0.2s",
   textAlign: "center"
 });
 
-const logoutButtonStyle = {
+const logoutButtonStyle = (hover = false) => ({
   backgroundColor: "#dc2626",
   color: "#fff",
   border: "none",
@@ -221,7 +231,8 @@ const logoutButtonStyle = {
   width: "100%",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center"
-};
+  justifyContent: "center",
+  transform: hover ? "scale(1.05)" : "scale(1)"
+});
 
 export default DeleteNurse;

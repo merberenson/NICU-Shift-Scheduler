@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import logo from '../assets/FullLogo_Transparent.png';
 import { useNavigate } from 'react-router-dom';
-import { FaHome, FaCalendarAlt, FaUserPlus, FaSignOutAlt, FaClipboardList } from 'react-icons/fa';
+import { FaHome, FaCalendarAlt, FaUserPlus, FaSignOutAlt, FaClipboardList, FaPhone } from 'react-icons/fa';
+import { MdOutlineEventAvailable } from 'react-icons/md';
 import { useAuth } from '../context/AuthContext';
 
 function AdminPTORequests() {
@@ -38,6 +39,15 @@ function AdminPTORequests() {
     }
   };
 
+  const navButtons = [
+    { icon: <FaHome />, text: "Main", path: "/admin" },
+    { icon: <FaCalendarAlt />, text: "Team Schedule", path: "/teamschedule" },
+    { icon: <FaUserPlus />, text: "Register Nurse", path: "/register" },
+    { icon: <MdOutlineEventAvailable />, text: "PTO Requests", path: "/ptorequests" },
+    { icon: <FaPhone />, text: "Call-In Pool", path: "/callinpage" },
+    { icon: <FaUserPlus />, text: "Delete Nurse", path: "/deletenurse" }
+  ];
+
   return (
     <div style={{ display: 'flex', height: '100vh', fontFamily: "'Segoe UI', sans-serif" }}>
       {/* Sidebar */}
@@ -55,41 +65,18 @@ function AdminPTORequests() {
             <img src={logo} alt="NICU Logo" style={{ height: "200px", objectFit: "contain" }} />
           </div>
 
-          <button
-            onClick={() => navigate("/admin")}
-            onMouseEnter={() => setHoveredBtn("main")}
-            onMouseLeave={() => setHoveredBtn(null)}
-            style={sidebarButtonStyle(false, hoveredBtn === "main")}
-          >
-            <FaHome style={{ marginRight: "8px" }} /> Main
-          </button>
-
-          <button
-            onClick={() => navigate("/teamschedule")}
-            onMouseEnter={() => setHoveredBtn("schedule")}
-            onMouseLeave={() => setHoveredBtn(null)}
-            style={sidebarButtonStyle(false, hoveredBtn === "schedule")}
-          >
-            <FaCalendarAlt style={{ marginRight: "8px" }} /> Team Schedule
-          </button>
-
-          <button
-            onClick={() => navigate("/register")}
-            onMouseEnter={() => setHoveredBtn("register")}
-            onMouseLeave={() => setHoveredBtn(null)}
-            style={sidebarButtonStyle(false, hoveredBtn === "register")}
-          >
-            <FaUserPlus style={{ marginRight: "8px" }} /> Register Nurse
-          </button>
-
-          <button
-            disabled
-            onMouseEnter={() => setHoveredBtn("pto")}
-            onMouseLeave={() => setHoveredBtn(null)}
-            style={sidebarButtonStyle(true, hoveredBtn === "pto")}
-          >
-            <FaClipboardList style={{ marginRight: "8px" }} /> PTO Requests
-          </button>
+          {navButtons.map((btn, index) => (
+            <button
+              key={index}
+              onClick={() => navigate(btn.path)}
+              onMouseEnter={() => setHoveredBtn(index)}
+              onMouseLeave={() => setHoveredBtn(null)}
+              style={sidebarButtonStyle(btn.path === "/ptorequests", hoveredBtn === index)}
+            >
+              {btn.icon}
+              <span style={{ marginLeft: "8px" }}>{btn.text}</span>
+            </button>
+          ))}
         </div>
 
         <button
@@ -106,7 +93,7 @@ function AdminPTORequests() {
       <div style={pageStyle}>
         <h1 style={titleStyle}>Review PTO Requests</h1>
 
-        {/* Pending */}
+        {/* Pending Requests */}
         <h2 style={sectionTitleStyle}>Pending Requests</h2>
         {pendingRequests.length === 0 ? (
           <p>No pending requests.</p>
@@ -182,6 +169,7 @@ function AdminPTORequests() {
   );
 }
 
+// Styles
 const sidebarButtonStyle = (active = false, hover = false) => ({
   width: "100%",
   marginBottom: "12px",
