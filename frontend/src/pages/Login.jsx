@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -6,43 +6,42 @@ import logo from '../assets/FullLogo_Transparent.png';
 import { FaExclamationTriangle, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [capsLockOn, setCapsLockOn] = useState(false);
+  const [error, setError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-// creates blank input
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [capsLockOn, setCapsLockOn] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
-    const [error, setError] = useState(null);
-    const { login } = useAuth();
-    const navigate = useNavigate();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError(null);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        setError(null);
+    try {
+      const res = await axios.post('/login', { username, password });
+      const userData = res.data;
 
-        const form = { username, password };
+      login(userData);
 
-        try {
-            const res = await axios.post('/login', form);
-            const userData = res.data;
+      if (userData.roles[0] === 'admin') {
+        navigate('/admin');
+      } else if (userData.roles[0] === 'user') {
+        navigate('/');
+      } else {
+        navigate('/unauthorized');
+      }
+    } catch (err) {
+      console.error('Login failed: ', err.response?.data || err.message);
+      setError(() => {
+        const msg = err.response?.data?.message;
+        return msg ? msg.charAt(0).toUpperCase() + msg.slice(1).replace(/\.?$/, '.') : "Login failed.";
+      });
+    }
+  };
 
-            //update auth state.
-            login(userData);
-        
-            if (userData.roles.includes('admin')) {
-                navigate('/admin');
-            } else if (userData.roles.includes('user')) {
-                navigate('/');
-            } else {
-                navigate('/unauthorized');
-            }
-        } catch (err) {
-            console.error('login failed: ', err.reponse?.data || err.message);
-        }
-    };
-
-    return (
-      <div
+  return (
+    <div
       style={{
         minHeight: '100vh',
         display: 'flex',

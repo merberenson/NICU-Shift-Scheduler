@@ -1,77 +1,234 @@
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import './NurseSchedule.css';
-import AdminLayout from '../components/AdminLayout';
-import CallInList from '../components/callInList';
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome } from "react-icons/fa";
+import { MdOutlineEventAvailable } from "react-icons/md";
+import logo from "../assets/FullLogo_Transparent.png";
 
 const NurseSchedule = () => {
-    const { user } = useAuth();
-    const [schedule, setSchedule] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [currentWeek, setCurrentWeek] = useState(new Date());
-    // Format as YYYY-MM-DD
-    const currentDate = new Date()
-    const formattedDate = currentDate.toISOString().split('T')[0]
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-    const goToPreviousWeek = () => {
-      const newWeek = new Date(currentWeek);
-      newWeek.setDate(newWeek.getDate() - 7);
-      setCurrentWeek(newWeek);
-    };
+  const [selectedDate, setSelectedDate] = useState({
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1
+  });
+  const [scheduleData, setScheduleData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    const goToNextWeek = () => {
-      const newWeek = new Date(currentWeek);
-      newWeek.setDate(newWeek.getDate() + 7);
-      setCurrentWeek(newWeek);
-    };
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      setLoading(true);
+      setError(null);
+      const formattedMonth = String(selectedDate.month).padStart(2, '0');
+      const apiUrl = `http://localhost:5000/api/schedule/${selectedDate.year}-${formattedMonth}/${user.userData.uid}`;
 
-    useEffect(() => {
-      const fetchSchedule = async () => {
-        try {   
-          console.log(user, user.userData._id, formattedDate) 
-          const response = await axios.get(`/api/schedule/${user.userData._id}/${formattedDate}`);
-          setSchedule(response.data.data);
-        } catch (err) {
-          setError(err.response?.data?.error || 'Failed to load schedule');
-        } finally {
-          setLoading(false);
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const responseData = await response.json();
+
+        if (responseData.success && Array.isArray(responseData.data)) {
+          setScheduleData(responseData.data);
+        } else {
+          setScheduleData([]);
+          throw new Error(responseData.message || "Invalid schedule data.");
         }
-      };
-        
-      fetchSchedule();
-    }, [user._id]);
+      } catch (e) {
+        setError("Failed to load schedule data. Please try again.");
+        setScheduleData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    if (loading) return <div className="loading">Loading schedule...</div>;
-    if (error) return <div className="error">Error: {error}</div>;
+    fetchSchedule();
+  }, [selectedDate]);
 
-    return (
-      <AdminLayout>
-      <div className="schedule-container">
-        <h2>Your Weekly Schedule</h2>
-        <div className="schedule-scroll">
-          {schedule.length > 0 ? (
-            schedule.map((shift, index) => (
-              <div key={index} className="shift-card">
-                <h3>{shift.dayOfWeek}</h3>
-                <p>{new Date(shift.date).toLocaleDateString()}</p>
-                <div className="shift-details">
-                  <p><strong>Shift:</strong> {shift.shiftType}</p>
-                  <p><strong>Time:</strong> {shift.startTime} - {shift.endTime}</p>
-                  <p><strong>Duration:</strong> {shift.duration}</p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No shifts scheduled for this week</p>
-          )}
+  const generateCalendarGrid = () => {
+    const { year, month } = selectedDate;
+    const daysInMonth = new Date(year, month, 0).getDate();
+    const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
+    const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+    const grid = [<div key="header" style={styles.calendarRow}>{weekDays.map(day => <div key={day} style={styles.calendarHeaderCell}>{day}</div>)}</div>];
+
+    const scheduleMap = (scheduleData || []).reduce((acc, shift) => {
+      const dayOfMonth = parseInt(shift.date.split('-')[2], 10);
+      acc[dayOfMonth] = shift.shiftType;
+      return acc;
+    }, {});
+
+    let dayCells = [];
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      dayCells.push(<div key={`empty-${i}`} style={styles.calendarCell}></div>);
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const shift = scheduleMap[day];
+      dayCells.push(
+        <div key={day} style={styles.calendarCell}>
+          <span style={styles.dayNumber}>{day}</span>
+          {shift || ''}
+        </div>
+      );
+    }
+
+    while (dayCells.length % 7 !== 0) {
+      dayCells.push(<div key={`empty-end-${dayCells.length}`} style={styles.calendarCell}></div>);
+    }
+
+    for (let i = 0; i < dayCells.length; i += 7) {
+      grid.push(<div key={`week-${i / 7}`} style={styles.calendarRow}>{dayCells.slice(i, i + 7)}</div>);
+    }
+
+    return grid;
+  };
+
+  const handleDateChange = (e) => {
+    const { name, value } = e.target;
+    setSelectedDate(prev => ({ ...prev, [name]: parseInt(value, 10) }));
+  };
+
+  return (
+    <div style={{ display: "flex", height: "100vh", fontFamily: "'Segoe UI', sans-serif" }}>
+      {/* Sidebar */}
+      <div style={{
+        width: "180px",
+        backgroundColor: "#c6c0e6ff",
+        padding: "20px 10px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-between"
+      }}>
+        <div style={{ width: "100%" }}>
+          <div style={{ marginBottom: "30px", display: "flex", justifyContent: "center" }}>
+            <img src={logo} alt="NICU Logo" style={{ height: "200px", objectFit: "contain" }} />
+          </div>
+
+          <button onClick={() => navigate("/")} style={sidebarButtonStyle(true)}>
+            <FaHome style={{ marginRight: "8px" }} /> Main
+          </button>
+          <button style={sidebarButtonStyle()} disabled>
+            <FaCalendarAlt style={{ marginRight: "8px" }} /> Weekly Schedule
+          </button>
+          <button onClick={() => navigate("/availability")} style={sidebarButtonStyle()}>
+            <FaUserEdit style={{ marginRight: "8px" }} /> Update Availability
+          </button>
+          <button onClick={() => navigate("/pto")} style={sidebarButtonStyle()}>
+            <MdOutlineEventAvailable style={{ marginRight: "8px" }} /> PTO Request
+          </button>
+        </div>
+
+        <button onClick={handleLogout} style={logoutButtonStyle}>
+          <FaSignOutAlt style={{ marginRight: "6px" }} /> Logout
+        </button>
+      </div>
+
+      {/* Main Content */}
+      <div style={{
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        padding: "120px 60px 20px",
+        position: "relative"
+      }}>
+        <div style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "50px",
+          backgroundColor: "#ffffff",
+          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontWeight: "bold",
+          fontSize: "1.2rem"
+        }}>
+          Schedule Viewer
+        </div>
+
+        <div style={{ fontSize: "1.6rem", fontWeight: "600", marginBottom: "20px", color: "#f50000ff" }}>
+          Monthly Schedule
+        </div>
+
+        <div style={styles.selectors}>
+          <select name="year" value={selectedDate.year} onChange={handleDateChange} style={styles.dropdown}>
+            {[...Array(10).keys()].map(i => {
+              const year = new Date().getFullYear() - 5 + i;
+              return <option key={year} value={year}>{year}</option>;
+            })}
+          </select>
+          <select name="month" value={selectedDate.month} onChange={handleDateChange} style={styles.dropdown}>
+            {[...Array(12).keys()].map(i => (
+              <option key={i + 1} value={i + 1}>{new Date(0, i).toLocaleString('default', { month: 'long' })}</option>
+            ))}
+          </select>
+        </div>
+
+        <div style={styles.calendarGrid}>
+          {loading ? <div style={styles.statusMessage}>Loading schedule...</div> : error ? <div style={{ ...styles.statusMessage, color: 'red' }}>{error}</div> : generateCalendarGrid()}
         </div>
       </div>
-      </AdminLayout>
-    );
+    </div>
+  );
+};
+
+const sidebarButtonStyle = (active = false) => ({
+  width: "100%",
+  marginBottom: "12px",
+  padding: "12px 14px",
+  backgroundColor: active ? "#dc2626" : "#dc2626",
+  color: "#fff",
+  border: "none",
+  borderRadius: "20px",
+  fontWeight: "bold",
+  fontSize: "0.85rem",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  cursor: "pointer",
+  boxShadow: "0 4px 10px rgba(255, 255, 255, 0.3)",
+  transition: "transform 0.2s, box-shadow 0.2s",
+  textAlign: "center"
+});
+
+const logoutButtonStyle = {
+  backgroundColor: "#dc2626",
+  color: "#fff",
+  border: "none",
+  borderRadius: "18px",
+  padding: "10px 20px",
+  marginTop: "20px",
+  fontSize: "0.8rem",
+  fontWeight: "bold",
+  cursor: "pointer",
+  boxShadow: "0 4px 10px rgba(255, 255, 255, 0.3)",
+  transition: "transform 0.2s, box-shadow 0.2s",
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center"
+};
+
+const styles = {
+  selectors: { display: 'flex', gap: '15px', marginBottom: '20px' },
+  dropdown: { padding: '10px', fontSize: '1rem', borderRadius: '8px', border: '1px solid #ccc' },
+  calendarGrid: { display: 'flex', flexDirection: 'column', flex: 1, border: '1px solid #e0e0e0', borderRadius: '8px' },
+  statusMessage: { display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', fontSize: '1.2rem', color: '#555' },
+  calendarRow: { display: 'flex', flex: 1 },
+  calendarHeaderCell: { flex: 1, padding: '10px', textAlign: 'center', fontWeight: 'bold', background: '#f5f5f5', borderBottom: '1px solid #e0e0e0', borderRight: '1px solid #e0e0e0' },
+  calendarCell: { flex: 1, borderRight: '1px solid #e0e0e0', borderBottom: '1px solid #e0e0e0', padding: '8px', position: 'relative', minHeight: '80px', display: 'flex', flexDirection: 'column', gap: '4px' },
+  dayNumber: { fontWeight: 'bold', fontSize: '0.9rem' }
 };
 
 export default NurseSchedule;

@@ -11,6 +11,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -21,10 +22,16 @@ const Register = () => {
     try {
       const res = await axios.post('/nurses', form);
       console.log('Registered:', res.data);
-      // login(res.data); // Optionally auto-login
-      // navigate('/'); // Optionally redirect
+      setError(null);
+      setSuccess('Registration successful!');
+      setName('');
+      setUsername('');
+      setPassword('');
+      setEmail('');
+      setPhone('');
     } catch (err) {
       console.error('Registration failed:', err.response?.data || err.message);
+      setSuccess(null);
       setError('Registration failed. Please try again.');
     }
   };
@@ -80,12 +87,11 @@ const Register = () => {
             alignItems: 'center',
           }}
         >
-          {[
-            ['Name', name, setName],
+          {[['Name', name, setName],
             ['Username', username, setUsername],
             ['Password', password, setPassword],
             ['Email', email, setEmail],
-            ['Phone', phone, setPhone],
+            ['Phone', phone, setPhone]
           ].map(([label, val, setter], i) => (
             <input
               key={i}
@@ -104,9 +110,14 @@ const Register = () => {
             />
           ))}
 
-          {error && (
-            <div style={{ color: 'red', fontSize: '14px', marginTop: '-8px' }}>
-              {error}
+          {(error || success) && (
+            <div style={{
+              color: error ? 'red' : '#186b3a',
+              fontSize: '14px',
+              marginTop: '-8px',
+              fontWeight: 'bold'
+            }}>
+              {error || success}
             </div>
           )}
 
