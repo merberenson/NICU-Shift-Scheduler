@@ -1,6 +1,7 @@
 const routes = require('./routes/loginRoutes');
 const ptoRoutes = require('./routes/pto');
 const schedulingRoutes = require('./routes/schedulingRoutes');
+const callInRoutes = require('./routes/callInRoutes');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
@@ -10,7 +11,7 @@ const initalizeApp = () => {
 
 const app = express();
 const PORT = 5000;
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/rsdb';
+const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/NICU-db';
 
 app.use(express.json());
 
@@ -43,6 +44,7 @@ app.get('/api/hello', (req, res) => {
 app.use('/', routes);
 app.use('/api/pto', ptoRoutes);
 app.use('/api', schedulingRoutes); 
+app.use('/callins', callInRoutes);
 return app;
 }
 
