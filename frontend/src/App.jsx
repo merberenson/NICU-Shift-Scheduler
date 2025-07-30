@@ -20,6 +20,9 @@ import NurseSchedule from './pages/NurseSchedule';
 import AdminSchedule from './pages/AdminSchedule';
 import AdminPTORequests from './pages/AdminPTORequests'; // ✅ NEW: import the admin PTO view page
 
+import CallOutPage from './pages/CallOutPage';
+
+
 function App() {
   return (
     <AuthProvider>
@@ -48,6 +51,8 @@ function App() {
             {/* Your custom routes under nurse role */}
             <Route path="/availability" element={<UpdateAvailability />} />
             <Route path="/updateInfo" element={<UpdateInfo />} />
+            
+            <Route path="/callout" element={<CallOutPage />} /> 
           </Route>
         </Routes>
       </Router>

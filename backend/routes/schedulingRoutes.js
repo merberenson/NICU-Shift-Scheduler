@@ -5,4 +5,5 @@ const { getMonthlySchedule, getNurseShifts } = require('../controllers/schedulin
 router.get('/schedule/:yearmonth', getMonthlySchedule);
 router.get('/schedule/:yearmonth/:empId', getNurseShifts);
 
+
 module.exports = router;
