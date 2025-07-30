@@ -8,9 +8,9 @@ const daysOfWeek = [
 ];
 
 const timeOptions = [
-  { value: "day", label: "DAY" },
-  { value: "night", label: "NIGHT" },
-  { value: "unavailable", label: "UNAVAILABLE" }
+  { value: "day", label: "Day (7am-7pm)" },
+  { value: "night", label: "Night (7pm-7am)" },
+  { value: "unavailable", label: "Unavailable" }
 ];
 
 const UpdateAvailability = () => {
