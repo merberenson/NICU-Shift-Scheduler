@@ -22,6 +22,8 @@ const UpdateAvailability = () => {
     daysOfWeek.map(day => ({ dayOfWeek: day, timeOfDay: "unavailable" }))
   );
 
+  const [success, setSuccess] = useState(false);
+
   useEffect(() => {
     const fetchAvailability = async () => {
       try {
@@ -51,6 +53,8 @@ const UpdateAvailability = () => {
       const nurseId = user.userData._id;
       const response = await axios.patch(`/nurses/${nurseId}/availability`, { availability });
       console.log("Updated availability: ", response.data);
+      setSuccess(true);
+      setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
       console.error("Update failed: ", err.response?.data || err.message);
     }
@@ -94,6 +98,23 @@ const UpdateAvailability = () => {
 
       {/* Main Content */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column", padding: "120px 60px 20px", position: "relative" }}>
+        {success && (
+          <div style={{
+            position: "absolute",
+            top: "40px",
+            right: "40px",
+            backgroundColor: "#4BB543",
+            color: "#fff",
+            padding: "12px 24px",
+            borderRadius: "10px",
+            fontWeight: "bold",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+            zIndex: 1000
+          }}>
+             Availability updated successfully!
+          </div>
+        )}
+
         <form onSubmit={handleUpdateAvailability} style={{
           maxWidth: "600px",
           margin: "0 auto",
