@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaHome, FaCalendarAlt, FaUserEdit, FaSignOutAlt } from "react-icons/fa";
 import { MdOutlineEventAvailable } from "react-icons/md";
@@ -26,7 +26,7 @@ const PTORequestPage = () => {
     });
 
     if (res.ok) {
-      setMessage("✅ PTO request submitted!");
+      setMessage("✅ Request submitted successfully!");
       setStartDate("");
       setEndDate("");
       setReason("");
@@ -91,6 +91,7 @@ const PTORequestPage = () => {
             borderRadius: 20,
             padding: "30px 36px",
             boxShadow: "0 4px 18px rgba(0,0,0,0.1)",
+            position: "relative",
           }}
         >
           <h2 style={{ textAlign: "center", marginBottom: 26, fontWeight: "bold", color: "#dc2626" }}>
@@ -151,7 +152,16 @@ const PTORequestPage = () => {
           </div>
 
           {message && (
-            <div style={{ marginTop: 18, textAlign: "center", fontWeight: "bold", color: message.startsWith("✅") ? "#186b3a" : "#c42a3d" }}>
+            <div style={{
+              position: "absolute",
+              top: "-40px",
+              left: 0,
+              right: 0,
+              margin: "auto",
+              textAlign: "center",
+              fontWeight: "bold",
+              color: message.startsWith("✅") ? "#186b3a" : "#c42a3d",
+            }}>
               {message}
             </div>
           )}
@@ -161,7 +171,6 @@ const PTORequestPage = () => {
   );
 };
 
-// Shared styling
 const sidebarButtonStyle = (active = false) => ({
   width: "100%",
   marginBottom: "12px",
