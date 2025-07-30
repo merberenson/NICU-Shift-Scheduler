@@ -1,0 +1,67 @@
+.schedule-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.schedule-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 20px 0;
+    scrollbar-width: thin;
+    scrollbar-color: #4a90e2 #f0f0f0;
+}
+
+.schedule-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.schedule-scroll::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.schedule-scroll::-webkit-scrollbar-thumb {
+    background-color: #4a90e2;
+    border-radius: 10px;
+}
+
+.shift-card {
+    min-width: 200px;
+    padding: 15px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex: 0 0 auto;
+    transition: transform 0.2s;
+}
+
+.shift-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.shift-card h3 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+.shift-details {
+    margin-top: 10px;
+}
+
+.shift-details p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.loading, .error {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.2rem;
+}
+
+.error {
+    color: #e74c3c;
+}

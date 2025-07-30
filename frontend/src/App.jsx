@@ -19,6 +19,7 @@ import PTORequestPage from './pages/PTORequestPage';
 import NurseSchedule from './pages/NurseSchedule';
 import AdminSchedule from './pages/AdminSchedule';
 import AdminPTORequests from './pages/AdminPTORequests'; // ✅ NEW: import the admin PTO view page
+import NurseScheduleViewer from './pages/WeeklySchedule';
 
 function App() {
   return (
@@ -44,8 +45,7 @@ function App() {
             <Route path="/" element={<NurseMain />} />
             <Route path="/pto" element={<PTORequestPage />} />
             <Route path="/schedule" element={<NurseSchedule />} />
-
-            {/* Your custom routes under nurse role */}
+            <Route path="/weeklyschedule/:nurseId/:startDate" element={<NurseScheduleViewer />} />
             <Route path="/availability" element={<UpdateAvailability />} />
             <Route path="/updateInfo" element={<UpdateInfo />} />
           </Route>

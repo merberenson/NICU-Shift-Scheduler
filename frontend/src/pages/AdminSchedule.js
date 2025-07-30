@@ -204,6 +204,9 @@ const AdminSchedule = () => {
         <div style={styles.calendarGrid}>
           {loading ? <div style={styles.statusMessage}>Loading schedule...</div> : error ? <div style={{ ...styles.statusMessage, color: 'red' }}>{error}</div> : generateCalendarGrid()}
         </div>
+        <div style={styles.buttonContainer}>
+            <CallInModalTrigger />
+        </div>
       </div>
     </div>
   );

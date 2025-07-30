@@ -2,10 +2,11 @@ const Nurse = require('../database/models/nurse');
 const Work = require('../database/models/workDay');
 const Assignment = require('../database/models/workAssignment');
 const CallIn = require('../database/models/callIn');
+const PTORequest = require('../database/models/PTORequest');
 
 getCallInList = async (date, shiftType) => {
     try {
-      
+      queryDate = new Date(date);
       const dateFormats = [
         date, // Original format (YYYY-MM-DD)
         new Date(date).toISOString(), // ISO format
@@ -32,9 +33,18 @@ getCallInList = async (date, shiftType) => {
       //Get all nurses assigned to this workday
       const assignedNurses = await Assignment.find({ workID: workday._id }).distinct('empID');
 
+      // Get nurses with approved PTO for this date
+      const nursesOnPTO = await PTORequest.find({
+        status: 'Approved',
+        startDate: { $lte: queryDate },
+        endDate: { $gte: queryDate }
+      }).distinct('nurseId');
+
+      console.log(`Excluding ${nursesOnPTO.length} nurses due to PTO`);
+
       //Find nurses not assigned to this workday
       const unassignedNurses = await Nurse.find({
-        _id: { $nin: assignedNurses }
+        _id: { $nin: [...assignedNurses, ...nursesOnPTO ]}
       });
 
       //Get day of week from the date
@@ -46,33 +56,19 @@ getCallInList = async (date, shiftType) => {
         
         //Check if nurse is available for this shift type and hasn't exceeded max hours
         return availability && 
-               (availability.timeOfDay === shiftType || availability.timeOfDay === 'day') &&
-               (nurse.maxWeeklyHours === undefined || 
-                nurse.currentWeeklyHours + getShiftHours(shiftType) <= nurse.maxWeeklyHours);
+          (availability.timeOfDay === shiftType || availability.timeOfDay === 'day') &&
+          (nurse.maxWeeklyHours === undefined || 
+          nurse.currentWeeklyHours + getShiftHours(shiftType) <= nurse.maxWeeklyHours);
       });
 
       // Get or create call-in records for these nurses
-      const callIns = await Promise.all(
-        availableNurses.map(async nurse => {
-          let callIn = await CallIn.findOne({ 
-            workID: workday._id, 
-            empID: nurse._id 
-          });
+      // Get existing call-in records
+      const nurseIds = availableNurses.map(n => n._id);
+      const callIns = await CallIn.find({
+        workID: workday._id,
+        empID: { $in: nurseIds }
+      });
           
-          if (!callIn) {
-            callIn = new CallIn({
-              workID: workday._id,
-              empID: nurse._id,
-              status: 'available'
-            });
-            await callIn.save();
-          }
-          
-          return callIn;
-        })
-      );
-
-      //Return nurses with their call-in status
       return availableNurses.map(nurse => {
         const callIn = callIns.find(ci => ci.empID.equals(nurse._id));
         return {
@@ -84,11 +80,10 @@ getCallInList = async (date, shiftType) => {
             currentWeeklyHours: nurse.currentWeeklyHours,
             maxWeeklyHours: nurse.maxWeeklyHours
           },
-          callInStatus: callIn ? callIn.status : 'available',
+          callInStatus: callIn?.status || 'available',
           workdayId: workday._id
         };
-    });
-
+      });
     } catch (error) {
       console.error('Error in getAvailableNurses:', error);
       throw error;
@@ -147,7 +142,7 @@ function getDayOfWeek(dateString) {
 
 function getShiftHours(shiftType) {
   // Assuming day shift is 8 hours and night shift is 12 hours
-  return shiftType === 'day' ? 8 : 12;
+  return 12;
 }
 
 module.exports = { getCallInList, updateCallInStatus, getDayOfWeek, getShiftHours };

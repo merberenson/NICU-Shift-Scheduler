@@ -1,182 +1,115 @@
 const Nurse = require('../database/models/nurse');
-const Work = require('../database/models/workDay');
-const Assigned = require('../database/models/workAssignment');
+const workDay = require('../database/models/workDay');
+const Assignment = require('../database/models/workAssignment');
 const mongoose = require('mongoose');
 
-/**
- * @route   GET /api/nurses/all/:yearmonth
- * @desc    Fetches full schedule for a given year-month (e.g., 2025-07)
- * @access  Public
- */
+
+const getNurseSchedule = async (req, res) => {
+    try {
+        const { nurseId, startDate } = req.params;
+        
+        console.log(nurseId, startDate)
+        // Validate inputs
+        if (!mongoose.Types.ObjectId.isValid(nurseId)) {
+            return res.status(400).json({ success: false, message: 'Invalid nurse ID' });
+        }
+
+        // Calculate date range for the week (assuming startDate is in YYYY-MM-DD format)
+        const start = new Date(startDate);
+        if (isNaN(start.getTime())) {
+            return res.status(400).json({ success: false, error: 'Invalid start date' });
+        }
+
+        const end = new Date(start);
+        end.setDate(start.getDate() + 6); // Get the end of the week
+
+        // Get all assignments for this nurse
+        const assignments = await Assignment.find({ 
+            empID: nurseId 
+        }).populate({
+            path: 'workID',
+            match: { 
+                date: { 
+                    $gte: start.toISOString().split('T')[0], 
+                    $lte: end.toISOString().split('T')[0] 
+                } 
+            }
+        });
+
+        // Filter out assignments without workdays, and format.
+        const schedule = assignments
+        .filter(a => a.workID !== null)
+        .map(assignment => ({
+                date: assignment.workID.date,
+                dayOfWeek: new Date(assignment.workID.date).toLocaleDateString('en-US', { weekday: 'long' }),
+                shiftType: assignment.workID.shiftType,
+                startTime: assignment.workID.shiftType === 'day' ? '7:00 AM' : '7:00 PM',
+                endTime: assignment.workID.shiftType === 'day' ? '7:00 PM' : '7:00 AM',
+                duration: '12 hours'
+            }))
+            .sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        
+
+        res.status(200).json({ 
+            success: true, 
+            data: schedule 
+        });
+        
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, error: 'Failed to retrieve nurse schedule' });
+    }
+};
 
 const getMonthlySchedule = async (req, res) => {
     try {
-        const { yearmonth } = req.params;
-        console.log(`Fetching schedule for: ${yearmonth}`);
-
-        const schedule = await Work.aggregate([
-            {
-                $match: {
-                    date: new RegExp('^' + yearmonth)
-                }
-            },
-            {
-                $lookup: {
-                    from: 'assignments',
-                    localField: 'workID',
-                    foreignField: 'workID',
-                    as: 'assignedDocs'
-                }
-            },
-            {
-                $unwind: {
-                    path: '$assignedDocs',
-                    preserveNullAndEmptyArrays: true
-                }
-            }, 
-            {
-                $lookup: {
-                    from: 'nurses',
-                    localField: 'assignedDocs.empID',
-                    foreignField: '_id',
-                    as: 'nurseInfo'
-                }
-            },
-            {
-                $unwind: {
-                    path: '$nurseInfo',
-                    preserveNullAndEmptyArrays: true
-                }
-            },
-            {
-                $group: {
-                    _id: '$workID',
-                    date: { $first: '$date' },
-                    shiftType: { $first: '$shiftType' },
-                    requiredEmployees: { $first: '$requiredEmployees' },
-                    assigned: {
-                        $push: {
-                            $cond: [
-                                { $ifNull: ['$nurseInfo._id', false] },
-                                {
-                                    empID: '$nurseInfo._id',
-                                    name: '$nurseInfo.name',
-                                    phone: '$nurseInfo.phone'
-                                },
-                                '$$REMOVE'
-                            ]
-                        }
-                    }
-                }
-            },
-            {
-                $project: {
-                    _id: 0,
-                    workID: '$_id',
-                    date: 1,
-                    shiftType: 1,
-                    requiredEmployees: 1,
-                    assigned: 1
-                }
-            },
-            {
-                $sort: { date: 1 }
-            }
-        ]);
-
-        if (!schedule.length) {
-            return res.status(404).json({
-                success: false,
-                message: `No schedule data found for ${yearmonth}.`
-            });
+        const { startDate } = req.params;
+        
+        console.log(startDate)
+        // Calculate date range for the week (assuming startDate is in YYYY-MM-DD format)
+        const start = new Date(startDate);
+        console.log(start)
+        if (isNaN(start.getTime())) {
+            return res.status(400).json({ success: false, error: 'Invalid start date' });
         }
 
-        res.status(200).json({
-            success: true,
-            message: `Retrieved ${schedule.length} shifts.`,
-            data: schedule
+
+        const end = new Date(start);
+        end.setMonth(end.getMonth() + 1);
+        end.setDate(0);
+
+        const assignments = await Assignment.find({}).populate({
+            path: 'workID',
+            match: { 
+                date: { 
+                    $gte: start.toISOString().split('T')[0], 
+                    $lte: end.toISOString().split('T')[0] 
+                } 
+            }
         });
 
-    } catch (error) {
-        console.error('Error fetching monthly schedule:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Server error fetching monthly schedule.',
-            error: error.message
+        // Filter out assignments without workdays (due to the match condition)
+        const filteredAssignments = assignments.filter(a => a.workID !== null);
+
+        // Format the response
+        const schedule = filteredAssignments.map(assignment => ({
+            date: assignment.workID.date,
+            shiftType: assignment.workID.shiftType,
+            assignedBy: assignment.assignedby,
+            assignmentTime: assignment.timestamp,
+            nurseId: assignment.empID
+        }));
+
+        res.status(200).json({ 
+            success: true, 
+            data: schedule 
         });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, error: 'Failed to retrieve monthly schedule '})
     }
 };
 
-
-/**
- * @route   GET /api/nurse/:yearmonth/:empId
- * @desc    Fetches all shifts for a specific nurse during a month.
- * @access  Public
- */
-
-const getNurseShifts = async (req, res) => {
-    try {
-        const { yearmonth, empId } = req.params;
-        console.log(`Received request for nurse shifts for year/month: ${yearmonth} and empId: ${empId}`);
-
-
-        const nurse = await Nurse.findById(empId);
-        if (!nurse) {
-            return res.status(404).json({
-                success: false,
-                message: 'Nurse not found.'
-            });
-        }
-
-        const shifts = await Assigned.aggregate([
-            {
-                $match: { empID: new mongoose.Types.ObjectId(empId) }
-            },
-            {
-                $lookup: {
-                    from: 'workdays',
-                    localField: 'workID',
-                    foreignField: 'workID',
-                    as: 'workdayInfo'
-                }
-            },
-            {
-                $unwind: '$workdayInfo'
-            },
-            {
-                $match: {
-                    'workdayInfo.date': new RegExp('^' + yearmonth)
-                }
-            },
-            {
-                $project: {
-                    _id: 0,
-                    date: '$workdayInfo.date',
-                    shiftType: '$workdayInfo.shiftType'
-                }
-            },
-            {
-                $sort: { date: 1 }
-            }
-        ]);
-
-        if (!nurseShifts) {
-            return res.status(404).json({ success: false, message: 'Shift collection is not defined for this Nurse.' });
-        }
-
-        res.status(200).json({
-            success: true,
-            message: `Found ${shifts.length} shifts for nurse ${empId} in ${yearmonth}.`,
-            data: shifts
-        });
-
-    } catch (error) {
-        console.error('Error fetching nurse shifts:', error);
-        if (error.name === 'CastError') {
-            return res.status(400).json({ success: false, message: 'Invalid nurse ID.', error: error.message });
-        }
-        res.status(500).json({ success: false, message: 'Server error fetching nurse shifts.', error: error.message });
-    }
-};
-
-module.exports = { getMonthlySchedule, getNurseShifts }
+module.exports = { getNurseSchedule, getMonthlySchedule };

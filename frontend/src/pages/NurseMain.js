@@ -6,7 +6,7 @@ import { MdOutlineEventAvailable } from "react-icons/md";
 import logo from "../assets/FullLogo_Transparent.png"; // Adjust path as needed
 
 const NurseMain = () => {
-  const { nurse, logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [hoveredBtn, setHoveredBtn] = useState(null);
@@ -22,6 +22,24 @@ const NurseMain = () => {
     logout();
     navigate("/login");
   };
+  const handleWeeklySchedule = () => {
+    console.log(user.userData, user.userData._id)
+    if (user && user.userData._id) {
+      const today = new Date();
+      const startDate = today.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+      navigate(`/weeklyschedule/${user.userData._id}/${startDate}`);
+    } else {
+      console.error("user ID not available");
+      // Handle error or show message to user
+    }
+  };
+
+  const sidebarButtons = [
+    { icon: <FaHome />, text: "Main", action: () => navigate("/") },
+    { icon: <FaCalendarAlt />, text: "Weekly Schedule", action: handleWeeklySchedule },
+    { icon: <FaUserEdit />, text: "Update Availability", action: () => navigate("/availability") },
+    { icon: <MdOutlineEventAvailable />, text: "PTO Request", action: () => navigate("/pto") }
+  ];
 
   const formatTime = (date) => {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
@@ -55,16 +73,10 @@ const NurseMain = () => {
             />
           </div>
 
-          {/* Sidebar Buttons */}
-          {[
-            { icon: <FaHome />, text: "Main", path: "/" },
-            { icon: <FaCalendarAlt />, text: "Weekly Schedule", path: "/schedule" },
-            { icon: <FaUserEdit />, text: "Update Availability", path: "/availability" },
-            { icon: <MdOutlineEventAvailable />, text: "PTO Request", path: "/pto" }
-          ].map((btn, index) => (
+          {sidebarButtons.map((btn, index) => (
             <button
               key={index}
-              onClick={() => navigate(btn.path)}
+              onClick={btn.action}
               onMouseEnter={() => setHoveredBtn(index)}
               onMouseLeave={() => setHoveredBtn(null)}
               style={sidebarButtonStyle(index === 0, hoveredBtn === index)}
@@ -156,7 +168,7 @@ const NurseMain = () => {
       </div>
     </div>
   );
-};
+}
 
 // Sidebar Button Styling with Hover Support
 const sidebarButtonStyle = (active = false, hover = false) => ({
