@@ -3,9 +3,28 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import CallInPage from './CallInPage';
 import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome } from "react-icons/fa";
 import { MdOutlineEventAvailable } from "react-icons/md";
 import logo from "../assets/FullLogo_Transparent.png";
+
+const CallInModalTrigger = () => {
+    const [showModal, setShowModal] = useState(false);
+
+    return (
+        <div>
+            <button 
+                onClick={() => setShowModal(true)}
+                className="open-modal-button"
+            >
+            Find Available Nurses
+            </button>
+
+        {showModal && <CallInPage onClose={() => setShowModal(false)} />}
+        </div>
+    );
+};
+
 
 const AdminSchedule = () => {
   const { user, logout } = useAuth();

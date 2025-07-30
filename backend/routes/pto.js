@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const PTORequest = require('../models/PTORequest');
+const PTORequest = require('../database/models/PTORequest');
 
 // Create a PTO request
 router.post('/', async (req, res) => {
