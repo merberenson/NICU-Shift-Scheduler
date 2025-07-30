@@ -18,8 +18,23 @@ router.post('/', async (req, res) => {
 // Get all PTO requests
 router.get('/', async (req, res) => {
   try {
-    const ptos = await PTORequest.find().populate('nurseId');
+    const ptos = await PTORequest.find().populate('nurseId', 'name');
     res.json(ptos);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Update PTO status
+router.put('/:id', async (req, res) => {
+  try {
+    const { status } = req.body;
+    const updated = await PTORequest.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+    res.json(updated);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

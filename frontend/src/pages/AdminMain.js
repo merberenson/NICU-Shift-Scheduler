@@ -1,252 +1,182 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-
-// Dummy action handlers for demo
-function handleEdit() {
-  alert("Edit Admin Info - Not Implemented Yet!");
-}
+import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome } from "react-icons/fa";
+import { MdOutlineEventAvailable } from "react-icons/md";
+import logo from "../assets/FullLogo_Transparent.png";
 
 const AdminMain = ({ adminInfo }) => {
-    const { user, logout } = useAuth();
-    const navigate = useNavigate();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [hoveredBtn, setHoveredBtn] = useState(null);
 
-    const handleLogout = () => {
-        logout();
-        navigate('/logout');
-    };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-    const handleSchedule = () => {
-        navigate('/teamschedule');
-    };
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
-    const handleRegister = () => {
-        navigate('/register')
-    }
+  const formatTime = (date) => {
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  };
 
-    return (
-    <div style={{
-        minHeight: "100vh",
-        background: "#232323",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-    }}>
-        <div style={{
-        background: "#fff",
-        width: "96vw",
-        height: "92vh",
-        display: "flex",
-        flexDirection: "column",
-        boxShadow: "0 0 24px #1d1d1d22",
-        borderRadius: "0"
-        }}>
-        {/* Header */}
-        <div style={{
-            padding: "36px 60px 0 48px",
+  const formatDate = (date) => {
+    return date.toLocaleDateString();
+  };
+
+  const navButtons = [
+    { icon: <FaHome />, text: "Main", path: "/adminmain" },
+    { icon: <FaCalendarAlt />, text: "Team Schedule", path: "/teamschedule" },
+    { icon: <FaUserEdit />, text: "Register Nurse", path: "/register" },
+    { icon: <MdOutlineEventAvailable />, text: "PTO Requests", path: "/ptorequests" }
+  ];
+
+  return (
+    <div style={{ display: "flex", height: "100vh", fontFamily: "'Segoe UI', sans-serif" }}>
+      {/* Sidebar */}
+      <div
+        style={{
+          width: "180px",
+          backgroundColor: "#c6c0e6ff",
+          padding: "20px 10px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "space-between"
+        }}
+      >
+        <div style={{ width: "100%", alignItems: "center" }}>
+          <div style={{ marginBottom: "30px", display: "flex", justifyContent: "center" }}>
+            <img src={logo} alt="NICU Logo" style={{ height: "200px", objectFit: "contain" }} />
+          </div>
+
+          {navButtons.map((btn, index) => (
+            <button
+              key={index}
+              onClick={() => navigate(btn.path)}
+              onMouseEnter={() => setHoveredBtn(index)}
+              onMouseLeave={() => setHoveredBtn(null)}
+              style={sidebarButtonStyle(false, hoveredBtn === index)}
+            >
+              {btn.icon}
+              <span style={{ marginLeft: "8px" }}>{btn.text}</span>
+            </button>
+          ))}
+        </div>
+
+        <button
+          onClick={handleLogout}
+          onMouseEnter={() => setHoveredBtn("logout")}
+          onMouseLeave={() => setHoveredBtn(null)}
+          style={logoutButtonStyle(hoveredBtn === "logout")}
+        >
+          <FaSignOutAlt style={{ marginRight: "6px" }} /> Logout
+        </button>
+      </div>
+
+      {/* Main Content */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          alignItems: "flex-start",
+          padding: "120px 0 0 60px",
+          position: "relative"
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "50px",
+            backgroundColor: "#ffffff",
+            boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
             display: "flex",
+            justifyContent: "center",
             alignItems: "center",
-            justifyContent: "space-between"
-        }}>
-            <span style={{
-            fontWeight: 400,
-            fontSize: "2.55rem",
-            color: "#222",
-            letterSpacing: "0.4px"
-            }}>
-            NICU Schedule Admin Portal
-            </span>
-            <button
-            onClick={handleEdit}
-            style={{
-                background: "#3BC16C",
-                color: "#fff",
-                border: "none",
-                borderRadius: "7px",
-                padding: "9px 34px",
-                fontWeight: 500,
-                fontSize: "1.09rem",
-                cursor: "pointer",
-                boxShadow: "0 1px 7px #1dbd6b33",
-                transition: "background 0.16s"
-            }}
-            onMouseOver={e => e.currentTarget.style.background = "#249b48"}
-            onMouseOut={e => e.currentTarget.style.background = "#3BC16C"}
-            >
-            Edit
-            </button>
+            fontWeight: "bold",
+            fontSize: "1.2rem"
+          }}
+        >
+          Admin Dashboard
         </div>
-        {/* Body Layout */}
-        <div style={{
-            display: "flex",
-            flex: 1,
-            height: "100%",
-            alignItems: "flex-start"
-        }}>
-            {/* Sidebar */}
-            <div style={{
-            width: "305px",
-            background: "#929292",
-            height: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            borderRadius: "0 0 0 34px", // Only top left, no bottom
-            boxShadow: "6px 0 24px #ececec18"
-            }}>
-            <button
-                style={{
-                display: "flex",
-                alignItems: "center",
-                background: "#fff",
-                color: "#232323",
-                border: "none",
-                fontWeight: 600,
-                fontSize: "1.15rem",
-                borderRadius: "36px",
-                margin: "42px 0 18px 22px",
-                padding: "19px 50px",
-                boxShadow: "0 5px 16px #e4e4ed",
-                cursor: "pointer"
-                }}
-                disabled
-            >
-                <span style={{ fontSize: "1.55rem", marginRight: 15 }}>📁</span>
-                Main
-            </button>
-            <button
-                onClick={handleSchedule}
-                style={{
-                display: "flex",
-                alignItems: "center",
-                background: "transparent",
-                color: "#fff",
-                border: "none",
-                fontWeight: 400,
-                fontSize: "1.08rem",
-                borderRadius: "33px",
-                margin: "8px 0 0 32px",
-                padding: "17px 42px",
-                cursor: "pointer",
-                transition: "background 0.2s, color 0.2s"
-                }}
-                onMouseOver={e => {
-                e.currentTarget.style.background = "#e3e4e7";
-                e.currentTarget.style.color = "#232323";
-                }}
-                onMouseOut={e => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "#fff";
-                }}
-            >
-                <span style={{ fontSize: "1.38rem", marginRight: 13 }}>🗓️</span>
-                Schedule
-            </button>
-            <button
-                onClick={handleRegister}
-                style={{
-                display: "flex",
-                alignItems: "center",
-                background: "transparent",
-                color: "#fff",
-                border: "none",
-                fontWeight: 400,
-                fontSize: "1.08rem",
-                borderRadius: "33px",
-                margin: "8px 0 0 32px",
-                padding: "17px 42px",
-                cursor: "pointer",
-                transition: "background 0.2s, color 0.2s"
-                }}
-                onMouseOver={e => {
-                e.currentTarget.style.background = "#e3e4e7";
-                e.currentTarget.style.color = "#232323";
-                }}
-                onMouseOut={e => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "#fff";
-                }}
-            >
-                <span style={{ fontSize: "1.38rem", marginRight: 13 }}>🗓️</span>
-                Register Nurse
-            </button>
-            <div style={{ flex: 1 }} />
-            <button
-                onClick={handleLogout}
-                style={{
-                display: "flex",
-                alignItems: "center",
-                background: "transparent",
-                color: "#eea05b",
-                border: "none",
-                fontWeight: 400,
-                fontSize: "1.12rem",
-                borderRadius: "29px",
-                margin: "0 0 42px 32px",
-                padding: "15px 39px",
-                cursor: "pointer",
-                transition: "background 0.2s, color 0.2s"
-                }}
-                onMouseOver={e => {
-                e.currentTarget.style.background = "#fae4c2";
-                e.currentTarget.style.color = "#f96c27";
-                }}
-                onMouseOut={e => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "#eea05b";
-                }}
-            >
-                <span style={{ fontSize: "1.28rem", marginRight: 13 }}>🟫</span>
-                Logout
-            </button>
-            </div>
-            {/* Main Content - now left/top aligned */}
-            <div style={{
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
-            padding: "70px 0 0 60px",
-            position: "relative"
-            }}>
-            <div>
-                <div style={{
-                fontWeight: 400,
-                fontSize: "2.2rem",
-                marginBottom: 10,
-                color: "#232323",
-                textAlign: "left"
-                }}>
-                Admin INFO
-                </div>
-                <div style={{
-                fontSize: "1.48rem",
-                color: "#232323",
-                lineHeight: 1.34
-                }}>
-                : Number of Nurses{" "}
-                <span style={{ fontWeight: 500 }}>
-                    {adminInfo?.nurseCount ?? "--"}
-                </span>
-                </div>
-            </div>
-            {/* Down Arrow Bottom Right */}
-            <div style={{
-                position: "absolute",
-                right: "32px",
-                bottom: "22px",
-                color: "#a3a3a3",
-                fontSize: "2.1rem",
-                opacity: 0.8,
-                userSelect: "none"
-            }}>
-                <span>⌄</span>
-            </div>
-            </div>
+
+        <div style={{ position: "absolute", top: 10, right: 20, fontSize: "0.75rem", textAlign: "right" }}>
+          <div><strong>Date:</strong> {formatDate(currentTime)}</div>
+          <div><strong>Time:</strong> {formatTime(currentTime)}</div>
         </div>
+
+        <h2 style={{ fontSize: "1.6rem", fontWeight: "600", marginBottom: "20px", color: "#f50000ff" }}>
+          Welcome, Admin
+        </h2>
+
+        <div
+          style={{
+            background: "#fff",
+            borderRadius: "18px",
+            boxShadow: "0 4px 18px rgba(0, 0, 0, 0.08)",
+            padding: "20px 30px",
+            minWidth: "320px",
+            fontSize: "15px",
+            fontWeight: "500",
+            lineHeight: "1.7",
+            color: "#333"
+          }}
+        >
+          <div>Total Registered Nurses: <strong>{adminInfo?.nurseCount ?? "--"}</strong></div>
         </div>
-    </div>);
+      </div>
+    </div>
+  );
 };
+
+const sidebarButtonStyle = (active = false, hover = false) => ({
+  width: "100%",
+  marginBottom: "12px",
+  padding: "12px 14px",
+  backgroundColor: "#dc2626",
+  color: "#fff",
+  border: "none",
+  borderRadius: "20px",
+  fontWeight: "bold",
+  fontSize: "0.85rem",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  cursor: "pointer",
+  boxShadow: "0 4px 10px rgba(255, 255, 255, 0.3)",
+  transform: hover ? "scale(1.05)" : "scale(1)",
+  transition: "transform 0.2s ease, box-shadow 0.2s ease"
+});
+
+const logoutButtonStyle = (hover = false) => ({
+  backgroundColor: "#dc2626",
+  color: "#fff",
+  border: "none",
+  borderRadius: "18px",
+  padding: "10px 20px",
+  marginTop: "20px",
+  fontSize: "0.8rem",
+  fontWeight: "bold",
+  cursor: "pointer",
+  boxShadow: "0 4px 10px rgba(255, 255, 255, 0.3)",
+  transition: "transform 0.2s, box-shadow 0.2s",
+  width: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  transform: hover ? "scale(1.05)" : "scale(1)"
+});
 
 export default AdminMain;
