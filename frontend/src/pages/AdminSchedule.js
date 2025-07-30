@@ -1,6 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import CallInPage from './CallInPage';
+
+const CallInModalTrigger = () => {
+    const [showModal, setShowModal] = useState(false);
+
+    return (
+        <div>
+            <button 
+                onClick={() => setShowModal(true)}
+                className="open-modal-button"
+            >
+            Find Available Nurses
+            </button>
+
+        {showModal && <CallInPage onClose={() => setShowModal(false)} />}
+        </div>
+    );
+};
 
 // Dummy action handlers for demo
 function handleEdit() {
@@ -404,6 +422,9 @@ const AdminSchedule = ({ nurse }) => {
                     ) : (
                         generateCalendarGrid()
                     )}
+                </div>
+                <div style={styles.buttonContainer}>
+                    <CallInModalTrigger />
                 </div>
             </div>
 
