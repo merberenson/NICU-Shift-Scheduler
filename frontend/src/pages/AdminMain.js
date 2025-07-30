@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome } from "react-icons/fa";
 import { MdOutlineEventAvailable } from "react-icons/md";
 import logo from "../assets/FullLogo_Transparent.png";
+import { FaPhone } from "react-icons/fa";
 
+
+// ...imports remain unchanged
 const AdminMain = ({ adminInfo }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -35,7 +38,9 @@ const AdminMain = ({ adminInfo }) => {
     { icon: <FaHome />, text: "Main", path: "/adminmain" },
     { icon: <FaCalendarAlt />, text: "Team Schedule", path: "/teamschedule" },
     { icon: <FaUserEdit />, text: "Register Nurse", path: "/register" },
-    { icon: <MdOutlineEventAvailable />, text: "PTO Requests", path: "/ptorequests" }
+    { icon: <MdOutlineEventAvailable />, text: "PTO Requests", path: "/ptorequests" },
+    { icon: <FaPhone />, text: "Call-In Pool", path: "/callinpage" }
+
   ];
 
   return (
@@ -141,6 +146,7 @@ const AdminMain = ({ adminInfo }) => {
   );
 };
 
+// Button Styles (unchanged)
 const sidebarButtonStyle = (active = false, hover = false) => ({
   width: "100%",
   marginBottom: "12px",

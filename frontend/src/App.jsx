@@ -18,7 +18,6 @@ import NotAuthorizedPage from './pages/NotAuthorized';
 import PTORequestPage from './pages/PTORequestPage';
 import NurseSchedule from './pages/NurseSchedule';
 import AdminSchedule from './pages/AdminSchedule';
-import AdminPTORequests from './pages/AdminPTORequests'; // ✅ NEW: import the admin PTO view page
 
 function App() {
   return (
@@ -36,7 +35,6 @@ function App() {
             <Route path="/admin" element={<AdminMain />} />
             <Route path="/teamschedule" element={<AdminSchedule />} />
             <Route path="/delete" element={<Delete />} />
-            <Route path="/ptorequests" element={<AdminPTORequests />} /> {/* ✅ NEW ROUTE */}
           </Route>
 
           {/* Nurse-protected routes */}

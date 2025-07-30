@@ -16,12 +16,12 @@ const CallInListViewer = ({ onClose }) => {
 
   const fetchNurses = async () => {
     if (!date || !shiftType) return;
-    
+
     try {
       setLoading(true);
       setError("");
-      const { data } = await axios.get('/callins/available', { 
-        params: { date, shiftType } 
+      const { data } = await axios.get('/callins/available', {
+        params: { date, shiftType }
       });
       setNurses(data);
     } catch (err) {
@@ -47,7 +47,7 @@ const CallInListViewer = ({ onClose }) => {
   };
 
   return (
-      <div className="modal-overlay">
+    <div className="modal-overlay">
       <div className="modal-content">
         <div className="modal-header">
           <h3>Call-In Nurse Finder</h3>
@@ -83,8 +83,8 @@ const CallInListViewer = ({ onClose }) => {
             </label>
           </div>
 
-          <button 
-            onClick={fetchNurses} 
+          <button
+            onClick={fetchNurses}
             disabled={!date || !shiftType || loading}
             className="fetch-button"
           >
@@ -105,7 +105,7 @@ const CallInListViewer = ({ onClose }) => {
                         <p>Phone: {nurse.phone}</p>
                         <p>Email: {nurse.email}</p>
                         <p>Hours: {nurse.currentWeeklyHours}/{nurse.maxWeeklyHours || '∞'}</p>
-                        <p>Status: 
+                        <p>Status:
                           <span className={`status-${callInStatus}`}>
                             {callInStatus}
                           </span>
@@ -138,4 +138,15 @@ const CallInListViewer = ({ onClose }) => {
   );
 };
 
-export default CallInListViewer;
+// ✅ Wrapper to enable routing and fix export error
+const CallInPage = () => {
+  const [isOpen, setIsOpen] = useState(true);
+
+  return (
+    <>
+      {isOpen && <CallInListViewer onClose={() => setIsOpen(false)} />}
+    </>
+  );
+};
+
+export default CallInPage;
