@@ -8,6 +8,7 @@ import { useAuth } from '../context/AuthContext';
 function AdminPTORequests() {
   const [ptoRequests, setPtoRequests] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const [hoveredBtn, setHoveredBtn] = useState(null);
   const navigate = useNavigate();
   const { logout } = useAuth();
 
@@ -54,21 +55,49 @@ function AdminPTORequests() {
             <img src={logo} alt="NICU Logo" style={{ height: "200px", objectFit: "contain" }} />
           </div>
 
-          <button onClick={() => navigate("/admin")} style={sidebarButtonStyle()}>
+          <button
+            onClick={() => navigate("/admin")}
+            onMouseEnter={() => setHoveredBtn("main")}
+            onMouseLeave={() => setHoveredBtn(null)}
+            style={sidebarButtonStyle(false, hoveredBtn === "main")}
+          >
             <FaHome style={{ marginRight: "8px" }} /> Main
           </button>
-          <button onClick={() => navigate("/teamschedule")} style={sidebarButtonStyle()}>
+
+          <button
+            onClick={() => navigate("/teamschedule")}
+            onMouseEnter={() => setHoveredBtn("schedule")}
+            onMouseLeave={() => setHoveredBtn(null)}
+            style={sidebarButtonStyle(false, hoveredBtn === "schedule")}
+          >
             <FaCalendarAlt style={{ marginRight: "8px" }} /> Team Schedule
           </button>
-          <button onClick={() => navigate("/register")} style={sidebarButtonStyle()}>
+
+          <button
+            onClick={() => navigate("/register")}
+            onMouseEnter={() => setHoveredBtn("register")}
+            onMouseLeave={() => setHoveredBtn(null)}
+            style={sidebarButtonStyle(false, hoveredBtn === "register")}
+          >
             <FaUserPlus style={{ marginRight: "8px" }} /> Register Nurse
           </button>
-          <button disabled style={sidebarButtonStyle(true)}>
+
+          <button
+            disabled
+            onMouseEnter={() => setHoveredBtn("pto")}
+            onMouseLeave={() => setHoveredBtn(null)}
+            style={sidebarButtonStyle(true, hoveredBtn === "pto")}
+          >
             <FaClipboardList style={{ marginRight: "8px" }} /> PTO Requests
           </button>
         </div>
 
-        <button onClick={() => { logout(); navigate("/login"); }} style={logoutButtonStyle}>
+        <button
+          onClick={() => { logout(); navigate("/login"); }}
+          onMouseEnter={() => setHoveredBtn("logout")}
+          onMouseLeave={() => setHoveredBtn(null)}
+          style={logoutButtonStyle(hoveredBtn === "logout")}
+        >
           <FaSignOutAlt style={{ marginRight: "6px" }} /> Logout
         </button>
       </div>
@@ -153,7 +182,7 @@ function AdminPTORequests() {
   );
 }
 
-const sidebarButtonStyle = (active = false) => ({
+const sidebarButtonStyle = (active = false, hover = false) => ({
   width: "100%",
   marginBottom: "12px",
   padding: "12px 14px",
@@ -166,12 +195,13 @@ const sidebarButtonStyle = (active = false) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  cursor: active ? "default" : "pointer",
+  cursor: "pointer",
   boxShadow: "0 4px 10px rgba(255, 255, 255, 0.3)",
-  transition: "transform 0.2s, box-shadow 0.2s",
+  transform: hover || active ? "scale(1.05)" : "scale(1)",
+  transition: "transform 0.2s ease, box-shadow 0.2s ease"
 });
 
-const logoutButtonStyle = {
+const logoutButtonStyle = (hover = false) => ({
   backgroundColor: "#dc2626",
   color: "#fff",
   border: "none",
@@ -186,7 +216,8 @@ const logoutButtonStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-};
+  transform: hover ? "scale(1.05)" : "scale(1)"
+});
 
 const pageStyle = {
   flex: 1,
