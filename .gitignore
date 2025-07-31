@@ -1,1 +1,25 @@
-mongodb_data/
+# Node.js
+backend/node_modules/
+frontend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store/
+build/
+dist/
+.env # Sensitive environment variables
+
+# MongoDB
+mongodb_data/ # Volume for MongoDB data
+dump/         # MongoDB dump files (if you create them)
+
+# Docker
+.dockerignore # If you have one per service, though often not needed in a monolithic .gitignore
+*.env         # Generic for any .env files used by Docker Compose
+docker-compose.override.yml # Often used for local development overrides, not meant for production
+
+# IDE and OS specific
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

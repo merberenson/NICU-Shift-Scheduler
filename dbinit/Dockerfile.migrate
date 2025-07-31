@@ -1,0 +1,18 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# 1. Copy ONLY the backend package files (from correct location)
+COPY backend/package*.json ./
+
+# 2. Install dependencies
+RUN npm install
+
+# 3. Copy migration files
+COPY dbinit/migrate.js ./migrate.js
+COPY dbinit/data/ ./data/
+
+# 4. Copy models (from their actual location)
+COPY backend/database/models/ ./models/
+
+CMD ["node", "migrate.js"]

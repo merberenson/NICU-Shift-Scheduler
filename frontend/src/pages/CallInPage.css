@@ -1,0 +1,187 @@
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content */
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal header */
+.modal-header {
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+/* Modal body */
+.modal-body {
+  padding: 16px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.date-input,
+.shift-select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+}
+
+.fetch-button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 16px;
+}
+
+.fetch-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #ef4444;
+  margin-bottom: 16px;
+}
+
+/* Nurses list */
+.nurses-list-container {
+  margin-top: 16px;
+}
+
+.nurses-list {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.nurse-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.nurse-card:last-child {
+  border-bottom: none;
+}
+
+.nurse-info h5 {
+  margin: 0 0 4px 0;
+}
+
+.call-button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.call-button.available {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.call-button:disabled {
+  background-color: #e5e7eb;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.status-available {
+  color: #10b981;
+  margin-left: 4px;
+}
+
+.status-called {
+  color: #f59e0b;
+  margin-left: 4px;
+}
+
+.no-nurses {
+  color: #6b7280;
+  text-align: center;
+  padding: 16px;
+}
+
+/* Modal footer */
+.modal-footer {
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-modal-button {
+  background-color: #e5e7eb;
+  color: #1f2937;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Open modal button */
+.open-modal-button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.open-modal-button:hover {
+  background-color: #2563eb;
+}
