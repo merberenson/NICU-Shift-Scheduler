@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { FaHome, FaCalendarAlt, FaUserEdit, FaSignOutAlt, FaSpinner, FaCheck, FaCheckCircle } from "react-icons/fa";
+import { FaHome, FaCalendarAlt, FaUserEdit, FaSignOutAlt, FaSpinner, FaCheck, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
 import { MdOutlineEventAvailable } from "react-icons/md";
 import logo from "../assets/FullLogo_Transparent.png";
 
@@ -189,6 +189,9 @@ export const UpdateAvailability = () => {
           </button>
           <button onClick={() => navigate("/pto")} style={sidebarButtonStyle()}>
             <MdOutlineEventAvailable style={{ marginRight: "8px" }} /> PTO Request
+          </button>
+          <button onClick={() => navigate("/call-out")} style={sidebarButtonStyle()}>
+            <FaExclamationTriangle style={{ marginRight: "8px" }} /> Emergency Call-Out
           </button>
         </div>
 

@@ -3,6 +3,7 @@ const ptoRoutes = require('./routes/pto');
 const schedulingRoutes = require('./routes/schedulingRoutes');
 const emergencyRoutes = require('./routes/emergencyRoutes');
 const nurseRoutes = require('./routes/nurseRoutes');
+const callOutRoutes = require('./routes/CallOutRoutes');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
@@ -58,6 +59,7 @@ app.use('/api/pto', ptoRoutes);
 app.use('/api', schedulingRoutes);
 app.use('/api/emergency', emergencyRoutes);
 app.use('/api/nurses', nurseRoutes);
+app.use('/api/callout', callOutRoutes);
 
 return app;
 }

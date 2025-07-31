@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome, FaSpinner, FaClock, FaClipboardList, FaCheckCircle } from "react-icons/fa";
+import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome, FaSpinner, FaClock, FaClipboardList, FaCheckCircle, FaExclamationTriangle } from "react-icons/fa";
 import { MdOutlineEventAvailable, MdSchedule, MdNotifications } from "react-icons/md";
 import logo from "../assets/FullLogo_Transparent.png";
 
@@ -168,7 +168,8 @@ const NurseMain = () => {
             { icon: <FaHome />, text: "Main", path: "/" },
             { icon: <FaCalendarAlt />, text: "Weekly Schedule", path: "/schedule" },
             { icon: <FaUserEdit />, text: "Update Availability", path: "/availability" },
-            { icon: <MdOutlineEventAvailable />, text: "PTO Request", path: "/pto" }
+            { icon: <MdOutlineEventAvailable />, text: "PTO Request", path: "/pto" },
+            { icon: <FaExclamationTriangle />, text: "Emergency Call-Out", path: "/call-out" }
           ].map((btn, index) => (
             <button
               key={index}
@@ -342,6 +343,25 @@ const NurseMain = () => {
                       }}
                     >
                       📋 Request PTO
+                    </button>
+                    <button
+                      onClick={() => navigate("/call-out")}
+                      style={{
+                        padding: "8px 12px",
+                        backgroundColor: "#dc2626",
+                        border: "none",
+                        borderRadius: "6px",
+                        cursor: "pointer",
+                        fontSize: "0.9rem",
+                        color: "white",
+                        textAlign: "left",
+                        fontWeight: "600",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px"
+                      }}
+                    >
+                      🚨 Emergency Call-Out
                     </button>
                   </div>
                 </div>

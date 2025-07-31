@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { FaHome, FaCalendarAlt, FaUserEdit, FaSignOutAlt, FaSpinner, FaCheck } from "react-icons/fa";
+import { FaHome, FaCalendarAlt, FaUserEdit, FaSignOutAlt, FaSpinner, FaCheck, FaExclamationTriangle } from "react-icons/fa";
 import { MdOutlineEventAvailable } from "react-icons/md";
 import logo from "../assets/FullLogo_Transparent.png";
 
@@ -157,6 +157,9 @@ const PTORequestPage = () => {
           </button>
           <button disabled style={sidebarButtonStyle(true)}>
             <MdOutlineEventAvailable style={{ marginRight: "8px" }} /> PTO Request
+          </button>
+          <button onClick={() => navigate("/call-out")} style={sidebarButtonStyle()}>
+            <FaExclamationTriangle style={{ marginRight: "8px" }} /> Emergency Call-Out
           </button>
         </div>
 

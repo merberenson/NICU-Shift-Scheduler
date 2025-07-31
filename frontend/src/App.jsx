@@ -9,7 +9,7 @@ import Register from './pages/register';
 import Delete from './pages/Delete';
 import { UpdateAvailability } from './pages/Update';
 import { UpdateInfo } from './pages/UpdateInfo';
-
+import NurseCallOut from './pages/NurseCallOut';
 import LogoutPage from './pages/Logout';
 import AdminMain from './pages/AdminMain';
 import NurseMain from './pages/NurseMain';
@@ -56,6 +56,7 @@ function App() {
           <Route element={<ProtectedRoute allowedRoles={['user']} />}>
             <Route path="/" element={<NurseMain />} />
             <Route path="/pto" element={<PTORequestPage />} />
+            <Route path="/call-out" element={<NurseCallOut />} />
             <Route path="/schedule" element={<NurseSchedule />} />
             <Route path="/availability" element={<UpdateAvailability />} />
             <Route path="/updateInfo" element={<UpdateInfo />} />

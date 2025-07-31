@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome, FaSpinner } from "react-icons/fa";
+import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome, FaSpinner, FaExclamationTriangle } from "react-icons/fa";
 import { MdOutlineEventAvailable, MdRefresh } from "react-icons/md";
 import logo from "../assets/FullLogo_Transparent.png";
 
@@ -255,6 +255,9 @@ const NurseSchedule = () => {
           </button>
           <button onClick={() => navigate("/pto")} style={sidebarButtonStyle()}>
             <MdOutlineEventAvailable style={{ marginRight: "8px" }} /> PTO Request
+          </button>
+          <button onClick={() => navigate("/call-out")} style={sidebarButtonStyle()}>
+            <FaExclamationTriangle style={{ marginRight: "8px" }} /> Emergency Call-Out
           </button>
         </div>
 
