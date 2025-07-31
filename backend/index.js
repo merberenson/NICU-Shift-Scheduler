@@ -1,22 +1,35 @@
 const routes = require('./routes/loginRoutes');
 const ptoRoutes = require('./routes/pto');
 const schedulingRoutes = require('./routes/schedulingRoutes');
-const callInRoutes = require('./routes/callInRoutes');
+const emergencyRoutes = require('./routes/emergencyRoutes');
+const nurseRoutes = require('./routes/nurseRoutes');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
 const cors = require('cors');
 
+const debugRoutes = (req, res, next) => {
+    if (req.path.startsWith('/api/')) {
+        console.log(`[ROUTE DEBUG] ${req.method} ${req.path}`);
+        console.log(`[ROUTE DEBUG] Params:`, req.params);
+        console.log(`[ROUTE DEBUG] Query:`, req.query);
+        console.log(`[ROUTE DEBUG] Body:`, req.body);
+        console.log('---');
+    }
+    next();
+};
+
 const initalizeApp = () => {
 
 const app = express();
 const PORT = 5000;
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/NICU-db';
+const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/rsdb';
 
 app.use(express.json());
 
 //cors
 app.use(cors());
+app.use(debugRoutes);
 
 //mongo connection
 mongoose.connect(MONGO_URL, {
@@ -24,7 +37,6 @@ mongoose.connect(MONGO_URL, {
   useUnifiedTopology: true
 }).then(() => console.log('Successfully Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
-
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -43,8 +55,10 @@ app.get('/api/hello', (req, res) => {
 
 app.use('/', routes);
 app.use('/api/pto', ptoRoutes);
-app.use('/api', schedulingRoutes); 
-app.use('/callins', callInRoutes);
+app.use('/api', schedulingRoutes);
+app.use('/api/emergency', emergencyRoutes);
+app.use('/api/nurses', nurseRoutes);
+
 return app;
 }
 

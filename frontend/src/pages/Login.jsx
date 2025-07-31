@@ -24,9 +24,9 @@ const Login = () => {
 
       login(userData);
 
-      if (userData.roles[0] === 'admin') {
+      if (userData.roles[0] === 'admin' || userData.role === 'admin') {
         navigate('/admin');
-      } else if (userData.roles[0] === 'user') {
+      } else if (userData.roles[0] === 'user' || userData.role === 'nurse') {
         navigate('/');
       } else {
         navigate('/unauthorized');

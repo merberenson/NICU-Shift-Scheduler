@@ -1,188 +1,387 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome } from "react-icons/fa";
-import { MdOutlineEventAvailable } from "react-icons/md";
-import logo from "../assets/FullLogo_Transparent.png";
-import { FaPhone } from "react-icons/fa";
+import AdminLayout from "../components/AdminLayout";
 
+const AdminMain = () => {
+    const { user, getAccessToken } = useAuth();
+    const navigate = useNavigate();
+    const [dashboardData, setDashboardData] = useState({
+        nurseCount: 0,
+        pendingPTO: 0,
+        recentSchedules: [],
+        systemStatus: 'loading'
+    });
+    const [loading, setLoading] = useState(true);
 
-// ...imports remain unchanged
-const AdminMain = ({ adminInfo }) => {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [hoveredBtn, setHoveredBtn] = useState(null);
+    useEffect(() => {
+        loadDashboardData();
+    }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    const loadDashboardData = async () => {
+        try {
+            setLoading(true);
+            
+            // Load nurse count
+            const nursesResponse = await fetch('/nurses');
+            if (nursesResponse.ok) {
+                const nursesData = await nursesResponse.json();
+                setDashboardData(prev => ({
+                    ...prev,
+                    nurseCount: nursesData.nurses?.length || 0
+                }));
+            }
 
-  const handleLogout = () => {
-    logout();
-    navigate("/login");
-  };
+            // Load PTO statistics
+            try {
+                const ptoResponse = await fetch('/api/pto', {
+                    headers: {
+                        'Authorization': `Bearer ${getAccessToken()}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (ptoResponse.ok) {
+                    const ptoData = await ptoResponse.json();
+                    const pendingCount = ptoData.filter(pto => pto.status === 'pending').length;
+                    setDashboardData(prev => ({
+                        ...prev,
+                        pendingPTO: pendingCount
+                    }));
+                }
+            } catch (ptoError) {
+                console.log('PTO data not available:', ptoError);
+            }
 
-  const formatTime = (date) => {
-    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  };
+            setDashboardData(prev => ({
+                ...prev,
+                systemStatus: 'operational'
+            }));
 
-  const formatDate = (date) => {
-    return date.toLocaleDateString();
-  };
+        } catch (error) {
+            console.error('Failed to load dashboard data:', error);
+            setDashboardData(prev => ({
+                ...prev,
+                systemStatus: 'error'
+            }));
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  const navButtons = [
-    { icon: <FaHome />, text: "Main", path: "/adminmain" },
-    { icon: <FaCalendarAlt />, text: "Team Schedule", path: "/teamschedule" },
-    { icon: <FaUserEdit />, text: "Register Nurse", path: "/register" },
-    { icon: <MdOutlineEventAvailable />, text: "PTO Requests", path: "/ptorequests" },
-    { icon: <FaPhone />, text: "Call-In Pool", path: "/callinpage" },
-    { icon: <FaUserEdit />, text: "Delete Nurse", path: "/deletenurse" }
-  ];
+    const quickActions = [
+        {
+            title: "Quick Schedule Generate",
+            description: "Generate schedule for current month",
+            icon: "⚡",
+            action: () => navigate('/admin/generate-schedule'),
+            color: "#007bff"
+        },
+        {
+            title: "Emergency Coverage",
+            description: "Handle urgent staffing needs",
+            icon: "🚨",
+            action: () => navigate('/admin/emergency'),
+            color: "#dc3545"
+        },
+        {
+            title: "Approve PTO",
+            description: "Review pending time-off requests",
+            icon: "✅",
+            action: () => navigate('/admin/pto-management'),
+            color: "#28a745",
+            badge: dashboardData.pendingPTO
+        }
+    ];
 
-  return (
-    <div style={{ display: "flex", height: "100vh", fontFamily: "'Segoe UI', sans-serif" }}>
-      {/* Sidebar */}
-      <div
-        style={{
-          width: "180px",
-          backgroundColor: "#c6c0e6ff",
-          padding: "20px 10px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "space-between"
-        }}
-      >
-        <div style={{ width: "100%", alignItems: "center" }}>
-          <div style={{ marginBottom: "30px", display: "flex", justifyContent: "center" }}>
-            <img src={logo} alt="NICU Logo" style={{ height: "200px", objectFit: "contain" }} />
-          </div>
+    if (loading) {
+        return (
+            <AdminLayout>
+                <div style={styles.loadingContainer}>
+                    <div style={styles.loadingSpinner}></div>
+                    <p>Loading dashboard...</p>
+                </div>
+            </AdminLayout>
+        );
+    }
 
-          {navButtons.map((btn, index) => (
-            <button
-              key={index}
-              onClick={() => navigate(btn.path)}
-              onMouseEnter={() => setHoveredBtn(index)}
-              onMouseLeave={() => setHoveredBtn(null)}
-              style={sidebarButtonStyle(false, hoveredBtn === index)}
-            >
-              {btn.icon}
-              <span style={{ marginLeft: "8px" }}>{btn.text}</span>
-            </button>
-          ))}
-        </div>
+    return (
+        <AdminLayout>
+            <div style={styles.container}>
+                {/* Welcome Section */}
+                <div style={styles.welcomeSection}>
+                    <h1 style={styles.welcomeTitle}>
+                        Welcome back, {user?.username || 'Administrator'}!
+                    </h1>
+                    <p style={styles.welcomeSubtitle}>
+                        Manage your nursing staff schedules and operations from this dashboard.
+                    </p>
+                </div>
 
-        <button
-          onClick={handleLogout}
-          onMouseEnter={() => setHoveredBtn("logout")}
-          onMouseLeave={() => setHoveredBtn(null)}
-          style={logoutButtonStyle(hoveredBtn === "logout")}
-        >
-          <FaSignOutAlt style={{ marginRight: "6px" }} /> Logout
-        </button>
-      </div>
+                {/* Stats Overview */}
+                <div style={styles.statsGrid}>
+                    <div style={styles.statCard}>
+                        <div style={styles.statIcon}>👥</div>
+                        <div style={styles.statContent}>
+                            <h3 style={styles.statNumber}>{dashboardData.nurseCount}</h3>
+                            <p style={styles.statLabel}>Active Nurses</p>
+                        </div>
+                    </div>
+                    
+                    <div style={styles.statCard}>
+                        <div style={{...styles.statIcon, color: '#ffc107'}}>🏖️</div>
+                        <div style={styles.statContent}>
+                            <h3 style={styles.statNumber}>{dashboardData.pendingPTO}</h3>
+                            <p style={styles.statLabel}>Pending PTO Requests</p>
+                        </div>
+                    </div>
+                    
+                    <div style={styles.statCard}>
+                        <div style={{...styles.statIcon, color: dashboardData.systemStatus === 'operational' ? '#28a745' : '#dc3545'}}>
+                            {dashboardData.systemStatus === 'operational' ? '✅' : '❌'}
+                        </div>
+                        <div style={styles.statContent}>
+                            <h3 style={styles.statNumber}>
+                                {dashboardData.systemStatus === 'operational' ? 'Good' : 'Error'}
+                            </h3>
+                            <p style={styles.statLabel}>System Status</p>
+                        </div>
+                    </div>
+                </div>
 
-      {/* Main Content */}
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-          padding: "120px 0 0 60px",
-          position: "relative"
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "50px",
-            backgroundColor: "#ffffff",
-            boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontWeight: "bold",
-            fontSize: "1.2rem"
-          }}
-        >
-          Admin Dashboard
-        </div>
+                {/* Quick Actions */}
+                <div style={styles.section}>
+                    <h2 style={styles.sectionTitle}>Quick Actions</h2>
+                    <div style={styles.quickActionsGrid}>
+                        {quickActions.map((action, index) => (
+                            <div
+                                key={index}
+                                style={{
+                                    ...styles.quickActionCard,
+                                    borderLeft: `4px solid ${action.color}`
+                                }}
+                                onClick={action.action}
+                            >
+                                <div style={styles.quickActionHeader}>
+                                    <span style={styles.quickActionIcon}>{action.icon}</span>
+                                    <div style={styles.quickActionTitleContainer}>
+                                        <h3 style={styles.quickActionTitle}>{action.title}</h3>
+                                        {action.badge && action.badge > 0 && (
+                                            <span style={{...styles.badge, backgroundColor: action.color}}>
+                                                {action.badge}
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+                                <p style={styles.quickActionDescription}>{action.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
 
-        <div style={{ position: "absolute", top: 10, right: 20, fontSize: "0.75rem", textAlign: "right" }}>
-          <div><strong>Date:</strong> {formatDate(currentTime)}</div>
-          <div><strong>Time:</strong> {formatTime(currentTime)}</div>
-        </div>
-
-        <h2 style={{ fontSize: "1.6rem", fontWeight: "600", marginBottom: "20px", color: "#f50000ff" }}>
-          Welcome, Admin
-        </h2>
-
-        <div
-          style={{
-            background: "#fff",
-            borderRadius: "18px",
-            boxShadow: "0 4px 18px rgba(0, 0, 0, 0.08)",
-            padding: "20px 30px",
-            minWidth: "320px",
-            fontSize: "15px",
-            fontWeight: "500",
-            lineHeight: "1.7",
-            color: "#333"
-          }}
-        >
-          <div>Total Registered Nurses: <strong>{adminInfo?.nurseCount ?? "--"}</strong></div>
-        </div>
-      </div>
-    </div>
-  );
+                {/* System Information */}
+                <div style={styles.section}>
+                    <h2 style={styles.sectionTitle}>System Information</h2>
+                    <div style={styles.infoCard}>
+                        <h3>NICU Schedule Management System</h3>
+                        <div style={styles.featureGrid}>
+                            <div style={styles.featureItem}>
+                                ✅ Automated schedule generation with constraint enforcement
+                            </div>
+                            <div style={styles.featureItem}>
+                                ✅ PTO request management and approval workflow
+                            </div>
+                            <div style={styles.featureItem}>
+                                ✅ Emergency staffing and on-call pool management
+                            </div>
+                            <div style={styles.featureItem}>
+                                ✅ Weekend rotation based on nurse seniority
+                            </div>
+                            <div style={styles.featureItem}>
+                                ✅ Holiday assignment rotation (Christmas/New Year)
+                            </div>
+                            <div style={styles.featureItem}>
+                                ✅ Blackout date management for training periods
+                            </div>
+                        </div>
+                        <div style={styles.systemStats}>
+                            <p><strong>Last Updated:</strong> {new Date().toLocaleDateString()}</p>
+                            <p><strong>Version:</strong> 1.0.0</p>
+                            <p><strong>Status:</strong> 
+                                <span style={{
+                                    color: dashboardData.systemStatus === 'operational' ? '#28a745' : '#dc3545',
+                                    fontWeight: 'bold',
+                                    marginLeft: '5px'
+                                }}>
+                                    {dashboardData.systemStatus === 'operational' ? 'Operational' : 'Error'}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </AdminLayout>
+    );
 };
 
-// Button Styles (unchanged)
-const sidebarButtonStyle = (active = false, hover = false) => ({
-  width: "100%",
-  marginBottom: "12px",
-  padding: "12px 14px",
-  backgroundColor: "#dc2626",
-  color: "#fff",
-  border: "none",
-  borderRadius: "20px",
-  fontWeight: "bold",
-  fontSize: "0.85rem",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  cursor: "pointer",
-  boxShadow: "0 4px 10px rgba(255, 255, 255, 0.3)",
-  transform: hover ? "scale(1.05)" : "scale(1)",
-  transition: "transform 0.2s ease, box-shadow 0.2s ease"
-});
-
-const logoutButtonStyle = (hover = false) => ({
-  backgroundColor: "#dc2626",
-  color: "#fff",
-  border: "none",
-  borderRadius: "18px",
-  padding: "10px 20px",
-  marginTop: "20px",
-  fontSize: "0.8rem",
-  fontWeight: "bold",
-  cursor: "pointer",
-  boxShadow: "0 4px 10px rgba(255, 255, 255, 0.3)",
-  transition: "transform 0.2s, box-shadow 0.2s",
-  width: "100%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  transform: hover ? "scale(1.05)" : "scale(1)"
-});
+const styles = {
+    container: {
+        padding: '30px',
+        maxWidth: '100%'
+    },
+    loadingContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '400px',
+        color: '#666'
+    },
+    loadingSpinner: {
+        width: '40px',
+        height: '40px',
+        border: '4px solid #f3f3f3',
+        borderTop: '4px solid #007bff',
+        borderRadius: '50%',
+        animation: 'spin 1s linear infinite',
+        marginBottom: '20px'
+    },
+    welcomeSection: {
+        marginBottom: '30px',
+        textAlign: 'center',
+        padding: '40px',
+        background: 'linear-gradient(135deg, #007bff, #0056b3)',
+        borderRadius: '12px',
+        color: '#fff'
+    },
+    welcomeTitle: {
+        fontSize: '2.5rem',
+        fontWeight: '600',
+        margin: '0 0 10px 0'
+    },
+    welcomeSubtitle: {
+        fontSize: '1.1rem',
+        opacity: 0.9,
+        margin: 0
+    },
+    statsGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gap: '20px',
+        marginBottom: '40px'
+    },
+    statCard: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: '25px',
+        backgroundColor: '#fff',
+        borderRadius: '8px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        border: '1px solid #e0e0e0'
+    },
+    statIcon: {
+        fontSize: '2.5rem',
+        marginRight: '15px',
+        color: '#007bff'
+    },
+    statContent: {
+        flex: 1
+    },
+    statNumber: {
+        fontSize: '2rem',
+        fontWeight: '700',
+        margin: '0 0 5px 0',
+        color: '#333'
+    },
+    statLabel: {
+        fontSize: '0.9rem',
+        color: '#666',
+        margin: 0
+    },
+    section: {
+        marginBottom: '40px'
+    },
+    sectionTitle: {
+        fontSize: '1.8rem',
+        fontWeight: '600',
+        marginBottom: '20px',
+        color: '#333'
+    },
+    quickActionsGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+        gap: '20px'
+    },
+    quickActionCard: {
+        padding: '25px',
+        backgroundColor: '#fff',
+        borderRadius: '8px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        border: '1px solid #e0e0e0',
+        cursor: 'pointer',
+        transition: 'transform 0.2s, box-shadow 0.2s'
+    },
+    quickActionHeader: {
+        display: 'flex',
+        alignItems: 'center',
+        marginBottom: '10px'
+    },
+    quickActionIcon: {
+        fontSize: '1.8rem',
+        marginRight: '12px'
+    },
+    quickActionTitleContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        flex: 1,
+        gap: '10px'
+    },
+    quickActionTitle: {
+        fontSize: '1.2rem',
+        fontWeight: '600',
+        margin: 0,
+        color: '#333'
+    },
+    badge: {
+        backgroundColor: '#dc3545',
+        color: '#fff',
+        padding: '4px 8px',
+        borderRadius: '12px',
+        fontSize: '0.8rem',
+        fontWeight: '600'
+    },
+    quickActionDescription: {
+        fontSize: '0.9rem',
+        color: '#666',
+        margin: 0,
+        lineHeight: 1.4
+    },
+    infoCard: {
+        padding: '30px',
+        backgroundColor: '#f8f9fa',
+        borderRadius: '8px',
+        border: '1px solid #e0e0e0'
+    },
+    featureGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+        gap: '10px',
+        margin: '20px 0'
+    },
+    featureItem: {
+        padding: '8px 0',
+        fontSize: '0.95rem',
+        lineHeight: 1.4
+    },
+    systemStats: {
+        marginTop: '25px',
+        paddingTop: '20px',
+        borderTop: '1px solid #dee2e6',
+        color: '#666',
+        fontSize: '0.9rem',
+        display: 'flex',
+        gap: '30px',
+        flexWrap: 'wrap'
+    }
+};
 
 export default AdminMain;

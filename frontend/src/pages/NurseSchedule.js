@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome } from "react-icons/fa";
-import { MdOutlineEventAvailable } from "react-icons/md";
+import { FaSignOutAlt, FaCalendarAlt, FaUserEdit, FaHome, FaSpinner } from "react-icons/fa";
+import { MdOutlineEventAvailable, MdRefresh } from "react-icons/md";
 import logo from "../assets/FullLogo_Transparent.png";
 
 const NurseSchedule = () => {
-  const { user, logout } = useAuth();
+  const { getUserId, logout, getAccessToken } = useAuth();
   const navigate = useNavigate();
 
   const [selectedDate, setSelectedDate] = useState({
@@ -16,84 +16,215 @@ const NurseSchedule = () => {
   const [scheduleData, setScheduleData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate("/login");
   };
 
-  useEffect(() => {
-    const fetchSchedule = async () => {
+  const fetchSchedule = async (showRefreshSpinner = false) => {
+    const userId = getUserId();
+    if (!userId) {
+      setError("User not authenticated");
+      return;
+    }
+
+    if (showRefreshSpinner) {
+      setRefreshing(true);
+    } else {
       setLoading(true);
-      setError(null);
-      const formattedMonth = String(selectedDate.month).padStart(2, '0');
-      const apiUrl = `http://localhost:5000/api/schedule/${selectedDate.year}-${formattedMonth}/${user.userData.uid}`;
+    }
+    
+    setError(null);
+    const formattedMonth = String(selectedDate.month).padStart(2, '0');
+    const apiUrl = `/api/schedule/${selectedDate.year}-${formattedMonth}/${userId}`;
 
-      try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const responseData = await response.json();
-
-        if (responseData.success && Array.isArray(responseData.data)) {
-          setScheduleData(responseData.data);
-        } else {
-          setScheduleData([]);
-          throw new Error(responseData.message || "Invalid schedule data.");
+    try {
+      const response = await fetch(apiUrl, {
+        headers: {
+          'Authorization': `Bearer ${getAccessToken()}`,
+          'Content-Type': 'application/json'
         }
-      } catch (e) {
-        setError("Failed to load schedule data. Please try again.");
-        setScheduleData(null);
-      } finally {
-        setLoading(false);
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to load schedule: ${response.status}`);
       }
-    };
+      
+      const responseData = await response.json();
 
+      if (responseData.success && Array.isArray(responseData.data)) {
+        setScheduleData(responseData.data);
+      } else {
+        setScheduleData([]);
+        if (responseData.message) {
+          setError(responseData.message);
+        }
+      }
+    } catch (e) {
+      console.error("Schedule fetch error:", e);
+      setError("Failed to load schedule. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
+  useEffect(() => {
     fetchSchedule();
   }, [selectedDate]);
 
-  const generateCalendarGrid = () => {
-    const { year, month } = selectedDate;
-    const daysInMonth = new Date(year, month, 0).getDate();
-    const firstDayOfMonth = new Date(year, month - 1, 1).getDay();
-    const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-    const grid = [<div key="header" style={styles.calendarRow}>{weekDays.map(day => <div key={day} style={styles.calendarHeaderCell}>{day}</div>)}</div>];
-
-    const scheduleMap = (scheduleData || []).reduce((acc, shift) => {
-      const dayOfMonth = parseInt(shift.date.split('-')[2], 10);
-      acc[dayOfMonth] = shift.shiftType;
-      return acc;
-    }, {});
-
-    let dayCells = [];
-    for (let i = 0; i < firstDayOfMonth; i++) {
-      dayCells.push(<div key={`empty-${i}`} style={styles.calendarCell}></div>);
-    }
-
-    for (let day = 1; day <= daysInMonth; day++) {
-      const shift = scheduleMap[day];
-      dayCells.push(
-        <div key={day} style={styles.calendarCell}>
-          <span style={styles.dayNumber}>{day}</span>
-          {shift || ''}
-        </div>
-      );
-    }
-
-    while (dayCells.length % 7 !== 0) {
-      dayCells.push(<div key={`empty-end-${dayCells.length}`} style={styles.calendarCell}></div>);
-    }
-
-    for (let i = 0; i < dayCells.length; i += 7) {
-      grid.push(<div key={`week-${i / 7}`} style={styles.calendarRow}>{dayCells.slice(i, i + 7)}</div>);
-    }
-
-    return grid;
+  const handleRefresh = () => {
+    fetchSchedule(true);
   };
 
   const handleDateChange = (e) => {
     const { name, value } = e.target;
     setSelectedDate(prev => ({ ...prev, [name]: parseInt(value, 10) }));
+  };
+
+  const sidebarButtonStyle = (active = false) => ({
+    width: "100%",
+    marginBottom: "12px",
+    padding: "12px 14px",
+    backgroundColor: "#dc2626",
+    color: "#fff",
+    border: "none",
+    borderRadius: "20px",
+    fontWeight: "bold",
+    fontSize: "0.85rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: active ? "default" : "pointer",
+    boxShadow: "0 4px 10px rgba(255, 255, 255, 0.3)",
+    transition: "transform 0.2s, box-shadow 0.2s",
+    textAlign: "center",
+    opacity: active ? 0.8 : 1
+  });
+
+  const logoutButtonStyle = {
+    backgroundColor: "#dc2626",
+    color: "#fff",
+    border: "none",
+    borderRadius: "18px",
+    padding: "10px 20px",
+    fontSize: "0.8rem",
+    fontWeight: "bold",
+    cursor: "pointer",
+    boxShadow: "0 4px 10px rgba(255, 255, 255, 0.3)",
+    transition: "transform 0.2s, box-shadow 0.2s",
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  };
+
+  const renderScheduleContent = () => {
+    if (loading) {
+      return (
+        <div style={{ 
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center", 
+          height: "300px",
+          flexDirection: "column",
+          gap: "16px"
+        }}>
+          <FaSpinner style={{ fontSize: "2rem", animation: "spin 1s linear infinite", color: "#dc2626" }} />
+          <p style={{ color: "#666", fontSize: "1.1rem" }}>Loading your schedule...</p>
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div style={{ 
+          textAlign: "center", 
+          padding: "40px",
+          backgroundColor: "#fef2f2",
+          borderRadius: "12px",
+          border: "1px solid #fecaca"
+        }}>
+          <p style={{ color: "#dc2626", fontSize: "1.1rem", marginBottom: "16px" }}>{error}</p>
+          <button 
+            onClick={handleRefresh}
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#dc2626",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+              fontSize: "1rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              margin: "0 auto"
+            }}
+          >
+            <MdRefresh /> Try Again
+          </button>
+        </div>
+      );
+    }
+
+    if (!scheduleData || scheduleData.length === 0) {
+      return (
+        <div style={{ 
+          textAlign: "center", 
+          padding: "40px",
+          backgroundColor: "#f8fafc",
+          borderRadius: "12px",
+          border: "1px solid #e2e8f0"
+        }}>
+          <p style={{ color: "#64748b", fontSize: "1.1rem" }}>
+            No shifts scheduled for {selectedDate.month}/{selectedDate.year}
+          </p>
+        </div>
+      );
+    }
+
+    return (
+      <div style={{ display: "grid", gap: "12px" }}>
+        {scheduleData.map((shift, index) => (
+          <div key={index} style={{
+            backgroundColor: "#fff",
+            padding: "16px",
+            borderRadius: "12px",
+            border: "1px solid #e2e8f0",
+            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)"
+          }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <h4 style={{ margin: "0 0 4px 0", color: "#1e293b", fontSize: "1.1rem" }}>
+                  {new Date(shift.date).toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </h4>
+                <p style={{ margin: 0, color: "#64748b", fontSize: "0.9rem" }}>
+                  {shift.shiftType.charAt(0).toUpperCase() + shift.shiftType.slice(1)} Shift
+                </p>
+              </div>
+              <div style={{
+                padding: "6px 12px",
+                borderRadius: "20px",
+                backgroundColor: shift.shiftType === 'day' ? '#dbeafe' : '#f3e8ff',
+                color: shift.shiftType === 'day' ? '#1e40af' : '#7c3aed',
+                fontSize: "0.8rem",
+                fontWeight: "600"
+              }}>
+                {shift.shiftType === 'day' ? '7:00 AM - 7:00 PM' : '7:00 PM - 7:00 AM'}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -113,10 +244,10 @@ const NurseSchedule = () => {
             <img src={logo} alt="NICU Logo" style={{ height: "200px", objectFit: "contain" }} />
           </div>
 
-          <button onClick={() => navigate("/")} style={sidebarButtonStyle(true)}>
+          <button onClick={() => navigate("/")} style={sidebarButtonStyle()}>
             <FaHome style={{ marginRight: "8px" }} /> Main
           </button>
-          <button style={sidebarButtonStyle()} disabled>
+          <button style={sidebarButtonStyle(true)} disabled>
             <FaCalendarAlt style={{ marginRight: "8px" }} /> Weekly Schedule
           </button>
           <button onClick={() => navigate("/availability")} style={sidebarButtonStyle()}>
@@ -133,102 +264,123 @@ const NurseSchedule = () => {
       </div>
 
       {/* Main Content */}
-      <div style={{
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        padding: "120px 60px 20px",
-        position: "relative"
-      }}>
-        <div style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "50px",
-          backgroundColor: "#ffffff",
-          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          fontWeight: "bold",
-          fontSize: "1.2rem"
-        }}>
-          Schedule Viewer
-        </div>
+      <div style={{ flex: 1, padding: "20px", backgroundColor: "#f8fafc" }}>
+        <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+          {/* Header */}
+          <div style={{ 
+            display: "flex", 
+            justifyContent: "space-between", 
+            alignItems: "center", 
+            marginBottom: "24px",
+            backgroundColor: "#fff",
+            padding: "20px",
+            borderRadius: "12px",
+            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)"
+          }}>
+            <h1 style={{ margin: 0, color: "#dc2626", fontSize: "1.8rem" }}>My Schedule</h1>
+            <button 
+              onClick={handleRefresh}
+              disabled={refreshing}
+              style={{
+                padding: "8px 16px",
+                backgroundColor: refreshing ? "#e5e7eb" : "#f3f4f6",
+                border: "1px solid #d1d5db",
+                borderRadius: "8px",
+                cursor: refreshing ? "not-allowed" : "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "0.9rem"
+              }}
+            >
+              <MdRefresh style={{ 
+                animation: refreshing ? "spin 1s linear infinite" : "none" 
+              }} />
+              {refreshing ? "Refreshing..." : "Refresh"}
+            </button>
+          </div>
 
-        <div style={{ fontSize: "1.6rem", fontWeight: "600", marginBottom: "20px", color: "#f50000ff" }}>
-          Monthly Schedule
-        </div>
+          {/* Date Selector */}
+          <div style={{ 
+            marginBottom: "24px",
+            backgroundColor: "#fff",
+            padding: "20px",
+            borderRadius: "12px",
+            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)"
+          }}>
+            <h3 style={{ margin: "0 0 16px 0", color: "#374151" }}>Select Month</h3>
+            <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+              <div>
+                <label style={{ display: "block", marginBottom: "4px", fontSize: "0.9rem", color: "#6b7280" }}>
+                  Year:
+                </label>
+                <select
+                  name="year"
+                  value={selectedDate.year}
+                  onChange={handleDateChange}
+                  style={{
+                    padding: "8px 12px",
+                    border: "1px solid #d1d5db",
+                    borderRadius: "6px",
+                    fontSize: "1rem",
+                    minWidth: "80px"
+                  }}
+                >
+                  {Array.from({ length: 5 }, (_, i) => {
+                    const year = new Date().getFullYear() - 1 + i;
+                    return <option key={year} value={year}>{year}</option>;
+                  })}
+                </select>
+              </div>
+              <div>
+                <label style={{ display: "block", marginBottom: "4px", fontSize: "0.9rem", color: "#6b7280" }}>
+                  Month:
+                </label>
+                <select
+                  name="month"
+                  value={selectedDate.month}
+                  onChange={handleDateChange}
+                  style={{
+                    padding: "8px 12px",
+                    border: "1px solid #d1d5db",
+                    borderRadius: "6px",
+                    fontSize: "1rem",
+                    minWidth: "120px"
+                  }}
+                >
+                  {Array.from({ length: 12 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {new Date(2024, i).toLocaleDateString('en-US', { month: 'long' })}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
 
-        <div style={styles.selectors}>
-          <select name="year" value={selectedDate.year} onChange={handleDateChange} style={styles.dropdown}>
-            {[...Array(10).keys()].map(i => {
-              const year = new Date().getFullYear() - 5 + i;
-              return <option key={year} value={year}>{year}</option>;
-            })}
-          </select>
-          <select name="month" value={selectedDate.month} onChange={handleDateChange} style={styles.dropdown}>
-            {[...Array(12).keys()].map(i => (
-              <option key={i + 1} value={i + 1}>{new Date(0, i).toLocaleString('default', { month: 'long' })}</option>
-            ))}
-          </select>
-        </div>
-
-        <div style={styles.calendarGrid}>
-          {loading ? <div style={styles.statusMessage}>Loading schedule...</div> : error ? <div style={{ ...styles.statusMessage, color: 'red' }}>{error}</div> : generateCalendarGrid()}
+          {/* Schedule Content */}
+          <div style={{ 
+            backgroundColor: "#fff",
+            padding: "20px",
+            borderRadius: "12px",
+            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)"
+          }}>
+            {renderScheduleContent()}
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-const sidebarButtonStyle = (active = false) => ({
-  width: "100%",
-  marginBottom: "12px",
-  padding: "12px 14px",
-  backgroundColor: active ? "#dc2626" : "#dc2626",
-  color: "#fff",
-  border: "none",
-  borderRadius: "20px",
-  fontWeight: "bold",
-  fontSize: "0.85rem",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  cursor: "pointer",
-  boxShadow: "0 4px 10px rgba(255, 255, 255, 0.3)",
-  transition: "transform 0.2s, box-shadow 0.2s",
-  textAlign: "center"
-});
-
-const logoutButtonStyle = {
-  backgroundColor: "#dc2626",
-  color: "#fff",
-  border: "none",
-  borderRadius: "18px",
-  padding: "10px 20px",
-  marginTop: "20px",
-  fontSize: "0.8rem",
-  fontWeight: "bold",
-  cursor: "pointer",
-  boxShadow: "0 4px 10px rgba(255, 255, 255, 0.3)",
-  transition: "transform 0.2s, box-shadow 0.2s",
-  width: "100%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center"
-};
-
-const styles = {
-  selectors: { display: 'flex', gap: '15px', marginBottom: '20px' },
-  dropdown: { padding: '10px', fontSize: '1rem', borderRadius: '8px', border: '1px solid #ccc' },
-  calendarGrid: { display: 'flex', flexDirection: 'column', flex: 1, border: '1px solid #e0e0e0', borderRadius: '8px' },
-  statusMessage: { display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', fontSize: '1.2rem', color: '#555' },
-  calendarRow: { display: 'flex', flex: 1 },
-  calendarHeaderCell: { flex: 1, padding: '10px', textAlign: 'center', fontWeight: 'bold', background: '#f5f5f5', borderBottom: '1px solid #e0e0e0', borderRight: '1px solid #e0e0e0' },
-  calendarCell: { flex: 1, borderRight: '1px solid #e0e0e0', borderBottom: '1px solid #e0e0e0', padding: '8px', position: 'relative', minHeight: '80px', display: 'flex', flexDirection: 'column', gap: '4px' },
-  dayNumber: { fontWeight: 'bold', fontSize: '0.9rem' }
-};
+// Add CSS animation for spinner
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+`;
+document.head.appendChild(style);
 
 export default NurseSchedule;

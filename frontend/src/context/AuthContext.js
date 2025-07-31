@@ -6,7 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const login = (userData) => {
-    console.log(userData)
+    console.log(userData);
     setUser({ userData });
   };
 
@@ -14,8 +14,29 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const getUserId = () => user?.userData?._id;
+  const getUsername = () => user?.userData?.username;
+  const getUserRoles = () => user?.userData?.roles || [];
+  const getAccessToken = () => user?.userData?.accessToken;
+  const getRefreshToken = () => user?.userData?.refreshToken;
+
+  const hasRole = (role) => getUserRoles().includes(role);
+
+  const isAuthenticated = () => !!user?.userData;
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ 
+      user, 
+      login, 
+      logout,
+      getUserId,
+      getUsername, 
+      getUserRoles,
+      getAccessToken,
+      getRefreshToken,
+      hasRole,
+      isAuthenticated
+    }}>
       {children}
     </AuthContext.Provider>
   );

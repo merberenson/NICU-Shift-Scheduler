@@ -29,7 +29,7 @@ const updateAvailability = async (req, res) => {
 const getAvailability = async (req, res) => {
     try {
         const { id } = req.params;
-        if (mongoose.Types.ObjectId.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({success: false, message: "Invalid nurse ID."})
         }
 
