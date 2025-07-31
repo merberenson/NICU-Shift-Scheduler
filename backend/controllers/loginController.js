@@ -103,7 +103,7 @@ const refresh = async (req, res) => {
     }
     try {
         const payload = jwt.verify(token, REFRESH_SECRET);
-        const newAccessToken = jwt.sign({ userId: payload.userId }, ACCESS_SECRET, { expiresIn: '15m' });
+        const newAccessToken = jwt.sign({ userId: payload.Id }, ACCESS_SECRET, { expiresIn: '15m' });
         res.status(200).json({ success: true, accessToken: newAccessToken });
     } catch (err) {
         console.error(err);

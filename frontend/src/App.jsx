@@ -1,11 +1,10 @@
-// App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './context/ProtectedRoutes';
 
-import LoginPage from './pages/Login'; // Use your login here if customized
+import LoginPage from './pages/Login';
 import Register from './pages/register';
 import Delete from './pages/Delete';
 import { UpdateAvailability } from './pages/Update';
@@ -18,9 +17,13 @@ import NotAuthorizedPage from './pages/NotAuthorized';
 import PTORequestPage from './pages/PTORequestPage';
 import NurseSchedule from './pages/NurseSchedule';
 import AdminSchedule from './pages/AdminSchedule';
-import DeleteNurse from './pages/DeleteNurse';
-import AdminPTORequests from './pages/AdminPTORequests';
-
+import AdminScheduleGenerator from './pages/AdminScheduleGenerator';
+import AdminPTOManagement from './pages/AdminPTOManagement';
+import AdminNurseManagement from './pages/AdminNurseManagement';
+import AdminProfile from './pages/AdminProfile'; // NEW IMPORT
+import AdminEmergencyDashboard from './pages/AdminEmergencyDashboard';
+import AdminBlackoutManagement from './pages/AdminBlackoutManagement';
+import NurseAbsenceReport from './pages/NurseAbsenceReport';
 
 function App() {
   return (
@@ -36,10 +39,17 @@ function App() {
           {/* Admin-protected routes */}
           <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
             <Route path="/admin" element={<AdminMain />} />
+            <Route path="/admin/profile" element={<AdminProfile />} /> {/* NEW ROUTE */}
             <Route path="/teamschedule" element={<AdminSchedule />} />
-          <Route path="/delete" element={<Delete />} />
-          <Route path="/deletenurse" element={<DeleteNurse />} />
-          <Route path="/ptorequests" element={<AdminPTORequests />} />
+            <Route path="/admin/generate-schedule" element={<AdminScheduleGenerator />} />
+            <Route path="/admin/pto-management" element={<AdminPTOManagement />} />
+            <Route path="/admin/nurses" element={<AdminNurseManagement />} />
+            
+            {/* EMERGENCY MANAGEMENT ROUTES */}
+            <Route path="/admin/emergency" element={<AdminEmergencyDashboard />} />
+            <Route path="/admin/blackouts" element={<AdminBlackoutManagement />} />
+            
+            <Route path="/delete" element={<Delete />} /> {/* for backward compatibility */}
           </Route>
 
           {/* Nurse-protected routes */}
@@ -47,10 +57,9 @@ function App() {
             <Route path="/" element={<NurseMain />} />
             <Route path="/pto" element={<PTORequestPage />} />
             <Route path="/schedule" element={<NurseSchedule />} />
-
-            {/* Your custom routes under nurse role */}
             <Route path="/availability" element={<UpdateAvailability />} />
             <Route path="/updateInfo" element={<UpdateInfo />} />
+            <Route path="/report-absence" element={<NurseAbsenceReport />} />
           </Route>
         </Routes>
       </Router>
