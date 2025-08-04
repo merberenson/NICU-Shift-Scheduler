@@ -2,14 +2,34 @@ version: '3.8'
 
 services:
   mongodb:
-    image: mongo
+    image: mongo:6
     container_name: mongodb
     ports:
       - '27017:27017'
     volumes:
       - ./mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: NICU-db
     networks:
       - reservation-app
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  migrator:
+    build:
+      context: .
+      dockerfile: dbinit/Dockerfile.migrate
+    networks:
+      - reservation-app
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      MONGO_URI: "mongodb://mongodb:27017/NICU-db?authSource=admin"  # Added authSource
+      WAIT_HOSTS: mongodb:27017  # For health checking
 
   mongo_seed:
     image: mongo
@@ -35,7 +55,7 @@ services:
       - ./backend:/app
       - /app/node_modules
     environment:
-      - MONGO_URL=mongodb://mongodb:27017/rsdb
+      - MONGO_URL=mongodb://mongodb:27017/NICU-db
     depends_on:
       - mongodb
 
